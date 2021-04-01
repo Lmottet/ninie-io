@@ -16,3 +16,4 @@ jobs:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
             heroku_app_name: ninie-io
             heroku_email: "mottet.lionel@gmail.com"
+            buildpack: "https://github.com/heroku/heroku-buildpack-java.git"
