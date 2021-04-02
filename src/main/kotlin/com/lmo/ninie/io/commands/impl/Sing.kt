@@ -1,17 +1,17 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.CommandListener
+import com.lmo.ninie.io.commands.Command
 import com.lmo.ninie.io.commands.impl.CommandNames.SING
-import com.lmo.ninie.io.models.commands.Command
+import com.lmo.ninie.io.models.commands.CommandDescription
 import com.lmo.ninie.io.models.commands.sing.Songs
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
-class Sing : CommandListener {
+class Sing : Command {
 
-    override fun matches(command: Command): Boolean = command.action == SING
+    override fun matches(commandDescription: CommandDescription): Boolean = commandDescription.action == SING
 
-    override fun execute(command: Command): Mono<Message> =
-            command.channel
+    override fun execute(commandDescription: CommandDescription): Mono<Message> =
+            commandDescription.channel
                     .flatMap { chan -> Songs.from("").sing(chan) }
 }

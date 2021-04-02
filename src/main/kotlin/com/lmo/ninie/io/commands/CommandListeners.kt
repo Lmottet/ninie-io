@@ -8,7 +8,7 @@ import io.vavr.collection.Set
 import io.vavr.kotlin.hashSet
 
 object CommandListeners {
-    val all: Set<CommandListener> = hashSet(
+    val all: Set<Command> = hashSet(
             Help(),
             Sing(),
             Meow(),
