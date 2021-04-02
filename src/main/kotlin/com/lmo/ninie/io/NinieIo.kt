@@ -9,5 +9,6 @@ import org.springframework.boot.runApplication
 class NinieIo
 
 fun main(args: Array<String>) {
+
     runApplication<NinieIo>(*args)
 }
