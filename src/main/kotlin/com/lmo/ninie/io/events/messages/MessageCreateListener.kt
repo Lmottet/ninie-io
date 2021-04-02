@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.events.message
+package com.lmo.ninie.io.events.messages
 
 import com.lmo.ninie.io.events.EventListener
 import discord4j.core.event.domain.message.MessageCreateEvent

@@ -1,24 +1,27 @@
-package com.lmo.ninie.io.events.message
+package com.lmo.ninie.io.events.messages
 
-import com.lmo.ninie.io.events.message.commands.Command
-import com.lmo.ninie.io.events.message.commands.CommandListeners
+import com.lmo.ninie.io.models.commands.Command
+import com.lmo.ninie.io.commands.CommandListeners
 import discord4j.core.`object`.entity.Message
-import discord4j.core.`object`.entity.channel.MessageChannel
 import reactor.core.publisher.Mono
 
 interface MessageListener {
 
     fun processEvent(eventMessage: Message): Mono<Unit> {
-        return Mono.just(eventMessage)
-                .filter { message -> !message.author.get().isBot && message.content.startsWith("prefix") }
+        return Mono
+                .just(eventMessage)
+                .filter { message -> !message.author.get().isBot && message.content.startsWith("^") }
                 .map {message -> buildCommand(message)}
                 .map { command -> execute(command) }
     }
 
     fun execute(command: Command) {
-        return CommandListeners.all.find { commandListener -> commandListener.matches(command) }
+        CommandListeners
+                .all
+                .find { commandListener -> commandListener.matches(command) }
                 .get()
                 .execute(command)
+                .block()
     }
 
     private fun buildCommand(message: Message): Command {
