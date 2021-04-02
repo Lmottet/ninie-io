@@ -10,7 +10,7 @@ interface MessageListener {
     fun processEvent(eventMessage: Message): Mono<Unit> {
         return Mono
                 .just(eventMessage)
-                .filter { message -> !message.author.get().isBot && message.content.startsWith("^") }
+                .filter { message -> !message.author.get().isBot && message.content.startsWith("p") }
                 .map {message -> buildCommand(message)}
                 .map { command -> execute(command) }
     }
