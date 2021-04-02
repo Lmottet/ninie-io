@@ -11,7 +11,12 @@ class Help : CommandListener {
         return command.action == "help" // todo expected action name should come from utility class / config
     }
 
-    override fun execute(command: Command, channel: Mono<MessageChannel>) {
-        channel.block()?.restChannel?.createMessage("Ninie.IO is Helping ! <3")
+    override fun execute(command: Command) {
+        println("execute $command")
+        command.channel
+                .flatMap { chan ->
+                         chan.createMessage("Ninie.IO is Helping ! <3")
+                }
+                .block()
     }
 }
