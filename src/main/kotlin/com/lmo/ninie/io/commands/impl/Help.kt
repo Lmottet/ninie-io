@@ -15,7 +15,7 @@ class Help : Command {
                     .flatMap { chan -> chan.createMessage(buildMessage()) }
 
     private fun buildMessage(): String =
-            """"
+            """
                 Ninie.IO is Helping ! :heart:
                 Commands :
                 $HELP - this command, for n00bs
