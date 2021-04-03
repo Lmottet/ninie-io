@@ -16,6 +16,8 @@ interface MessageListener {
     }
 
     fun execute(commandDescription: CommandDescription) {
+        println("command : $commandDescription")
+
         CommandListeners
                 .all
                 .find { commandListener -> commandListener.matches(commandDescription) }

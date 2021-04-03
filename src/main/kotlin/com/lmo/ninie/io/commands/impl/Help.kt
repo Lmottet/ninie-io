@@ -1,14 +1,12 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.Command
-import com.lmo.ninie.io.commands.impl.CommandNames.HELP
+import com.lmo.ninie.io.commands.CommandNames.HELP
 import com.lmo.ninie.io.models.commands.CommandDescription
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
 class Help : Command {
-
-    private val lineBreak = "\n"
 
     override fun matches(commandDescription: CommandDescription): Boolean = commandDescription.action == HELP
 

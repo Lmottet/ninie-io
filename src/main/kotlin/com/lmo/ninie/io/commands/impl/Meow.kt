@@ -1,7 +1,7 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.Command
-import com.lmo.ninie.io.commands.impl.CommandNames.MEOW
+import com.lmo.ninie.io.commands.CommandNames.MEOW
 import com.lmo.ninie.io.models.commands.CommandDescription
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono

@@ -1,7 +1,7 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.Command
-import com.lmo.ninie.io.commands.impl.CommandNames.SING
+import com.lmo.ninie.io.commands.CommandNames.SING
 import com.lmo.ninie.io.models.commands.CommandDescription
 import com.lmo.ninie.io.models.commands.sing.Songs
 import discord4j.core.`object`.entity.Message
