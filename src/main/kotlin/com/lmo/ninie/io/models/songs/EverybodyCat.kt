@@ -6,7 +6,9 @@ class EverybodyCat : Song {
 
     override fun content(): String =
             """
-                Everybody wants to be a cat
+                Tout le monde veut devenir un Cat :musical_note:,
+                Parce qu'un chat - quand il est Cat :musical_note:,
+                Retooooombe sur ses pattes :musical_note:
             """.trimIndent()
 
 }
