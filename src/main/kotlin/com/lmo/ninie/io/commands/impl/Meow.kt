@@ -6,6 +6,7 @@ import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
 class Meow : Command {
+
     override fun commandName(): String = MEOW
 
     override fun execute(eventMessage: Message): Mono<Message> =
@@ -13,13 +14,7 @@ class Meow : Command {
                     .channel
                     .flatMap { chan -> chan.createMessage("MEEEEOOOOOOW :heart:") }
 
-    override fun description(): String =
-            """
-                Says hi !
-            """.trimIndent()
+    override fun description(): String = "Says hi !"
 
-    override fun man(): String =
-            """
-                Just type it !
-            """.trimIndent()
+    override fun man(): String = "Just type it !"
 }

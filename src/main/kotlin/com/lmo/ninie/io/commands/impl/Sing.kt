@@ -12,18 +12,14 @@ class Sing : Command {
     override fun execute(eventMessage: Message): Mono<Message> =
             eventMessage
                     .channel
-                    .flatMap { chan -> Songs.from(eventMessage.extractArg(1)).sing(chan) }
+                    .flatMap { chan -> chan.createMessage(findSong(eventMessage.extractArg(1))) }
+
+    private fun findSong(songName: String): String = Songs.from(songName).getOrElse(Songs.any()).content()
 
     override fun commandName(): String = SING
 
-    override fun description(): String =
-            """
-                Sings a song
-            """.trimIndent()
+    override fun description(): String = "Sings a song"
 
-    override fun man(): String =
-            """
-                Type the song of your choice - or none if you want Ninie to pick one for you !
-            """.trimIndent()
+    override fun man(): String = "Type the song of your choice - or none if you want Ninie to pick one for you !"
 
 }
