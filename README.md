@@ -13,6 +13,7 @@ TODOs:
 Naming improvements
 Evaluate creating a proper formal structure pattern to represent user commands & args
 Get to 100% uptime (heroku wakeup)
+Differ prod / test version & setup deploy on develop branch for test version
 
 [FUNCTIONAL]
 Impl more commands
