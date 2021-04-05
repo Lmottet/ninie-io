@@ -1,8 +1,6 @@
 package com.lmo.ninie.io.constants
 
-import com.lmo.ninie.io.commands.impl.Help
-import com.lmo.ninie.io.commands.impl.Meow
-import com.lmo.ninie.io.commands.impl.Sing
+import com.lmo.ninie.io.commands.impl.*
 import com.lmo.ninie.io.commands.impl.Songs
 import io.vavr.kotlin.hashSet
 
@@ -11,6 +9,7 @@ object CommandListeners {
             Help(),
             Sing(),
             Meow(),
-            Songs()
+            Songs(),
+            About()
     )
 }
