@@ -1,13 +1,16 @@
 package com.lmo.ninie.io.commands
 
-import com.lmo.ninie.io.models.commands.CommandDescription
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
 interface Command {
 
-    fun matches(commandDescription: CommandDescription): Boolean
+    fun commandName(): String
 
-    fun execute(commandDescription: CommandDescription): Mono<Message>
+    fun description(): String
+
+    fun man(): String
+
+    fun execute(eventMessage: Message): Mono<Message>
 
 }

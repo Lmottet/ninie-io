@@ -1,6 +1,5 @@
-package com.lmo.ninie.io.models.commands.sing
+package com.lmo.ninie.io.models.songs
 
-import com.lmo.ninie.io.models.commands.sing.songs.EverybodyCat
 import io.vavr.collection.Set
 import io.vavr.kotlin.hashSet
 

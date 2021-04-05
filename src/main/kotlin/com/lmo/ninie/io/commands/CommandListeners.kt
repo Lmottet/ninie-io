@@ -4,11 +4,12 @@ import com.lmo.ninie.io.commands.impl.Help
 import com.lmo.ninie.io.commands.impl.Meow
 import com.lmo.ninie.io.commands.impl.Sing
 import com.lmo.ninie.io.commands.impl.Songs
+import com.lmo.ninie.io.models.commands.CommandDescription
 import io.vavr.collection.Set
 import io.vavr.kotlin.hashSet
 
 object CommandListeners {
-    val all: Set<Command> = hashSet(
+    val all = hashSet(
             Help(),
             Sing(),
             Meow(),

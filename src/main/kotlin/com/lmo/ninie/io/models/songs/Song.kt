@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.models.commands.sing
+package com.lmo.ninie.io.models.songs
 
 import discord4j.core.`object`.entity.Message
 import discord4j.core.`object`.entity.channel.MessageChannel

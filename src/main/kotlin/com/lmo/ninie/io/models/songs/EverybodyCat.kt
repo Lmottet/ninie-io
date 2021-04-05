@@ -1,7 +1,5 @@
-package com.lmo.ninie.io.models.commands.sing.songs
+package com.lmo.ninie.io.models.songs
 
-import com.lmo.ninie.io.models.commands.sing.Song
-import com.lmo.ninie.io.models.commands.sing.Songs
 import discord4j.core.`object`.entity.Message
 import discord4j.core.`object`.entity.channel.MessageChannel
 import reactor.core.publisher.Mono

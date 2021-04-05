@@ -1,7 +1,8 @@
 package com.lmo.ninie.io.events.messages
 
-import com.lmo.ninie.io.models.commands.CommandDescription
 import com.lmo.ninie.io.commands.CommandListeners
+import com.lmo.ninie.io.extensions.eventmessage.extractAction
+import com.lmo.ninie.io.extensions.eventmessage.isForNinie
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
@@ -10,22 +11,17 @@ interface MessageListener {
     fun processEvent(eventMessage: Message): Mono<Unit> {
         return Mono
                 .just(eventMessage)
-                .filter { message -> !message.author.get().isBot && message.content.startsWith("p") }
-                .map {message -> buildCommand(message)}
-                .map { command -> execute(command) }
+                .filter { eventMessage.isForNinie() }
+                .map { message -> findCommand(message) }
+                .map { command ->
+                    command.execute(eventMessage).block()
+                    return@map
+                }
     }
 
-    fun execute(commandDescription: CommandDescription) {
-        CommandListeners
-                .all
-                .find { commandListener -> commandListener.matches(commandDescription) }
-                .get()
-                .execute(commandDescription)
-                .block()
-    }
+    fun findCommand(eventMessage: Message) = CommandListeners
+            .all
+            .find { commandListener -> eventMessage.extractAction() == commandListener.commandName() }
+            .get()
 
-    private fun buildCommand(message: Message): CommandDescription {
-        val commandDetails = message.content.split(" ")
-        return CommandDescription(commandDetails[1], "", message.channel) // todo safe multi optional argument retrieval
-    }
 }
