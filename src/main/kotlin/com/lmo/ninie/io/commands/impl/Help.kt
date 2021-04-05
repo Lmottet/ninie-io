@@ -1,8 +1,9 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.Command
-import com.lmo.ninie.io.commands.CommandListeners
-import com.lmo.ninie.io.commands.CommandNames.HELP
+import com.lmo.ninie.io.constants.CommandListeners
+import com.lmo.ninie.io.constants.CommandNames.HELP
+import com.lmo.ninie.io.constants.Emojis.HEART
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
@@ -15,11 +16,11 @@ class Help : Command {
                     .channel
                     .flatMap { chan -> chan.createMessage(buildMessage()) }
 
-    private fun buildMessage(): String = "Ninie.IO is Helping ! :heart:" + describeAllCommands()
+    private fun buildMessage(): String = "Ninie.IO is Helping ! $HEART" + "\n"+ describeAllCommands()
 
     override fun description(): String = "this command, for n00bs."
 
-    override fun man(): String = "Add the name of the command you wish to have details about"
+    override fun man(): String = "optional : [command name]"
 
     private fun describeAllCommands(): String =
             CommandListeners

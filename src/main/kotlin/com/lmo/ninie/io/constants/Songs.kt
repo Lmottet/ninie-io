@@ -1,5 +1,7 @@
-package com.lmo.ninie.io.models.songs
+package com.lmo.ninie.io.constants
 
+import com.lmo.ninie.io.models.songs.EverybodyCat
+import com.lmo.ninie.io.models.songs.Song
 import io.vavr.control.Option
 
 object Songs {

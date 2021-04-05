@@ -1,8 +1,8 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.Command
-import com.lmo.ninie.io.commands.CommandNames.SONGS
-import com.lmo.ninie.io.models.songs.Songs
+import com.lmo.ninie.io.constants.CommandNames.SONGS
+import com.lmo.ninie.io.constants.Songs
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
@@ -10,7 +10,7 @@ class Songs : Command {
 
     override fun commandName(): String = SONGS
 
-    override fun description(): String = "Lists all the songs Ninie knows !"
+    override fun description(): String = "All the songs Ninie knows !"
 
     override fun man(): String = "Just type it !"
 

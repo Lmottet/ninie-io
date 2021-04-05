@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.commands
+package com.lmo.ninie.io.constants
 
 object CommandNames {
     const val HELP = "help"

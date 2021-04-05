@@ -1,9 +1,9 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.Command
-import com.lmo.ninie.io.commands.CommandNames.SING
+import com.lmo.ninie.io.constants.CommandNames.SING
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
-import com.lmo.ninie.io.models.songs.Songs
+import com.lmo.ninie.io.constants.Songs
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
@@ -18,8 +18,8 @@ class Sing : Command {
 
     override fun commandName(): String = SING
 
-    override fun description(): String = "Sings a song"
+    override fun description(): String = "Sing a song of your choice (or random)"
 
-    override fun man(): String = "Type the song of your choice - or none if you want Ninie to pick one for you !"
+    override fun man(): String = "optional : [song name]"
 
 }

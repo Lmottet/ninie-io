@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.commands
+package com.lmo.ninie.io.constants
 
 import com.lmo.ninie.io.commands.impl.Help
 import com.lmo.ninie.io.commands.impl.Meow
