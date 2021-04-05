@@ -2,9 +2,10 @@ package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.Command
 import com.lmo.ninie.io.constants.CommandNames.SING
-import com.lmo.ninie.io.extensions.eventmessage.extractArg
 import com.lmo.ninie.io.constants.Songs
+import com.lmo.ninie.io.extensions.eventmessage.extractArg
 import discord4j.core.`object`.entity.Message
+import io.vavr.control.Option
 import reactor.core.publisher.Mono
 
 class Sing : Command {
@@ -14,7 +15,7 @@ class Sing : Command {
                     .channel
                     .flatMap { chan -> chan.createMessage(findSong(eventMessage.extractArg(1))) }
 
-    private fun findSong(songName: String): String = Songs.from(songName).getOrElse(Songs.any()).content()
+    private fun findSong(songName: Option<String>): String = songName.flatMap { name -> Songs.from(name) }.getOrElse(Songs.any()).content()
 
     override fun commandName(): String = SING
 
