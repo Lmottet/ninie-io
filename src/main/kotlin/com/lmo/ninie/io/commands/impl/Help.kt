@@ -18,9 +18,12 @@ class Help : Command {
 
     private fun buildMessage(): String = "Ninie.IO is Helping ! $HEART" + "\n"+ describeAllCommands()
 
-    override fun description(): String = "this command, for n00bs."
+    override fun description(): String = "this command, for n00bs. Try 'help help' fore more"
 
-    override fun man(): String = "optional : [command name]"
+    override fun man(): String = """
+        optional : [command name]
+        Details the purpose of a command
+        """.trimIndent()
 
     private fun describeAllCommands(): String =
             CommandListeners
