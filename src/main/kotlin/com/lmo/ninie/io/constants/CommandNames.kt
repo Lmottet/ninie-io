@@ -6,4 +6,5 @@ object CommandNames {
     const val SING = "sing"
     const val SONGS = "songs"
     const val ABOUT = "about"
+    const val CRY = "cry"
 }

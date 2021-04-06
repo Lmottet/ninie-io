@@ -10,6 +10,7 @@ object CommandListeners {
             Sing(),
             Meow(),
             Songs(),
-            About()
+            About(),
+            Cry()
     )
 }
