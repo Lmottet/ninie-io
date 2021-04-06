@@ -18,3 +18,4 @@ jobs:
             buildpack: "https://github.com/heroku/heroku-buildpack-java.git"
         env:
           HD_BOT_TOKEN : ${{secrets.TEST_BOT_TOKEN}}
+          HF_BOT_PREFIX: pt
