@@ -1,14 +1,14 @@
 package com.lmo.ninie.io.constants
 
-import com.lmo.ninie.io.models.songs.BearBrother
-import com.lmo.ninie.io.models.songs.EverybodyCat
-import com.lmo.ninie.io.models.songs.Song
+import com.lmo.ninie.io.models.songs.*
 import io.vavr.control.Option
 
 object Songs {
     val all: MutableList<Song> = mutableListOf(
             EverybodyCat(),
-            BearBrother()
+            BearBrother(),
+            Manon(),
+            Tragedy()
     )
 
     fun from(name: String): Option<Song> = Option.of(all.find { song -> song.name() == name })
