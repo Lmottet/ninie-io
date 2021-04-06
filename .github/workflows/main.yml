@@ -3,8 +3,7 @@ name: Deploy
 on:
   push:
     branches:
-      - main
-      - master
+      - develop
 
 jobs:
   build:
@@ -14,8 +13,8 @@ jobs:
       - uses: akhileshns/heroku-deploy@v3.12.12
         with:
             heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-            heroku_app_name: ninie-io
+            heroku_app_name: test-ninie-io
             heroku_email: "mottet.lionel@gmail.com"
             buildpack: "https://github.com/heroku/heroku-buildpack-java.git"
         env:
-          HD_BOT_TOKEN : ${{secrets.BOT_TOKEN}}
+          HD_BOT_TOKEN : ${{secrets.TEST_BOT_TOKEN}}

@@ -6,7 +6,7 @@ Written in kotlin, based on spring boot & discord4j.
 Data management to be introduced through some Azure functions.
 
 GitHub action deploys to heroku on main push.
-Executable in local if provided a valid not token
+Executable in local if provided a valid bot token
 
 TODOs:
 [TECH] :
@@ -16,7 +16,9 @@ Get to 100% uptime (heroku wakeup)
 Differ prod / test version & setup deploy on develop branch for test version
 
 [FUNCTIONAL]
-Impl more commands
+Impl more commands: score mgt, rio check
 Connect to azure & move static data (I.E: songs) to DB, make it updatable through commands
 "Dis" repeater
+Impl a functionality to make a voice channel usable as 'temp channel builder'
+
 
