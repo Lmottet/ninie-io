@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to ninie-io
 
 on:
   push:
