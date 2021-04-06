@@ -5,8 +5,9 @@ import reactor.core.publisher.Mono
 
 interface EventListener<T : Event> {
     fun getEventType(): Class<T>
+
     fun execute(event: T): Mono<Unit>
-    fun handleError(error: Throwable): Mono<Nothing> {
-        return Mono.empty()
-    }
+
+    fun handleError(error: Throwable): Mono<Nothing> = Mono.empty()
+
 }
