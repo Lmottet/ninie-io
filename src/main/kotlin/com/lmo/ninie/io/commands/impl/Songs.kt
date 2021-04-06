@@ -19,5 +19,5 @@ class Songs : Command {
                     .channel
                     .flatMap { chan -> chan.createMessage(listSongs()) }
 
-    private fun listSongs(): String = Songs.all.map { song -> song.name() }.reduce { acc, s -> "$acc, $s" }
+    private fun listSongs(): String = Songs.all.map { song -> song.name() }.reduce { songs, song -> "$songs, $song" }
 }

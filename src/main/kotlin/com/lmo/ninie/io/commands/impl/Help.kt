@@ -4,6 +4,7 @@ import com.lmo.ninie.io.commands.Command
 import com.lmo.ninie.io.constants.CommandListeners
 import com.lmo.ninie.io.constants.CommandNames.HELP
 import com.lmo.ninie.io.constants.Emojis.HEART
+import com.lmo.ninie.io.constants.MagicStrings.LINE_BREAKER
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
@@ -16,7 +17,10 @@ class Help : Command {
                     .channel
                     .flatMap { chan -> chan.createMessage(buildMessage()) }
 
-    private fun buildMessage(): String = "Ninie.IO is Helping ! $HEART" + "\n"+ describeAllCommands()
+    private fun buildMessage(): String = """
+        Ninie.IO is Helping ! $HEART
+        
+        ${describeAllCommands()}"""
 
     override fun description(): String = "this command, for n00bs. Try 'help help' fore more"
 
@@ -29,6 +33,6 @@ class Help : Command {
             CommandListeners
                     .all
                     .map { command -> command.commandName() + " - " + command.description() }
-                    .joinToString("\n")
+                    .joinToString(LINE_BREAKER)
 
 }
