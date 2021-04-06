@@ -13,6 +13,7 @@ TODOs:
 Naming improvements\
 Evaluate creating a proper formal structure pattern to represent user commands & args\
 Get to 100% uptime (heroku wakeup)\
+think whether using action for non-secret env related conf is best
 
 [FUNCTIONAL]
 Impl more commands: score mgt, rio check\
