@@ -12,16 +12,11 @@ interface MessageListener {
         return Mono
                 .just(eventMessage)
                 .filter { eventMessage.isForNinie(prefix) }
-                .map { message -> findCommand(message) }
+                .map { message -> CommandListeners.find(eventMessage.extractAction()) }
                 .map { command ->
                     command.execute(eventMessage).block()
                     return@map
                 }
     }
-
-    fun findCommand(eventMessage: Message) = CommandListeners
-            .all
-            .find { commandListener -> eventMessage.extractAction() == commandListener.commandName() }
-            .get()
 
 }
