@@ -14,6 +14,7 @@ Naming improvements\
 Evaluate creating a proper formal structure pattern to represent user commands & args\
 Get to 100% uptime (heroku wakeup)\
 think whether using action for non-secret env related conf is best
+don't panic on command error
 
 [FUNCTIONAL]
 Impl more commands: score mgt, rio check\
@@ -23,5 +24,7 @@ Impl a functionality to make a voice channel usable as 'temp channel builder'\
 make prefix customizable\
 on server join, send help command\
 make ninie bindable to a channel ?\
+remove unknown command & improve response
+
 
 
