@@ -8,10 +8,10 @@ import reactor.core.publisher.Mono
 
 interface MessageListener {
 
-    fun processEvent(eventMessage: Message): Mono<Unit> {
+    fun processEvent(eventMessage: Message, prefix:String): Mono<Unit> {
         return Mono
                 .just(eventMessage)
-                .filter { eventMessage.isForNinie() }
+                .filter { eventMessage.isForNinie(prefix) }
                 .map { message -> findCommand(message) }
                 .map { command ->
                     command.execute(eventMessage).block()
