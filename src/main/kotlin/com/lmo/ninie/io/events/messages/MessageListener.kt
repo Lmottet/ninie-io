@@ -1,5 +1,6 @@
 package com.lmo.ninie.io.events.messages
 
+import com.lmo.ninie.io.commands.impl.Unknown
 import com.lmo.ninie.io.constants.CommandListeners
 import com.lmo.ninie.io.extensions.eventmessage.extractAction
 import com.lmo.ninie.io.extensions.eventmessage.isForNinie
@@ -22,6 +23,6 @@ interface MessageListener {
     fun findCommand(eventMessage: Message) = CommandListeners
             .all
             .find { commandListener -> eventMessage.extractAction() == commandListener.commandName() }
-            .get()
+            .getOrElse(Unknown())
 
 }
