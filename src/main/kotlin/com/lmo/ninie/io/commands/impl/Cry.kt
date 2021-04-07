@@ -13,5 +13,7 @@ class Cry :Command {
     override fun man(): String = "Just type it !"
 
     override fun execute(eventMessage: Message): Mono<Message> =
-            eventMessage.channel.flatMap { chan -> chan.createMessage("There there ! *pat* *pat*") }
+            eventMessage.
+                    channel.
+                    flatMap { chan -> chan.createMessage("There there ! *pat* *pat*") }
 }

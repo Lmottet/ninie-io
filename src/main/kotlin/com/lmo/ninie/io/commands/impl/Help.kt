@@ -14,25 +14,21 @@ class Help : Command {
     override fun commandName(): String = HELP
 
     override fun execute(eventMessage: Message): Mono<Message> =
-            eventMessage
-                    .channel
-                    .flatMap { chan -> chan.createMessage(buildMessage(eventMessage)) }
+            eventMessage.
+                    channel.
+                    flatMap { chan -> chan.createMessage(buildMessage(eventMessage)) }
 
     private fun buildMessage(eventMessage: Message):String{
        val arg = eventMessage.extractArg(1)
-       return if(arg.isDefined){
-           explainCommand(arg.get())
-       }else{
-           listCommands()
-       }
+       return if(arg != null) explainCommand(arg) else listCommands()
     }
 
     private fun listCommands(): String = "Ninie.IO is Helping ! $HEART$LINE_BREAKER$LINE_BREAKER${describeAllCommands()}"// todo use multiline string instead
 
     private fun explainCommand(commandName: String):String =
-        CommandListeners
-                .find(commandName)
-                .man()
+        CommandListeners.
+                find(commandName).
+                man()
 
     override fun description(): String = "this command, for n00bs. Try 'help help' fore more"
 
@@ -42,9 +38,9 @@ class Help : Command {
         """.trimIndent()
 
     private fun describeAllCommands(): String =
-            CommandListeners
-                    .all
-                    .map { command -> command.commandName() + " - " + command.description() }
-                    .joinToString(LINE_BREAKER)
+            CommandListeners.
+                    all.
+                    map { command -> command.commandName() + " - " + command.description() }.
+                    joinToString(LINE_BREAKER)
 
 }

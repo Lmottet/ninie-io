@@ -8,7 +8,9 @@ object Songs {
             EverybodyCat(),
             BearBrother(),
             Manon(),
-            Tragedy()
+            Tragedy(),
+            BimBamBoum(),
+            LittleBird()
     )
 
     fun from(name: String): Option<Song> = Option.of(all.find { song -> song.name() == name })

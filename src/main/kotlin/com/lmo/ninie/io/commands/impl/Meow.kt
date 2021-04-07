@@ -11,9 +11,9 @@ class Meow : Command {
     override fun commandName(): String = MEOW
 
     override fun execute(eventMessage: Message): Mono<Message> =
-            eventMessage
-                    .channel
-                    .flatMap { chan -> chan.createMessage("MEEEEOOOOOOW $HEART") }
+            eventMessage.
+                    channel.
+                    flatMap { chan -> chan.createMessage("MEEEEOOOOOOW $HEART") }
 
     override fun description(): String = "Say hi !"
 

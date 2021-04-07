@@ -15,9 +15,9 @@ class Songs : Command {
     override fun man(): String = "Just type it !"
 
     override fun execute(eventMessage: Message): Mono<Message> =
-            eventMessage
-                    .channel
-                    .flatMap { chan -> chan.createMessage(listSongs()) }
+            eventMessage.
+                    channel.
+                    flatMap { chan -> chan.createMessage(listSongs()) }
 
     private fun listSongs(): String = Songs.all.map { song -> song.name() }.reduce { songs, song -> "$songs, $song" }
 }

@@ -13,8 +13,9 @@ class About : Command {
     override fun man(): String = "Just type it !"
 
     override fun execute(eventMessage: Message): Mono<Message> =
-            eventMessage
-                    .channel.flatMap { chan -> chan.createMessage(message()) }
+            eventMessage.
+                    channel.
+                    flatMap { chan -> chan.createMessage(message()) }
 
     private fun message() = """
         Ninie-io is a discord bot, written in kotlin.
