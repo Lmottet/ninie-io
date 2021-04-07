@@ -12,10 +12,7 @@ interface MessageListener {
         return Mono
                 .just(eventMessage)
                 .filter { eventMessage.isForNinie(prefix) }
-                .map { message ->
-                    val action = eventMessage.extractAction()
-                    CommandListeners.find(action).execute(message).block()
-                }
+                .map { message -> CommandListeners.find(eventMessage.extractAction()).execute(message).block() }
     }
 
 }
