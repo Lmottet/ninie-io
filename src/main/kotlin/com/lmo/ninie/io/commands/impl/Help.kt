@@ -1,7 +1,7 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.AbstractCommand
-import com.lmo.ninie.io.constants.CommandListeners
+import com.lmo.ninie.io.singletons.CommandListeners
 import com.lmo.ninie.io.constants.CommandNames.HELP
 import com.lmo.ninie.io.constants.Emojis.HEART
 import com.lmo.ninie.io.constants.MagicStrings.LINE_BREAKER
