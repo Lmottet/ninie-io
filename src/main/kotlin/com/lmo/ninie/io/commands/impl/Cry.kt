@@ -1,17 +1,14 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.Command
+import com.lmo.ninie.io.commands.AbstractCommand
 import com.lmo.ninie.io.constants.CommandNames.CRY
+import com.lmo.ninie.io.constants.MagicStrings.MANUAL_NONE
 import discord4j.core.`object`.entity.Message
-import reactor.core.publisher.Mono
 
-class Cry :Command {
-    override fun commandName(): String = CRY
-
-    override fun description(): String = "Get some compassion"
-
-    override fun man(): String = "Just type it !"
-
-    override fun execute(eventMessage: Message): Mono<Message> =
-            eventMessage.channel.flatMap { chan -> chan.createMessage("There there ! *pat* *pat*") }
+class Cry : AbstractCommand(
+        CRY,
+        "Get some compassion",
+        MANUAL_NONE
+) {
+    override fun response(message: Message) = "There there ! *pat* *pat*"
 }

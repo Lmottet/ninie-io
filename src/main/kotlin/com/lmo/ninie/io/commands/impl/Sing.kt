@@ -1,26 +1,25 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.Command
+import com.lmo.ninie.io.commands.AbstractCommand
 import com.lmo.ninie.io.constants.CommandNames.SING
 import com.lmo.ninie.io.constants.Songs
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
 import discord4j.core.`object`.entity.Message
-import io.vavr.control.Option
-import reactor.core.publisher.Mono
+import io.vavr.kotlin.option
 
-class Sing : Command {
+class Sing : AbstractCommand(
+        SING,
+        "Sing a song of your choice (or random)",
+        """
+            optional : [song name]
+            Pick a song of your choice
+        """.trimIndent()
+) {
 
-    override fun execute(eventMessage: Message): Mono<Message> =
-            eventMessage
-                    .channel
-                    .flatMap { chan -> chan.createMessage(findSong(eventMessage.extractArg(1))) }
-
-    private fun findSong(songName: Option<String>): String = songName.flatMap { name -> Songs.from(name) }.getOrElse(Songs.any()).content()
-
-    override fun commandName(): String = SING
-
-    override fun description(): String = "Sing a song of your choice (or random)"
-
-    override fun man(): String = "optional : [song name]"
+    override fun response(message: Message) = message.extractArg(1)
+            .option()
+            .map { songName -> Songs.from(songName).option().getOrElse(Songs.any()) }
+            .getOrElse(Songs.any())
+            .content()
 
 }

@@ -1,7 +1,9 @@
 package com.lmo.ninie.io.events.messages
 
 import com.lmo.ninie.io.events.EventListener
+import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageCreateEvent
+import discord4j.discordjson.json.MessageData
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
@@ -16,7 +18,7 @@ class MessageCreateListener : MessageListener, EventListener<MessageCreateEvent>
         return MessageCreateEvent::class.java
     }
 
-    override fun execute(event: MessageCreateEvent): Mono<Unit> {
+    override fun execute(event: MessageCreateEvent): Mono<MessageData?> {
         return processEvent(event.message, prefix)
     }
 }

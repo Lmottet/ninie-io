@@ -14,12 +14,12 @@ data class BotConfiguration(val token: String) {
 
     @Bean
     fun <T : Event> startDiscordClient(eventListeners: List<EventListener<T>>): GatewayDiscordClient? {
-        return DiscordClientBuilder
-                .create(token)
-                .build()
-                .login()
-                .block()
-                ?.let { client -> registerListeners(eventListeners, client) }
+        return DiscordClientBuilder.
+                create(token).
+                build().
+                login().
+                block()?.
+                let { client -> registerListeners(eventListeners, client) }
     }
 
     private fun <T : Event> registerListeners(eventListeners: List<EventListener<T>>, discordClient: GatewayDiscordClient): GatewayDiscordClient {
@@ -28,9 +28,10 @@ data class BotConfiguration(val token: String) {
     }
 
     private fun <T : Event> registerListener(eventListener: EventListener<T>, discordClient: GatewayDiscordClient) {
-        discordClient.on(eventListener.getEventType())
-                .flatMap { event -> eventListener.execute(event) }
-                .onErrorResume { error -> eventListener.handleError(error) }
-                .subscribe()
+        discordClient.
+                on(eventListener.getEventType()).
+                flatMap { event -> eventListener.execute(event) }.
+                onErrorResume { error -> eventListener.handleError(error) }.
+                subscribe()
     }
 }
