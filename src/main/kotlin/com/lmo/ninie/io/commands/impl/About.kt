@@ -10,7 +10,7 @@ class About : AbstractCommand(
         "Describes ninie-io",
         MANUAL_NONE
 ) {
-    override fun response(message: Message): String =  """
+    override fun response(message: Message): String = """
         Ninie-io is a discord bot, written in kotlin.
         More on : https://github.com/Lmottet/ninie-io
         """.trimIndent()

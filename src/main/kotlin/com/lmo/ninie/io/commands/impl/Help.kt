@@ -1,11 +1,11 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.AbstractCommand
-import com.lmo.ninie.io.singletons.CommandListeners
 import com.lmo.ninie.io.constants.CommandNames.HELP
 import com.lmo.ninie.io.constants.Emojis.HEART
 import com.lmo.ninie.io.constants.MagicStrings.LINE_BREAKER
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
+import com.lmo.ninie.io.singletons.CommandListeners
 import discord4j.core.`object`.entity.Message
 
 class Help : AbstractCommand(
@@ -13,7 +13,7 @@ class Help : AbstractCommand(
         "this command, for n00bs. Try 'help help' fore more",
         """
         optional : [command name]
-        Details the purpose of a command
+        Details the purpose of a specific command
         """.trimIndent()
 ) {
 
