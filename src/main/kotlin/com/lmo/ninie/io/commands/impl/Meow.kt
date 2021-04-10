@@ -1,21 +1,17 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.Command
+import com.lmo.ninie.io.commands.AbstractCommand
 import com.lmo.ninie.io.constants.CommandNames.MEOW
 import com.lmo.ninie.io.constants.Emojis.HEART
+import com.lmo.ninie.io.constants.MagicStrings
 import discord4j.core.`object`.entity.Message
-import reactor.core.publisher.Mono
 
-class Meow : Command {
+class Meow : AbstractCommand(
+        MEOW,
+        "Say hi !",
+        MagicStrings.MANUAL_NONE
+) {
 
-    override fun commandName(): String = MEOW
+    override fun response(message: Message) = "MEEEEOOOOOOW $HEART"
 
-    override fun execute(eventMessage: Message): Mono<Message> =
-            eventMessage
-                    .channel
-                    .flatMap { chan -> chan.createMessage("MEEEEOOOOOOW $HEART") }
-
-    override fun description(): String = "Say hi !"
-
-    override fun man(): String = "Just type it !"
 }
