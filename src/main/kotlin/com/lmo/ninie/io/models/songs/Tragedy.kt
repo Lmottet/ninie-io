@@ -2,7 +2,7 @@ package com.lmo.ninie.io.models.songs
 
 import com.lmo.ninie.io.constants.Emojis.MUSICAL_NOTE
 
-class Tragedy :Song {
+class Tragedy : Song {
     override fun name(): String = "Tragedy"
 
     override fun content(): String = """

@@ -1,35 +1,36 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.AbstractCommand
-import com.lmo.ninie.io.constants.CommandNames.HELP
+import com.lmo.ninie.io.commands.Command
 import com.lmo.ninie.io.constants.Emojis.HEART
 import com.lmo.ninie.io.constants.MagicStrings.LINE_BREAKER
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
-import com.lmo.ninie.io.singletons.CommandListeners
+import com.lmo.ninie.io.services.AliasService
+import com.lmo.ninie.io.services.CommandService
 import discord4j.core.`object`.entity.Message
+import org.springframework.stereotype.Component
 
-class Help : AbstractCommand(
-        HELP,
-        "this command, for n00bs. Try 'help help' fore more",
-        """
-        optional : [command name]
-        Details the purpose of a specific command
-        """.trimIndent()
-) {
+@Component
+class Help(
+    val commandService: CommandService,
+    val aliasService: AliasService
+) : AbstractCommand(Command.HELP) {
 
-    override fun response(message: Message): String {
-        val arg = message.extractArg(1)
-        return if (arg != null) explainCommand(arg) else listCommands()
+    override fun respondTo(message: Message): String {
+        val aliasToAssist = message.extractArg(1)
+        return if (aliasToAssist.isNullOrEmpty()) listCommands() else explainCommand(aliasToAssist)
     }
 
-    private fun listCommands(): String = "Ninie.IO is Helping ! $HEART$LINE_BREAKER$LINE_BREAKER${describeAllCommands()}"// todo use multiline string instead
+    private fun listCommands(): String =
+        "Ninie.IO is Helping ! $HEART$LINE_BREAKER$LINE_BREAKER${describeAllCommands()}"// todo use multiline string instead
 
-    private fun explainCommand(commandName: String): String = CommandListeners.find(commandName).man
+    private fun explainCommand(commandName: String): String =
+        aliasService
+            .find(commandName)
+            .map { it.description }
+            .getOrElse("Cannot explain unknown command $commandName")
 
     private fun describeAllCommands(): String =
-            CommandListeners
-                    .all
-                    .map { command -> command.name + " - " + command.description }
-                    .joinToString(LINE_BREAKER)
+        commandService.allCommands().joinToString(LINE_BREAKER) { it.defaultAlias + " - " + it.description }
 
 }

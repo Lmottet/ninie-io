@@ -1,24 +1,38 @@
 package com.lmo.ninie.io.events.messages
 
+import com.lmo.ninie.io.commands.Command
 import com.lmo.ninie.io.events.EventListener
-import discord4j.core.`object`.entity.Message
+import com.lmo.ninie.io.extensions.eventmessage.callsNinie
+import com.lmo.ninie.io.extensions.eventmessage.extractCommandAlias
+import com.lmo.ninie.io.services.AliasService
+import com.lmo.ninie.io.services.CommandService
 import discord4j.core.event.domain.message.MessageCreateEvent
-import discord4j.discordjson.json.MessageData
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
 @Service
-class MessageCreateListener : MessageListener, EventListener<MessageCreateEvent> {
+class MessageCreateListener(
+    val commandService: CommandService,
+    val aliasService: AliasService
+) : EventListener<MessageCreateEvent> {
 
     @Value("\${bot.prefix}")
     val prefix = ""
 
-    override fun getEventType(): Class<MessageCreateEvent> {
-        return MessageCreateEvent::class.java
+    override fun getEventType(): Class<MessageCreateEvent> = MessageCreateEvent::class.java
+
+    override fun execute(event: Mono<MessageCreateEvent>): Mono<Unit>? {
+        return event.map { e ->
+            val command = aliasService.find(e.message.extractCommandAlias())
+            if (e.message.callsNinie(prefix)) {
+                commandService.execute(command.getOrElse(Command.UNKNOWN), e.message)
+                null
+            } else {
+                e.message.restChannel.createMessage("coucou")
+            }
+        }.block()
+            ?.map { }
     }
 
-    override fun execute(event: MessageCreateEvent): Mono<MessageData?> {
-        return processEvent(event.message, prefix)
-    }
 }
