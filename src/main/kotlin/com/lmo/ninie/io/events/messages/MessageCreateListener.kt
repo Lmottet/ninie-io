@@ -26,10 +26,10 @@ class MessageCreateListener(
         return event.map { e ->
             val command = aliasService.find(e.message.extractCommandAlias())
             if (e.message.callsNinie(prefix)) {
-                e.message.restChannel.createMessage(commandService.execute(command.getOrElse(Command.UNKNOWN), e.message))
-                null
+               commandService.execute(command.getOrElse(Command.UNKNOWN), e.message)
             } else {
-                e.message.restChannel.createMessage("coucou")
+//                e.message.restChannel.createMessage("coucou")
+                 Mono.empty()
             }
         }.block()
             ?.map { }

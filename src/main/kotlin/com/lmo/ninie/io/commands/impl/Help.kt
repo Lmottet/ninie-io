@@ -1,22 +1,22 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.AbstractCommand
-import com.lmo.ninie.io.commands.Command
+import com.lmo.ninie.io.commands.AbstractMessageCommand
 import com.lmo.ninie.io.constants.Emojis.HEART
 import com.lmo.ninie.io.constants.MagicStrings.LINE_BREAKER
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
 import com.lmo.ninie.io.services.AliasService
 import com.lmo.ninie.io.services.CommandService
 import discord4j.core.`object`.entity.Message
+import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Component
 
 @Component
 class Help(
-    val commandService: CommandService,
+    @Lazy val commandService: CommandService,
     val aliasService: AliasService
-) : AbstractCommand() {
+) : AbstractMessageCommand() {
 
-    override fun respondTo(message: Message): String {
+    override fun response(message: Message): String {
         val aliasToAssist = message.extractArg(1)
         return if (aliasToAssist.isNullOrEmpty()) listCommands() else explainCommand(aliasToAssist)
     }

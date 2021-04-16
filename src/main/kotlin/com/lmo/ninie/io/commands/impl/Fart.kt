@@ -1,14 +1,15 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.AbstractCommand
-import com.lmo.ninie.io.commands.Command
-import discord4j.core.`object`.Embed
+import com.lmo.ninie.io.commands.AbstractEmbedCommand
 import discord4j.core.`object`.entity.Message
-import discord4j.discordjson.json.EmbedData
 import discord4j.discordjson.json.ImmutableEmbedData
+import org.springframework.stereotype.Component
 
-class Fart:AbstractCommand() {
+@Component
+class Fart : AbstractEmbedCommand() {
 
-    override fun respondTo(message: Message)= "https://c.tenor.com/6ksAhluvauUAAAAM/fart-summer-vibe.gif"
-
+    override fun response(message: Message) = ImmutableEmbedData
+        .builder()
+        .url("https://c.tenor.com/6ksAhluvauUAAAAM/fart-summer-vibe.gif")
+        .build()
 }

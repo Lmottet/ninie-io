@@ -1,13 +1,12 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.AbstractCommand
-import com.lmo.ninie.io.commands.Command
+import com.lmo.ninie.io.commands.AbstractMessageCommand
 import com.lmo.ninie.io.constants.Emojis.HEART
 import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Component
 
 @Component
-class Meow : AbstractCommand() {
+class Meow : AbstractMessageCommand() {
 
-    override fun respondTo(message: Message) = "MEEEEOOOOOOW $HEART"
+    override fun response(message: Message) = "MEEEEOOOOOOW $HEART"
 }
