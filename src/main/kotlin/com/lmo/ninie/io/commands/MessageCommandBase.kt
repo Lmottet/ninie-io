@@ -3,7 +3,7 @@ package com.lmo.ninie.io.commands
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono
 
-abstract class AbstractMessageCommand : AbstractCommand() {
+abstract class MessageCommandBase : CommandBase() {
 
     override fun respondTo(message: Message): Mono<Unit> = message.restChannel.createMessage(response(message)).map {  }
 

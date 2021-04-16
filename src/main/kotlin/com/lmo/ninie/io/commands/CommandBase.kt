@@ -6,6 +6,6 @@ import discord4j.discordjson.json.EmbedImageData
 import discord4j.discordjson.json.MessageData
 import reactor.core.publisher.Mono
 
-abstract class AbstractCommand {
+abstract class CommandBase {
     abstract fun respondTo(message: Message): Mono<Unit>
 }

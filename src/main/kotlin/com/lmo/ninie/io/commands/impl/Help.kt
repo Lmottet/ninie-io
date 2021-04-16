@@ -1,6 +1,6 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.AbstractMessageCommand
+import com.lmo.ninie.io.commands.MessageCommandBase
 import com.lmo.ninie.io.constants.Emojis.HEART
 import com.lmo.ninie.io.constants.MagicStrings.LINE_BREAKER
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 class Help(
     @Lazy val commandService: CommandService,
     val aliasService: AliasService
-) : AbstractMessageCommand() {
+) : MessageCommandBase() {
 
     override fun response(message: Message): String {
         val aliasToAssist = message.extractArg(1)
