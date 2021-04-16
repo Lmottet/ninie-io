@@ -42,7 +42,7 @@ enum class Command(
         """.trimIndent()
     ),
     CRY(
-        "cry",
+        CommandNames.CRY,
         "Get some compassion",
         MagicStrings.MANUAL_NONE
     ),
@@ -50,6 +50,11 @@ enum class Command(
         CommandNames.UNKNOWN,
         "Better admit you don't know than panic",
         "Why would you do this to me"
+    ),
+    FART(
+        CommandNames.FART,
+        "Eeeeeeew !",
+        "But why ?"
     );
 
     companion object {

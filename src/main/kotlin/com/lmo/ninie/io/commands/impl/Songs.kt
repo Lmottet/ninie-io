@@ -7,10 +7,9 @@ import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Component
 
 @Component
-class Songs : AbstractCommand(Command.SONGS) {
+class Songs : AbstractCommand() {
 
     override fun respondTo(message: Message) = Songs.all
         .map { song -> song.name() }
         .reduce { songs, song -> "$songs, $song" }
-
 }

@@ -7,8 +7,7 @@ import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Component
 
 @Component
-class Meow : AbstractCommand(Command.MEOW) {
+class Meow : AbstractCommand() {
 
     override fun respondTo(message: Message) = "MEEEEOOOOOOW $HEART"
-
 }

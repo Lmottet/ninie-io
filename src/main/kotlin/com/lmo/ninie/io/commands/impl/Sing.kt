@@ -9,12 +9,11 @@ import io.vavr.kotlin.option
 import org.springframework.stereotype.Component
 
 @Component
-class Sing : AbstractCommand(Command.SING) {
+class Sing : AbstractCommand() {
 
     override fun respondTo(message: Message) = message.extractArg(1)
         .option()
         .map { songName -> Songs.from(songName).getOrElse(Songs.any()) }
         .getOrElse(Songs.any())
         .content()
-
 }

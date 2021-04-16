@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component
 class Help(
     val commandService: CommandService,
     val aliasService: AliasService
-) : AbstractCommand(Command.HELP) {
+) : AbstractCommand() {
 
     override fun respondTo(message: Message): String {
         val aliasToAssist = message.extractArg(1)

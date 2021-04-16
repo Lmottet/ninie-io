@@ -6,8 +6,7 @@ import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Component
 
 @Component
-class Unknown : AbstractCommand(Command.UNKNOWN) {
+class Unknown : AbstractCommand() {
 
     override fun respondTo(message: Message) = "Unknown command"
-
 }

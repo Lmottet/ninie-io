@@ -6,6 +6,7 @@ import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Component
 
 @Component
-class Cry : AbstractCommand(Command.CRY) {
+class Cry : AbstractCommand() {
+
     override fun respondTo(message: Message) = "There there ! *pat* *pat*"
 }

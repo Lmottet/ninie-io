@@ -18,6 +18,7 @@ class CommandServiceImpl(
     val about: About,
     val meow: Meow,
     val songs: Songs,
+    val fart: Fart,
     val unknown: Unknown
 ) : CommandService {
 
@@ -30,6 +31,7 @@ class CommandServiceImpl(
             Command.ABOUT -> about
             Command.MEOW -> meow
             Command.SONGS -> songs
+            Command.FART -> fart
         }.respondTo(message)
 
     override fun allCommands() = Command.values()
