@@ -1,14 +1,11 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.AbstractCommand
-import com.lmo.ninie.io.constants.CommandNames.UNKNOWN
+import com.lmo.ninie.io.commands.MessageCommandBase
 import discord4j.core.`object`.entity.Message
+import org.springframework.stereotype.Component
 
-class Unknown : AbstractCommand(
-        UNKNOWN,
-        "Better admit you don't know than panic",
-        "Why would you do this to me"
-) {
+@Component
+class Unknown : MessageCommandBase() {
 
     override fun response(message: Message) = "Unknown command"
 }

@@ -1,6 +1,7 @@
 package com.lmo.ninie.io.constants
 
 object CommandNames {
+    const val FART = "fart"
     const val HELP = "help"
     const val MEOW = "meow"
     const val SING = "sing"
