@@ -1,7 +1,5 @@
 package com.lmo.ninie.io.constants
 
-import com.lmo.ninie.io.commands.impl.Fart
-
 object CommandNames {
     const val FART = "fart"
     const val HELP = "help"

@@ -27,7 +27,7 @@ class Help(
     private fun explainCommand(commandName: String): String =
         aliasService
             .find(commandName)
-            .map { it.description }
+            .map { it.manual }
             .getOrElse("Cannot explain unknown command $commandName")
 
     private fun describeAllCommands(): String =

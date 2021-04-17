@@ -28,7 +28,7 @@ class MessageCreateListener(
             if (e.message.callsNinie(prefix)) {
                commandService.execute(command.getOrElse(Command.UNKNOWN), e.message)
             } else {
-//                e.message.restChannel.createMessage("coucou")
+//                todo add repeater here
                  Mono.empty()
             }
         }.block()

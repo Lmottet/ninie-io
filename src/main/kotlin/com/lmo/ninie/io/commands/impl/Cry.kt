@@ -1,11 +1,11 @@
 package com.lmo.ninie.io.commands.impl
 
-import com.lmo.ninie.io.commands.CommandBase
+import com.lmo.ninie.io.commands.MessageCommandBase
 import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Component
 
 @Component
-class Cry : CommandBase() {
+class Cry : MessageCommandBase() {
 
-    override fun respondTo(message: Message) = respond(message,  "There there ! *pat* *pat*")
+    override fun response(message: Message) = "There there ! *pat* *pat*"
 }
