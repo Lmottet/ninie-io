@@ -14,7 +14,7 @@ object Songs {
         LittleBird()
     )
 
-    fun from(name: String): Option<Song> = all.find { song -> song.name() == name }.option()
+    fun from(name: String): Option<Song> = all.find { song -> song.name == name }.option()
 
     fun any(): Song {
         all.shuffle()
