@@ -8,6 +8,6 @@ interface CommandService {
 
     fun allCommands(): Array<Command>
 
-    fun execute(command:Command, message: Message): Mono<Unit>
+    fun execute(command: Command, message: Message): Mono<Unit>
 
 }

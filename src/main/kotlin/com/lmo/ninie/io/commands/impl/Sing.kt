@@ -14,5 +14,5 @@ class Sing : MessageCommandBase() {
         .option()
         .map { songName -> Songs.from(songName).getOrElse(Songs.any()) }
         .getOrElse(Songs.any())
-        .content()
+        .content
 }
