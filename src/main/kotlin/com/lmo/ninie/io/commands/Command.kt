@@ -1,8 +1,8 @@
 package com.lmo.ninie.io.commands
 
-import com.lmo.ninie.io.constants.CommandDescriptions
-import com.lmo.ninie.io.constants.CommandManuals
-import com.lmo.ninie.io.constants.CommandNames
+import com.lmo.ninie.io.constants.commands.CommandDescriptions
+import com.lmo.ninie.io.constants.commands.CommandManuals
+import com.lmo.ninie.io.constants.commands.CommandNames
 import io.vavr.control.Option
 import io.vavr.kotlin.option
 

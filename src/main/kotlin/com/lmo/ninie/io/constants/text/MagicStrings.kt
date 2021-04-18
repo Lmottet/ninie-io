@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.constants
+package com.lmo.ninie.io.constants.text
 
 object MagicStrings {
 

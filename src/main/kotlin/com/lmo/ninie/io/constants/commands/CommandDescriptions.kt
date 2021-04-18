@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.constants
+package com.lmo.ninie.io.constants.commands
 
 object CommandDescriptions {
     const val FART = "Eeeeeeew !"

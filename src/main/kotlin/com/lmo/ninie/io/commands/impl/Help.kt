@@ -1,8 +1,8 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.MessageCommandBase
-import com.lmo.ninie.io.constants.Emojis.HEART
-import com.lmo.ninie.io.constants.MagicStrings.LINE_BREAKER
+import com.lmo.ninie.io.constants.text.Emojis.HEART
+import com.lmo.ninie.io.constants.text.MagicStrings.LINE_BREAKER
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
 import com.lmo.ninie.io.services.AliasService
 import com.lmo.ninie.io.services.CommandService

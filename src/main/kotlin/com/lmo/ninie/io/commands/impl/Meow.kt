@@ -1,7 +1,7 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.MessageCommandBase
-import com.lmo.ninie.io.constants.Emojis.HEART
+import com.lmo.ninie.io.constants.text.Emojis.HEART
 import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Component
 
