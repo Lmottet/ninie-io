@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component
 class Songs : MessageCommandBase() {
 
     override fun response(message: Message) = Songs.all
-        .map { song -> song.name() }
+        .map { song -> song.name }
         .reduce { songs, song -> "$songs, $song" }
 }
