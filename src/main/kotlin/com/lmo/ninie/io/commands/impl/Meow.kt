@@ -6,7 +6,7 @@ import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Component
 
 @Component
-class Meow : MessageCommandBase() {
+class Meow : MessageCommandBase {
 
     override fun response(message: Message) = "MEEEEOOOOOOW $HEART"
 }

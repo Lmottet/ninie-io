@@ -1,20 +1,18 @@
 package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.MessageCommandBase
+import com.lmo.ninie.io.commands.Alias
 import com.lmo.ninie.io.constants.text.Emojis.HEART
 import com.lmo.ninie.io.constants.text.MagicStrings.LINE_BREAKER
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
-import com.lmo.ninie.io.services.AliasService
-import com.lmo.ninie.io.services.CommandService
+import com.lmo.ninie.io.services.commands.AliasService
 import discord4j.core.`object`.entity.Message
-import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Component
 
 @Component
 class Help(
-    @Lazy val commandService: CommandService,
     val aliasService: AliasService
-) : MessageCommandBase() {
+) : MessageCommandBase {
 
     override fun response(message: Message): String {
         val aliasToAssist = message.extractArg(1)
@@ -31,6 +29,6 @@ class Help(
             .getOrElse("Cannot explain unknown command $commandName")
 
     private fun describeAllCommands(): String =
-        commandService.allCommands().joinToString(LINE_BREAKER) { it.defaultAlias + " - " + it.description }
+        Alias.all().joinToString(LINE_BREAKER) { it.defaultAlias + " - " + it.description }
 
 }
