@@ -1,7 +1,7 @@
-package com.lmo.ninie.io.services.models.impl
+package com.lmo.ninie.io.models.impl
 
 import com.lmo.ninie.io.models.songs.*
-import com.lmo.ninie.io.services.models.SongService
+import com.lmo.ninie.io.models.SongService
 import io.vavr.control.Option
 import io.vavr.kotlin.option
 import org.springframework.stereotype.Service

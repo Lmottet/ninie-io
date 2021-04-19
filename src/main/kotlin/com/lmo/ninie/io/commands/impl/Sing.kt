@@ -2,7 +2,7 @@ package com.lmo.ninie.io.commands.impl
 
 import com.lmo.ninie.io.commands.MessageCommandBase
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
-import com.lmo.ninie.io.services.models.SongService
+import com.lmo.ninie.io.models.SongService
 import discord4j.core.`object`.entity.Message
 import io.vavr.kotlin.option
 import org.springframework.stereotype.Component
