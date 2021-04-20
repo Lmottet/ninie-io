@@ -10,10 +10,10 @@ import reactor.core.publisher.Mono
 
 class RepeaterService : NinieRespondable<Unit> {
 
-    // TODO validate ordering will not be lost between triggers
+    // todo see whether this creates multiple executions or not  on "di"g
     override fun respondTo(message: Message): Option<Mono<Unit>> = REPEATER_TRIGGERS.stream()
         .map { trigger -> repeatedIfTriggered(trigger, message) }
-        .filter { repetition -> repetition.isDefined }
+        .filter { it.isDefined }
         .findFirst()
         .orElse(Option.none())
 
