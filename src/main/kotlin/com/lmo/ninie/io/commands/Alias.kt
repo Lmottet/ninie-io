@@ -3,7 +3,7 @@ package com.lmo.ninie.io.commands
 import com.lmo.ninie.io.constants.commands.CommandDescriptions
 import com.lmo.ninie.io.constants.commands.CommandManuals
 import com.lmo.ninie.io.constants.commands.CommandNames
-import com.lmo.ninie.io.services.NinieRespondable
+import discord4j.discordjson.json.MessageData
 import io.vavr.control.Option
 import io.vavr.kotlin.option
 
@@ -13,7 +13,7 @@ sealed class Alias(
     val manual: String
 ) {
 
-    abstract fun commandService(): NinieRespondable
+    abstract fun commandService(): CommandBase<MessageData>
 
     class About(
         private val about: com.lmo.ninie.io.commands.impl.About
@@ -22,7 +22,7 @@ sealed class Alias(
         CommandDescriptions.ABOUT,
         CommandManuals.MANUAL_NONE
     ) {
-        override fun commandService(): NinieRespondable = about
+        override fun commandService(): CommandBase<MessageData> = about
     }
 
     class Cry(
@@ -32,7 +32,7 @@ sealed class Alias(
         CommandDescriptions.CRY,
         CommandManuals.MANUAL_NONE
     ) {
-        override fun commandService(): NinieRespondable = cry
+        override fun commandService(): CommandBase<MessageData> = cry
     }
 
     class Fart(
@@ -42,7 +42,7 @@ sealed class Alias(
         CommandDescriptions.FART,
         CommandManuals.MANUAL_NONE
     ) {
-        override fun commandService(): NinieRespondable = fart
+        override fun commandService(): CommandBase<MessageData> = fart
     }
 
     class Help(
@@ -52,7 +52,7 @@ sealed class Alias(
         CommandDescriptions.HELP,
         CommandManuals.HELP
     ) {
-        override fun commandService(): NinieRespondable = help
+        override fun commandService(): CommandBase<MessageData> = help
     }
 
     class Meow(
@@ -62,7 +62,7 @@ sealed class Alias(
         CommandDescriptions.MEOW,
         CommandManuals.MANUAL_NONE
     ) {
-        override fun commandService(): NinieRespondable = meow
+        override fun commandService(): CommandBase<MessageData> = meow
     }
 
     class Sing(
@@ -72,7 +72,7 @@ sealed class Alias(
         CommandDescriptions.SING,
         CommandManuals.SING
     ) {
-        override fun commandService(): NinieRespondable = aboutService
+        override fun commandService(): CommandBase<MessageData> = aboutService
     }
 
     class Songs(
@@ -82,7 +82,7 @@ sealed class Alias(
         CommandDescriptions.SONGS,
         CommandManuals.MANUAL_NONE
     ) {
-        override fun commandService(): NinieRespondable = aboutService
+        override fun commandService(): CommandBase<MessageData> = aboutService
     }
 
     class Unknown(
@@ -92,7 +92,7 @@ sealed class Alias(
         CommandDescriptions.UNKNOWN,
         CommandManuals.UNKNOWN
     ) {
-        override fun commandService(): NinieRespondable = aboutService
+        override fun commandService(): CommandBase<MessageData> = aboutService
     }
 
     companion object {

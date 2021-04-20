@@ -5,16 +5,17 @@ import com.lmo.ninie.io.events.EventListener
 import com.lmo.ninie.io.extensions.eventmessage.callsNinie
 import com.lmo.ninie.io.extensions.eventmessage.extractCommandAlias
 import com.lmo.ninie.io.services.commands.AliasService
-import com.lmo.ninie.io.services.reactions.ReactionMapperService
+import com.lmo.ninie.io.services.reactions.RespondableMapperService
 import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageCreateEvent
+import discord4j.discordjson.json.MessageData
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
 @Service
 class MessageCreateListener(
-    val reactionMapperService: ReactionMapperService,
+    val respondableMapperService: RespondableMapperService,
     val aliasService: AliasService,
     val unknown: Alias.Unknown
 ) : EventListener<MessageCreateEvent> {
@@ -35,9 +36,10 @@ class MessageCreateListener(
         findCommand(message).commandService()
             .respondTo(message)
             .get()
+            .map {  }
 
     private fun executeReaction(message: Message): Mono<Unit> =
-        reactionMapperService.reactToCreation(message)
+        respondableMapperService.reactToCreation(message)
 
     private fun findCommand(message: Message): Alias =
         aliasService.find(message.extractCommandAlias())
