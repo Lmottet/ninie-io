@@ -6,6 +6,7 @@ import com.lmo.ninie.io.constants.commands.CommandNames
 import discord4j.discordjson.json.MessageData
 import io.vavr.control.Option
 import io.vavr.kotlin.option
+import org.springframework.stereotype.Service
 
 sealed class Alias(
     val defaultAlias: String,
@@ -75,6 +76,7 @@ sealed class Alias(
         override fun commandService(): CommandBase<MessageData> = aboutService
     }
 
+    @Service
     class Songs(
         private val aboutService: com.lmo.ninie.io.commands.impl.Songs
     ) : Alias(
@@ -85,6 +87,7 @@ sealed class Alias(
         override fun commandService(): CommandBase<MessageData> = aboutService
     }
 
+    @Service
     class Unknown(
         private val aboutService: com.lmo.ninie.io.commands.impl.Songs
     ) : Alias(
