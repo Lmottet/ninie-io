@@ -5,5 +5,5 @@ import discord4j.core.`object`.entity.Message
 
 fun Message.callsNinie(prefix:String) :Boolean{
     val terms = this.content.split(MagicStrings.WHITESPACE)
-    return (terms.size > 1) && prefix == terms[0]
+    return !this.isBotAuthor() && (terms.size > 1) && prefix == terms[0]
 }
