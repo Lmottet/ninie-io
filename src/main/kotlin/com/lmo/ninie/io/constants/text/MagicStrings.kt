@@ -19,10 +19,13 @@ object MagicStrings {
         Regex(repeatAllLetters("salut")),
         Regex(repeatAllLetters("coucou")),
         Regex(repeatAllLetters("bonjour")),
+        Regex(repeatAllLetters("bijour")),
         Regex(repeatAllLetters("bonsoir")),
+        Regex(repeatAllLetters("bonswar")),
+        Regex(repeatAllLetters("bonsoer")),
         Regex("yo$oneToTenRange"),
         Regex(repeatAllLetters("plop"))
     )
 
-    private fun repeatAllLetters(word: String)g = word.toList().joinToString(oneToFiveRange)
+    private fun repeatAllLetters(word: String) = word.toList().joinToString(separator = oneToFiveRange, postfix = oneToFiveRange)
 }
