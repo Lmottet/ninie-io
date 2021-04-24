@@ -12,7 +12,7 @@ class Sing(val songService: SongService) : MessageCommandBase {
 
     override fun response(message: Message) = message.extractArg(1)
         .option()
-        .map { songName -> songService.find(songName).getOrElse(songService.any()) }
+        .flatMap { songName -> songService.find(songName) }
         .getOrElse(songService.any())
         .content
 }
