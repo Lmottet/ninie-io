@@ -6,7 +6,7 @@ import io.vavr.control.Option
 interface SongService {
     fun any(): Song
 
-    fun from(name: String): Option<Song>
+    fun find(name: String): Option<Song>
 
     fun all(): List<Song>
 }

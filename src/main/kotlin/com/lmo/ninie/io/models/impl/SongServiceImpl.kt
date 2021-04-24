@@ -19,7 +19,7 @@ class SongServiceImpl : SongService {
         LittleBird()
     )
 
-    override fun from(name: String): Option<Song> = all.find { song -> song.name == name }.option()
+    override fun find(name: String): Option<Song> = all.find { song -> song.name.equals(name, ignoreCase = true) }.option()
 
     override fun any(): Song {
         all.shuffle()
