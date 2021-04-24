@@ -1,6 +1,6 @@
 package com.lmo.ninie.io.models.songs
 
-import com.lmo.ninie.io.constants.Emojis.MUSICAL_NOTE
+import com.lmo.ninie.io.constants.text.Emojis.MUSICAL_NOTE
 
 data class BimBamBoum(
     override val name: String = "BimBamBoum",

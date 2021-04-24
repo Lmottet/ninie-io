@@ -1,8 +1,5 @@
 package com.lmo.ninie.io.commands
 
-import discord4j.core.`object`.entity.Message
-import reactor.core.publisher.Mono
+import com.lmo.ninie.io.services.NinieRespondable
 
-abstract class CommandBase {
-    abstract fun respondTo(message: Message): Mono<Unit>
-}
+interface CommandBase<T> : NinieRespondable<T>

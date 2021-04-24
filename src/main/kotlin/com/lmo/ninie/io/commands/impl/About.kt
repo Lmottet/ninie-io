@@ -5,7 +5,7 @@ import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Component
 
 @Component
-class About : MessageCommandBase() {
+class About : MessageCommandBase {
 
     override fun response(message: Message) = """
         Ninie-io is a discord bot, written in kotlin.

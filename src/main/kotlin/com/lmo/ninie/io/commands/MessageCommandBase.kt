@@ -1,12 +1,15 @@
 package com.lmo.ninie.io.commands
 
 import discord4j.core.`object`.entity.Message
+import discord4j.discordjson.json.MessageData
+import io.vavr.control.Option
 import reactor.core.publisher.Mono
 
-abstract class MessageCommandBase : CommandBase() {
+interface MessageCommandBase : CommandBase<MessageData> {
 
-    override fun respondTo(message: Message): Mono<Unit> = message.restChannel.createMessage(response(message)).map { }
+    override fun respondTo(message: Message): Option<Mono<MessageData>> =
+        Option.of(message.restChannel.createMessage(response(message)))
 
-    abstract fun response(message: Message): String
+    fun response(message: Message): String
 
 }
