@@ -9,7 +9,10 @@ import com.lmo.ninie.io.services.commands.AliasService
 import com.lmo.ninie.io.services.reactions.RespondableMapperService
 import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageCreateEvent
+import io.vavr.control.Option
+import io.vavr.kotlin.option
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
@@ -17,11 +20,8 @@ import reactor.core.publisher.Mono
 class MessageCreateListener(
     val respondableMapperService: RespondableMapperService,
     val aliasService: AliasService,
-    val unknown: Alias.Unknown
+    @Value("bot.prefix") val prefix: String
 ) : EventListener<MessageCreateEvent> {
-
-    @Value("\${bot.prefix}")
-    val prefix = ""
 
     override fun getEventType(): Class<MessageCreateEvent> = MessageCreateEvent::class.java
 
@@ -37,7 +37,9 @@ class MessageCreateListener(
         }
 
     private fun executeCommand(message: Message): Mono<Unit> =
-        findCommand(message).commandService()
+        findAlias(message)
+            .map { alias -> aliasService.mapToCommand(alias) }
+            .get()
             .respondTo(message)
             .get()
             .map { }
@@ -45,8 +47,10 @@ class MessageCreateListener(
     private fun executeReaction(message: Message): Mono<Unit> =
         respondableMapperService.reactToCreation(message)
 
-    private fun findCommand(message: Message): Alias =
+    private fun findAlias(message: Message): Option<Alias> =
         aliasService.find(message.extractCommandAlias())
-            .getOrElse(unknown)
+            .getOrElse(Alias.Unknown())
+            .option()
+
 
 }

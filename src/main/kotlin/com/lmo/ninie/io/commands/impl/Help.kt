@@ -7,11 +7,12 @@ import com.lmo.ninie.io.constants.text.MagicStrings.LINE_BREAKER
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
 import com.lmo.ninie.io.services.commands.AliasService
 import discord4j.core.`object`.entity.Message
+import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Component
 
 @Component
 class Help(
-    val aliasService: AliasService
+    @Lazy val aliasService: AliasService
 ) : MessageCommandBase {
 
     override fun response(message: Message): String {
@@ -29,6 +30,6 @@ class Help(
             .getOrElse("Cannot explain unknown command $commandName")
 
     private fun describeAllCommands(): String =
-        Alias.all().joinToString(LINE_BREAKER) { it.defaultAlias + " - " + it.description }
+        aliasService.all().joinToString(LINE_BREAKER) { it.defaultAlias + " - " + it.description }
 
 }
