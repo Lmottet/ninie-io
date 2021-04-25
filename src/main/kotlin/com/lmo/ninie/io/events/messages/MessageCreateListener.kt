@@ -20,8 +20,10 @@ import reactor.core.publisher.Mono
 class MessageCreateListener(
     val respondableMapperService: RespondableMapperService,
     val aliasService: AliasService,
-    @Value("bot.prefix") val prefix: String
 ) : EventListener<MessageCreateEvent> {
+
+    @Value("\${bot.prefix}")
+    val prefix = ""
 
     override fun getEventType(): Class<MessageCreateEvent> = MessageCreateEvent::class.java
 
