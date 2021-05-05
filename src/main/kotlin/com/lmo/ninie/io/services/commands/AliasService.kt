@@ -1,7 +1,7 @@
 package com.lmo.ninie.io.services.commands
 
-import com.lmo.ninie.io.commands.Alias
-import com.lmo.ninie.io.commands.CommandBase
+import com.lmo.ninie.io.interactions.commands.Alias
+import com.lmo.ninie.io.interactions.commands.CommandBase
 import discord4j.discordjson.json.MessageData
 import io.vavr.control.Option
 
