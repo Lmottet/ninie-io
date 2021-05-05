@@ -8,4 +8,6 @@ interface SongRepository {
     fun find(name: String): Option<Song>
 
     fun all(): List<Song>
+
+    fun any(): Song
 }
