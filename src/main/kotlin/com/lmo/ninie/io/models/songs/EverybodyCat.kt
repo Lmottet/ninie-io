@@ -1,6 +1,6 @@
 package com.lmo.ninie.io.models.songs
 
-import com.lmo.ninie.io.constants.Emojis.MUSICAL_NOTE
+import com.lmo.ninie.io.constants.text.Emojis.MUSICAL_NOTE
 
 data class EverybodyCat(
     override val name: String = "EverybodyCat",
