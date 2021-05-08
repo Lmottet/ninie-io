@@ -17,7 +17,6 @@ jobs:
     - name: 'Checkout Github Action'
       uses: actions/checkout@master
 
-
     - name: Set up Java version
       uses: actions/setup-java@v1
       with:
@@ -25,6 +24,10 @@ jobs:
 
     - name: Build with Maven
       run: mvn clean install
+      with:
+        env:
+          BOT_TOKEN: ${{secrets.TEST_BOT_TOKEN}}
+          BOT_PREFIX: pt
 
     - name: Run Azure webapp deploy action using publish profile credentials
       uses: azure/webapps-deploy@v2
