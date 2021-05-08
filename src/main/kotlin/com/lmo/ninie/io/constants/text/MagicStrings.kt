@@ -9,8 +9,9 @@ object MagicStrings {
     // ordering is important here otherwise it would not be a list
     // the repeater service will repeat a word based on the first match, the shorter options should appear later in
     // todo see if this can be improved
-    val REPEATER_TRIGGERS = listOf("dis", "dit", "di")
+    val REPEATER_TRIGGERS = listOf("dis", "dit","die")
 
+    val NON_ALPHABETICAL = Regex("[^A-Za-z ]")
     private const val oneToFiveRange = "{1,5}"
     private const val oneToTenRange = "{1,10}"
 
