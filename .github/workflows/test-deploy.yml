@@ -6,7 +6,7 @@ on:
       - develop
 
 jobs:
-  build:
+  heroku-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -22,12 +22,12 @@ jobs:
 
   merge-branch:
     if: ${{github.ref=='refs/heads/develop'}}
-    needs: build
+    needs: heroku-deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
       - name: Merge develop -> master
-        uses: devmsx/merge-branch@v1.3.1
+        uses: devmasx/merge-branch@v1.3.1
         with:
           type: now
           target branch: main
