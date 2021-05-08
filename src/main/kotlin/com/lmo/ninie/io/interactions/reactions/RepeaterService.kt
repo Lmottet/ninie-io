@@ -23,7 +23,7 @@ class RepeaterService : NinieRespondable<Unit> {
     private fun repeatIfTriggered(trigger: String, message: Message): Option<Mono<Unit>> {
         return message
             .content
-            .toLowerCase()
+            .lowercase(Locale.ROOT)
             .option()
             .flatMap { if (it.contains(trigger)) Option.of(response(trigger, it)) else Option.none() }
             .map { message.restChannel.createMessage(it).map { } }
