@@ -17,5 +17,5 @@ jobs:
             heroku_email: "mottet.lionel@gmail.com"
             buildpack: "https://github.com/heroku/heroku-buildpack-java.git"
         env:
-          HD_BOT_TOKEN : ${{secrets.LOCAL_BOT_TOKEN}}
-          HD_BOT_PREFIX: pl
+          HD_BOT_TOKEN : ${{secrets.TEST_BOT_TOKEN}}
+          HD_BOT_PREFIX: pt
