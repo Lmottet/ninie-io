@@ -21,7 +21,7 @@ jobs:
           HD_BOT_PREFIX: pt
   push:
     if: ${{ github.ref == 'develop' }}
-    needs: build-and-deploy
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
