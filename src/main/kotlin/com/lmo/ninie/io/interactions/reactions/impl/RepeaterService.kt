@@ -32,6 +32,7 @@ class RepeaterService : NinieRespondable<Unit> {
         content
             .split(trigger)[1] // get the part of the message that follows the trigger
             .trimStart() // remove leading whitespaces
+            .replace(MagicStrings.NON_ALPHABETICAL, "")
             .split(MagicStrings.WHITESPACE)[0] // split on whitespace to retrieve only the first word following the trigger
 
 }
