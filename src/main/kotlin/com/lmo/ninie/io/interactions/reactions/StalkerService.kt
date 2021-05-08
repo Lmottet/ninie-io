@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.interactions.reactions.impl
+package com.lmo.ninie.io.interactions.reactions
 
 import com.lmo.ninie.io.constants.text.Emojis
 import com.lmo.ninie.io.interactions.NinieRespondable
@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
 @Service
-class
-StalkerService : NinieRespondable<Unit> {
+class StalkerService : NinieRespondable<Unit> {
     override fun respondTo(message: Message): Option<Mono<Unit>> =
         Option.of(message.addReaction(ReactionEmoji.unicode(Emojis.EYES)).map {  })
 }

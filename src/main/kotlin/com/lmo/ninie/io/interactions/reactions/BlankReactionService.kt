@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.interactions.reactions.impl
+package com.lmo.ninie.io.interactions.reactions
 
 import com.lmo.ninie.io.interactions.NinieRespondable
 import discord4j.core.`object`.entity.Message

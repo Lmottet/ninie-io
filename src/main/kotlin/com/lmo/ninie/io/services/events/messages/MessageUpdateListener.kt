@@ -1,7 +1,7 @@
 package com.lmo.ninie.io.services.events.messages
 
 import com.lmo.ninie.io.services.events.EventListener
-import com.lmo.ninie.io.interactions.reactions.RespondableMapperService
+import com.lmo.ninie.io.interactions.RespondableMapperService
 import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageUpdateEvent
 import org.springframework.stereotype.Service

@@ -6,7 +6,7 @@ import com.lmo.ninie.io.extensions.eventmessage.callsNinie
 import com.lmo.ninie.io.extensions.eventmessage.extractCommandAlias
 import com.lmo.ninie.io.extensions.eventmessage.isBotAuthor
 import com.lmo.ninie.io.services.commands.AliasService
-import com.lmo.ninie.io.interactions.reactions.RespondableMapperService
+import com.lmo.ninie.io.interactions.RespondableMapperService
 import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageCreateEvent
 import io.vavr.control.Option

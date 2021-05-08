@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.interactions.reactions
+package com.lmo.ninie.io.interactions
 
 import discord4j.core.`object`.entity.Message
 import reactor.core.publisher.Mono

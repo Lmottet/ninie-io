@@ -1,6 +1,9 @@
-package com.lmo.ninie.io.interactions.reactions.impl
+package com.lmo.ninie.io.interactions
 
-import com.lmo.ninie.io.interactions.reactions.RespondableMapperService
+import com.lmo.ninie.io.interactions.reactions.BlankReactionService
+import com.lmo.ninie.io.interactions.reactions.GreetingService
+import com.lmo.ninie.io.interactions.reactions.RepeaterService
+import com.lmo.ninie.io.interactions.reactions.StalkerService
 import discord4j.core.`object`.entity.Message
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono

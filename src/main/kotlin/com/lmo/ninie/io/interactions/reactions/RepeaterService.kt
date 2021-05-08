@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.interactions.reactions.impl
+package com.lmo.ninie.io.interactions.reactions
 
 import com.lmo.ninie.io.constants.text.MagicStrings
 import com.lmo.ninie.io.constants.text.MagicStrings.REPEATER_TRIGGERS
