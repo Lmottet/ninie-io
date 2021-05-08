@@ -1,13 +1,19 @@
 package com.lmo.ninie.io.services.events
 
+import com.lmo.ninie.io.LoggerDelegate
 import discord4j.core.event.domain.Event
 import reactor.core.publisher.Mono
 
-interface EventListener<T : Event> {
+abstract class EventListener<T : Event> {
 
-    fun getEventType(): Class<T>
+    private val logger by LoggerDelegate()
 
-    fun execute(event: Mono<T>): Mono<Unit>?
+    abstract fun getEventType(): Class<T>
 
-    fun handleError(error: Throwable): Mono<Nothing> = Mono.empty()
+    abstract fun execute(event: Mono<T>): Mono<Unit>?
+
+    fun handleError(error: Throwable): Mono<Nothing> {
+        logger.error("Event process failed", error)
+        return Mono.empty()
+    }
 }

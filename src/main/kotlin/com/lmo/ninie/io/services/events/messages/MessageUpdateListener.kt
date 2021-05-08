@@ -10,7 +10,7 @@ import reactor.core.publisher.Mono
 @Service
 class MessageUpdateListener(
     val respondableMapperService: RespondableMapperService
-) : EventListener<MessageUpdateEvent> {
+) : EventListener<MessageUpdateEvent>() {
     override fun getEventType(): Class<MessageUpdateEvent> = MessageUpdateEvent::class.java
 
     override fun execute(event: Mono<MessageUpdateEvent>): Mono<Unit>? = event.map { it.message.block() }

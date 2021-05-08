@@ -63,6 +63,7 @@
             <artifactId>vavr-kotlin</artifactId>
             <version>${vavr-kotlin.version}</version>
         </dependency>
+
     </dependencies>
 
     <build>

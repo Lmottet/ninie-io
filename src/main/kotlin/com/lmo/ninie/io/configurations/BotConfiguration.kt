@@ -35,7 +35,7 @@ data class BotConfiguration(val token: String) {
         discordClient
             .on(eventListener.getEventType())
             .flatMap { event -> eventListener.execute(Mono.just(event)) }
-            .onErrorResume { error -> eventListener.handleError(error) }
+            .onErrorResume { error -> eventListener.handleError(error).block() }
             .subscribe()
     }
 }

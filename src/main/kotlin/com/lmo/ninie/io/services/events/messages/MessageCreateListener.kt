@@ -19,7 +19,7 @@ import reactor.core.publisher.Mono
 class MessageCreateListener(
     val respondableMapperService: RespondableMapperService,
     val aliasService: AliasService,
-) : EventListener<MessageCreateEvent> {
+) : EventListener<MessageCreateEvent>() {
 
     @Value("\${bot.prefix}")
     val prefix = ""
