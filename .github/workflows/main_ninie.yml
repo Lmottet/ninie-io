@@ -36,5 +36,5 @@ jobs:
         publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FFDD1CA45A3840149D4274F08118E26D }}
         package: ${{ github.workspace }}/target/*.jar
       env:
-        BOT_TOKEN: ${{secrets.TEST_BOT_TOKEN}}
+        BOT_TOKEN: ${{secrets.BOT_TOKEN}}
         BOT_PREFIX: p
