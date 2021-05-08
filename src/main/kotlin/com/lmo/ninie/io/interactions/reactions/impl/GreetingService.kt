@@ -15,18 +15,18 @@ import java.util.*
 class GreetingService : NinieRespondable<Unit> {
     override fun respondTo(message: Message): Option<Mono<Unit>> =
         GREETER_REGEXES
-            .map { regex -> searchGreeter(message.content, regex) }
+            .map { regex -> findGreeter(message.content, regex) }
             .find { it.isDefined }
             .option()
             .map { message.restChannel.createMessage(it.get()).map { } }
 
-    private fun searchGreeter(messageContent: String, regex: Regex): Option<String> {
+    private fun findGreeter(messageContent: String, regex: Regex): Option<String> {
         val firstWord: String = messageContent.split(WHITESPACE)[0]
         return if (matches(firstWord, regex)) response(firstWord) else Option.none()
     }
 
-    private fun matches (word:String, regex: Regex) = word.toLowerCase(Locale.ROOT).matches(regex)
+    private fun matches (word:String, regex: Regex) = word.lowercase(Locale.ROOT).matches(regex)
 
-    private fun response(greeter:String) = (greeter.capitalize() + WHITESPACE + EXCLAMATION).option()
+    private fun response(greeter:String) = (greeter.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() } + WHITESPACE + EXCLAMATION).option()
 
 }

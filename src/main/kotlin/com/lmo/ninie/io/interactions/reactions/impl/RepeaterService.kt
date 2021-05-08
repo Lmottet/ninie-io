@@ -8,6 +8,7 @@ import io.vavr.control.Option
 import io.vavr.kotlin.option
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
+import java.util.*
 
 @Service
 class RepeaterService : NinieRespondable<Unit> {
@@ -34,5 +35,6 @@ class RepeaterService : NinieRespondable<Unit> {
             .trimStart() // remove leading whitespaces
             .replace(MagicStrings.NON_ALPHABETICAL, "")
             .split(MagicStrings.WHITESPACE)[0] // split on whitespace to retrieve only the first word following the trigger
+            .uppercase(Locale.ROOT) + MagicStrings.WHITESPACE +MagicStrings.EXCLAMATION
 
 }
