@@ -13,7 +13,6 @@ import java.util.*
 @Service
 class RepeaterService : NinieRespondable<Unit> {
 
-    // todo see whether this creates multiple executions or not  on "di"g
     override fun respondTo(message: Message): Option<Mono<Unit>> = REPEATER_TRIGGERS.stream()
         .map { trigger -> repeatIfTriggered(trigger, message) }
         .filter { it.isDefined }
@@ -25,16 +24,22 @@ class RepeaterService : NinieRespondable<Unit> {
             .content
             .lowercase(Locale.ROOT)
             .option()
-            .flatMap { if (it.contains(trigger)) Option.of(response(trigger, it)) else Option.none() }
+            .flatMap { buildResponse(trigger, it) }
             .map { message.restChannel.createMessage(it).map { } }
     }
 
-    private fun response(trigger: String, content: String): String =
+    private fun buildResponse(trigger: String, content: String): Option<String> {
+        return if (!content.contains(trigger)) Option.none() else {
+            val nextWord = nextWord(trigger, content)
+            return if (nextWord.length > 1) Option.of(nextWord.uppercase(Locale.ROOT) + MagicStrings.WHITESPACE + MagicStrings.EXCLAMATION) else Option.none()
+        }
+    }
+
+    private fun nextWord(trigger: String, content: String): String =
         content
+            .filter { char -> char.isLetter() || char.isWhitespace() }
             .split(trigger)[1] // get the part of the message that follows the trigger
             .trimStart() // remove leading whitespaces
-            .replace(MagicStrings.NON_ALPHABETICAL, "")
             .split(MagicStrings.WHITESPACE)[0] // split on whitespace to retrieve only the first word following the trigger
-            .uppercase(Locale.ROOT) + MagicStrings.WHITESPACE +MagicStrings.EXCLAMATION
 
 }
