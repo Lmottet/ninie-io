@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.services.events
+package com.lmo.ninie.io.events
 
 import com.lmo.ninie.io.LoggerDelegate
 import discord4j.core.event.domain.Event

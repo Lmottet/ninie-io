@@ -1,9 +1,9 @@
-package com.lmo.ninie.io.services.commands.impl
+package com.lmo.ninie.io.services.impl
 
 import com.lmo.ninie.io.interactions.commands.Alias
 import com.lmo.ninie.io.interactions.commands.CommandBase
 import com.lmo.ninie.io.interactions.commands.impl.*
-import com.lmo.ninie.io.services.commands.AliasService
+import com.lmo.ninie.io.services.AliasService
 import discord4j.discordjson.json.MessageData
 import io.vavr.kotlin.option
 import org.springframework.stereotype.Service

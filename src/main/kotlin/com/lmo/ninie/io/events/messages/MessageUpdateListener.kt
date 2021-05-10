@@ -1,6 +1,6 @@
-package com.lmo.ninie.io.services.events.messages
+package com.lmo.ninie.io.events.messages
 
-import com.lmo.ninie.io.services.events.EventListener
+import com.lmo.ninie.io.events.EventListener
 import com.lmo.ninie.io.interactions.RespondableMapperService
 import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageUpdateEvent

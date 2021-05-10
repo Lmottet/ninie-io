@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping
 @Controller
 class PingController {
 
-    @GetMapping(name = "/")
+    @GetMapping(name = "/ping")
     fun ping(): ResponseEntity<Nothing> = ResponseEntity.accepted().build()
 }

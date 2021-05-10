@@ -1,11 +1,12 @@
-package com.lmo.ninie.io.services.events.messages
+package com.lmo.ninie.io.events.messages
 
+import com.lmo.ninie.io.configurations.BotConfigurationProperties
 import com.lmo.ninie.io.interactions.commands.Alias
-import com.lmo.ninie.io.services.events.EventListener
+import com.lmo.ninie.io.events.EventListener
 import com.lmo.ninie.io.extensions.eventmessage.callsNinie
 import com.lmo.ninie.io.extensions.eventmessage.extractCommandAlias
 import com.lmo.ninie.io.extensions.eventmessage.isBotAuthor
-import com.lmo.ninie.io.services.commands.AliasService
+import com.lmo.ninie.io.services.AliasService
 import com.lmo.ninie.io.interactions.RespondableMapperService
 import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageCreateEvent
@@ -19,10 +20,8 @@ import reactor.core.publisher.Mono
 class MessageCreateListener(
     val respondableMapperService: RespondableMapperService,
     val aliasService: AliasService,
+    val botConfigurationProperties: BotConfigurationProperties
 ) : EventListener<MessageCreateEvent>() {
-
-    @Value("\${bot.prefix}")
-    val prefix = ""
 
     override fun getEventType(): Class<MessageCreateEvent> = MessageCreateEvent::class.java
 
@@ -32,7 +31,7 @@ class MessageCreateListener(
 
     private fun execute(message: Message): Mono<*> =
         when {
-            message.callsNinie(prefix) -> executeCommand(message)
+            message.callsNinie(botConfigurationProperties.prefix) -> executeCommand(message)
             !message.isBotAuthor() -> executeReaction(message)
             else ->  Mono.empty<Unit>()
         }

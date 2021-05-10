@@ -1,22 +1,24 @@
 package com.lmo.ninie.io.configurations
 
-import com.lmo.ninie.io.services.events.EventListener
+import com.lmo.ninie.io.events.EventListener
 import discord4j.core.DiscordClientBuilder
 import discord4j.core.GatewayDiscordClient
 import discord4j.core.event.domain.Event
 import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.boot.context.properties.ConstructorBinding
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
 import reactor.core.publisher.Mono
 
-@ConstructorBinding
-@ConfigurationProperties(prefix = "bot")
-data class BotConfiguration(val token: String) {
+@Configuration
+class BotConfiguration(
+    val botConfigurationProperties: BotConfigurationProperties
+) {
 
     @Bean
     fun <T : Event> startDiscordClient(eventListeners: List<EventListener<T>>): GatewayDiscordClient? {
         return DiscordClientBuilder
-            .create(token)
+            .create(botConfigurationProperties.token)
             .build()
             .login()
             .block()

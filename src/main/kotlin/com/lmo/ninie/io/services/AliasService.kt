@@ -1,4 +1,4 @@
-package com.lmo.ninie.io.services.commands
+package com.lmo.ninie.io.services
 
 import com.lmo.ninie.io.interactions.commands.Alias
 import com.lmo.ninie.io.interactions.commands.CommandBase

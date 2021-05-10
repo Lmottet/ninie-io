@@ -12,7 +12,7 @@ class LoggerDelegate<in R: Any> : ReadOnlyProperty<R, Logger> {
         return getLogger(getClassForLogging(thisRef.javaClass))
     }
 
-    fun <T : Any> getClassForLogging(javaClass: Class<T>): Class<*> {
+    private fun <T : Any> getClassForLogging(javaClass: Class<T>): Class<*> {
         return javaClass.enclosingClass?.takeIf {
             it.kotlin.companionObject?.java == javaClass
         } ?: javaClass

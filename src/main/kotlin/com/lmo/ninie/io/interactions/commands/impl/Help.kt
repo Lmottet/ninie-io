@@ -5,7 +5,7 @@ import com.lmo.ninie.io.constants.text.MagicStrings.LINE_BREAKER
 import com.lmo.ninie.io.extensions.eventmessage.extractArg
 import com.lmo.ninie.io.interactions.commands.Alias
 import com.lmo.ninie.io.interactions.commands.MessageCommandBase
-import com.lmo.ninie.io.services.commands.AliasService
+import com.lmo.ninie.io.services.AliasService
 import discord4j.core.`object`.entity.Message
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Component

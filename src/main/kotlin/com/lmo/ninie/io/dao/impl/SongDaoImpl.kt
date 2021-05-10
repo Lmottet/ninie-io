@@ -1,16 +1,16 @@
-package com.lmo.ninie.io.services.dao.impl
+package com.lmo.ninie.io.dao.impl
 
 import com.lmo.ninie.io.models.songs.Song
 import com.lmo.ninie.io.repositories.SongRepository
-import com.lmo.ninie.io.services.dao.SongService
+import com.lmo.ninie.io.dao.SongDao
 import io.vavr.control.Option
 import org.springframework.stereotype.Service
 import java.util.stream.Collectors
 
 @Service
-class SongServiceImpl(
+class SongDaoImpl(
     val songRepository: SongRepository
-) : SongService {
+) : SongDao {
 
     override fun find(name: String): Option<Song> = songRepository.find(name)
 
