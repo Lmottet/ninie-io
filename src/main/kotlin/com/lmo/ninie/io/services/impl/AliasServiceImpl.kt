@@ -23,7 +23,7 @@ class AliasServiceImpl(
     override fun all(): List<Alias> = Alias.values().toList()
 
     override fun find(alias: String?) = all()
-        .find { e -> e.defaultAlias == alias }
+        .find { alias == it.defaultAlias }
         .option()
 
     override fun mapToCommand(alias: Alias): CommandBase<MessageData> =
