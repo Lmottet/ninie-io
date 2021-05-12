@@ -1,7 +1,9 @@
 package com.lmo.ninie.io.interactions.reactions
 
 import com.lmo.ninie.io.constants.text.MagicStrings
+import com.lmo.ninie.io.constants.text.MagicStrings.EXCLAMATION
 import com.lmo.ninie.io.constants.text.MagicStrings.REPEATER_TRIGGERS
+import com.lmo.ninie.io.constants.text.MagicStrings.WHITESPACE
 import com.lmo.ninie.io.interactions.NinieRespondable
 import discord4j.core.`object`.entity.Message
 import io.vavr.control.Option
@@ -31,15 +33,22 @@ class RepeaterService : NinieRespondable<Unit> {
     private fun buildResponse(trigger: String, content: String): Option<String> {
         return if (!content.contains(trigger)) Option.none() else {
             val nextWord = nextWord(trigger, content)
-            return if (nextWord.length > 1) Option.of(nextWord.uppercase(Locale.ROOT) + MagicStrings.WHITESPACE + MagicStrings.EXCLAMATION) else Option.none()
+            return if (nextWord.length <= 1) Option.none() else {
+                var response = nextWord
+                val article = MagicStrings.ARTICLES.find { it == nextWord }
+                if(article != null){
+                    response += WHITESPACE + nextWord(trigger + WHITESPACE + article, content)
+                }
+                Option.of(response.uppercase(Locale.ROOT) + WHITESPACE + EXCLAMATION)
+            }
         }
     }
 
-    private fun nextWord(trigger: String, content: String): String =
+    private fun nextWord(beacon: String, content: String): String =
         content
             .filter { char -> char.isLetter() || char.isWhitespace() }
-            .split(trigger)[1] // get the part of the message that follows the trigger
+            .split(beacon)[1] // get the part of the message that follows the trigger
             .trimStart() // remove leading whitespaces
-            .split(MagicStrings.WHITESPACE)[0] // split on whitespace to retrieve only the first word following the trigger
+            .split(WHITESPACE)[0] // split on whitespace to retrieve only the first word following the trigger
 
 }
