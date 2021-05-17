@@ -9,11 +9,8 @@ import reactor.core.publisher.Mono
 @Service
 class DisagreementService : NinieRespondable<Unit> {
 
-    override fun respondTo(message: Message): Option<Mono<Unit>> {
-        //val shouldResp =
-        return if ((1..50).random() == 42)
+    override fun respondTo(message: Message): Option<Mono<Unit>> =
+        if ((1..50).random() == 42)
             Option.of(message.restChannel.createMessage("NON !").map { })
         else Option.none()
-    }
-
 }
