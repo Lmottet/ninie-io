@@ -15,7 +15,8 @@ class StaticSongRepository : SongRepository {
         Manon(),
         Tragedy(),
         BimBamBoum(),
-        LittleBird()
+        LittleBird(),
+        Fatal()
     )
 
     override fun find(name: String): Option<Song> = all
