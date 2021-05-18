@@ -8,7 +8,7 @@ object MagicStrings {
 
     // ordering is important here otherwise it would not be a list
     // the repeater service will repeat a word based on the first match, the shorter options should appear later in
-    val REPEATER_TRIGGERS = listOf("dites", "dis", "dit", "die")
+    val REPEATER_TRIGGERS = listOf("di", "dites", "dis", "dit", "die")
     val ARTICLES = listOf("le", "la", "les", "un", "une", "des", "du", "de")
 
     private const val oneToFiveRange = "{1,5}"
