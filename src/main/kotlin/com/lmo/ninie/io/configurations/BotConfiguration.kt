@@ -14,32 +14,31 @@ class BotConfiguration(
 ) {
 
     @Bean
-    fun <T : Event> startDiscordClient(eventListeners: List<EventListener<T>>): Mono<GatewayDiscordClient> {
-        return DiscordClientBuilder
+    fun <T : Event> startDiscordClient(eventListeners: List<EventListener<T>>): GatewayDiscordClient {
+        val client = DiscordClientBuilder
             .create(botConfigurationProperties.token)
             .build()
             .login()
-            .map { client -> registerListeners(eventListeners, client) }
-    }
+            .block() ?: throw IllegalStateException("Discord client failed to login")
 
-    private fun <T : Event> registerListeners(
-        eventListeners: List<EventListener<T>>,
-        discordClient: GatewayDiscordClient
-    ): GatewayDiscordClient {
-        eventListeners.forEach { eventListener -> registerListener(eventListener, discordClient) }
-        return discordClient
-    }
-
-    private fun <T : Event> registerListener(eventListener: EventListener<T>, discordClient: GatewayDiscordClient) {
-        discordClient
-            .on(eventListener.getEventType())
-            .flatMap { event ->
-                eventListener.execute(Mono.just(event))?.onErrorResume { error ->
-                    eventListener.handleError(error)
-                        .onErrorResume { innerError -> Mono.empty() }
+        // Register listeners
+        eventListeners.forEach { eventListener ->
+            client.on(eventListener.getEventType())
+                .flatMap { event ->
+                    eventListener.execute(Mono.just(event))
+                        ?.onErrorResume { error ->
+                            eventListener.handleError(error)
+                                .onErrorResume { Mono.empty() }
+                        }
+                        ?: Mono.empty()
                 }
-            }
-            .subscribe()
-    }
+                .subscribe()
+        }
 
+        // This will block the Spring Boot application startup thread and keep JVM alive until disconnect
+        // Alternatively, run this in a separate thread if you want Spring to continue starting
+        client.onDisconnect().block()
+
+        return client
+    }
 }
