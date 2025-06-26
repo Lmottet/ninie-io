@@ -15,10 +15,10 @@ class MessageUpdateListener(
 
     override fun execute(event: Mono<MessageUpdateEvent>): Mono<Unit> {
         return event
-            .flatMap { it.message }  // `message` is Mono<Message> in Discord4J v3+
+            .flatMap { it.message }
             .flatMap { message ->
                 respondableMapperService.reactToUpdate(message)
             }
-            .switchIfEmpty(Mono.empty())  // in case message is null or absent
+            .switchIfEmpty(Mono.empty())
     }
 }
