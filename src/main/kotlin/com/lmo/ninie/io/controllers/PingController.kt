@@ -3,10 +3,11 @@ package com.lmo.ninie.io.controllers
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
 
-@Controller
+@RestController
 class PingController {
 
-    @GetMapping(name = "/ping")
-    fun ping(): ResponseEntity<Nothing> = ResponseEntity.accepted().build()
+    @GetMapping("/ping")
+    fun ping(): ResponseEntity<Nothing> = ResponseEntity.ok().build()
 }
