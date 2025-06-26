@@ -9,6 +9,7 @@ import org.springframework.boot.runApplication
 class NinieIo
 
 fun main(args: Array<String>) {
-
+    val port = System.getenv("PORT") ?: "8080"
+    System.setProperty("server.port", port)
     runApplication<NinieIo>(*args)
 }
