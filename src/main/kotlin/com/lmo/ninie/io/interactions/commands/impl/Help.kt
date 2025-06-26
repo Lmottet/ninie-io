@@ -9,12 +9,9 @@ import com.lmo.ninie.io.services.AliasService
 import discord4j.core.`object`.entity.Message
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Component
-import kotlin.jvm.optionals.getOrElse
 
 @Component
-class Help(
-    @Lazy val aliasService: AliasService
-) : MessageCommandBase {
+class Help(@Lazy val aliasService: AliasService) : MessageCommandBase {
 
     override fun response(message: Message): String {
         val aliasToAssist = message.extractArg(1)
@@ -25,10 +22,7 @@ class Help(
         "Ninie.IO is Helping ! $HEART$LINE_BREAKER$LINE_BREAKER${describeAllCommands()}"// todo use multiline string instead
 
     private fun explainCommand(commandName: String): String =
-        aliasService
-            .find(commandName)
-            .map { it.manual }
-            .getOrElse { "Cannot explain unknown command $commandName" }
+        aliasService.find(commandName)?.manual ?: listCommands()
 
     private fun describeAllCommands(): String =
         aliasService.all()

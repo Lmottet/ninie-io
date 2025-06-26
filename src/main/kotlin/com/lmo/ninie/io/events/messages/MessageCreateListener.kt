@@ -10,9 +10,9 @@ import com.lmo.ninie.io.services.AliasService
 import com.lmo.ninie.io.interactions.RespondableMapperService
 import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageCreateEvent
+import discord4j.discordjson.json.MessageData
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
-import java.util.*
 
 @Service
 class MessageCreateListener(
@@ -25,29 +25,23 @@ class MessageCreateListener(
 
     override fun execute(event: Mono<MessageCreateEvent>) = event.map { execute(it.message) }
         .block()
-        ?.map {  }
+        ?.map { }
 
     private fun execute(message: Message): Mono<*> =
         when {
-            message.callsNinie(botConfigurationProperties.prefix) -> executeCommand(message)
+            message.callsNinie(botConfigurationProperties.prefix) -> executeCommand(message) ?: Mono.empty<Unit>()
             !message.isBotAuthor() -> executeReaction(message)
-            else ->  Mono.empty<Unit>()
+            else -> Mono.empty<Unit>()
         }
 
     private fun executeCommand(message: Message) =
-        findAlias(message)
-            .map { aliasService.mapToCommand(it) }
-            .get()
+        aliasService.mapToCommand(findAlias(message))
             .respondTo(message)
-            .onEmpty { /*log.info("")*/ }
-            .getOrElse(Mono.empty())
 
-    private fun executeReaction(message: Message): Mono<Unit> =
+    private fun executeReaction(message: Message): Mono<MessageData> =
         respondableMapperService.reactToCreation(message)
 
-    private fun findAlias(message: Message): Optional<Alias> =
-        aliasService.find(message.extractCommandAlias())
-            .getOrElse(Alias.Unknown)
-            .option()
+    private fun findAlias(message: Message): Alias =
+        aliasService.find(message.extractCommandAlias()) ?: Alias.Unknown
 
 }
