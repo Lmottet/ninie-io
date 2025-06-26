@@ -10,11 +10,9 @@ import com.lmo.ninie.io.services.AliasService
 import com.lmo.ninie.io.interactions.RespondableMapperService
 import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageCreateEvent
-import io.vavr.control.Option
-import io.vavr.kotlin.option
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
+import java.util.*
 
 @Service
 class MessageCreateListener(
@@ -47,7 +45,7 @@ class MessageCreateListener(
     private fun executeReaction(message: Message): Mono<Unit> =
         respondableMapperService.reactToCreation(message)
 
-    private fun findAlias(message: Message): Option<Alias> =
+    private fun findAlias(message: Message): Optional<Alias> =
         aliasService.find(message.extractCommandAlias())
             .getOrElse(Alias.Unknown)
             .option()

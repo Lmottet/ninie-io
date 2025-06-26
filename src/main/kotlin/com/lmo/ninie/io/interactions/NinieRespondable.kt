@@ -1,11 +1,11 @@
 package com.lmo.ninie.io.interactions
 
 import discord4j.core.`object`.entity.Message
-import io.vavr.control.Option
+import discord4j.discordjson.json.MessageData
 import reactor.core.publisher.Mono
 
-interface NinieRespondable<T> {
+interface NinieRespondable {
 
-    fun respondTo(message: Message): Option<Mono<T>>
+    fun respondTo(message: Message): Mono<MessageData>?
 
 }

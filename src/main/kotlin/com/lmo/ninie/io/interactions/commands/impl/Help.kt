@@ -9,6 +9,7 @@ import com.lmo.ninie.io.services.AliasService
 import discord4j.core.`object`.entity.Message
 import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Component
+import kotlin.jvm.optionals.getOrElse
 
 @Component
 class Help(
@@ -27,7 +28,7 @@ class Help(
         aliasService
             .find(commandName)
             .map { it.manual }
-            .getOrElse("Cannot explain unknown command $commandName")
+            .getOrElse { "Cannot explain unknown command $commandName" }
 
     private fun describeAllCommands(): String =
         aliasService.all()

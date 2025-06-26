@@ -5,7 +5,6 @@ import com.lmo.ninie.io.interactions.commands.CommandBase
 import com.lmo.ninie.io.interactions.commands.impl.*
 import com.lmo.ninie.io.services.AliasService
 import discord4j.discordjson.json.MessageData
-import io.vavr.kotlin.option
 import org.springframework.stereotype.Service
 
 @Service
@@ -24,7 +23,6 @@ class AliasServiceImpl(
 
     override fun find(alias: String?) = all()
         .find { alias == it.defaultAlias }
-        .option()
 
     override fun mapToCommand(alias: Alias): CommandBase<MessageData> =
         when (alias) {

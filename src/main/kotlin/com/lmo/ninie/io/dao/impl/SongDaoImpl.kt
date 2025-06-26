@@ -3,8 +3,8 @@ package com.lmo.ninie.io.dao.impl
 import com.lmo.ninie.io.models.songs.Song
 import com.lmo.ninie.io.repositories.SongRepository
 import com.lmo.ninie.io.dao.SongDao
-import io.vavr.control.Option
 import org.springframework.stereotype.Service
+import java.util.*
 import java.util.stream.Collectors
 
 @Service
@@ -12,7 +12,7 @@ class SongDaoImpl(
     val songRepository: SongRepository
 ) : SongDao {
 
-    override fun find(name: String): Option<Song> = songRepository.find(name)
+    override fun find(name: String): Optional<Song> = songRepository.find(name)
 
     override fun any(): Song = songRepository.any()
 
