@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component
 class About : MessageCommandBase {
 
     override fun response(message: Message) = """
-        Ninie-io is a discord bot, written in kotlin.
-        More on : https://github.com/Lmottet/ninie-io
+        Bip boop. Boop bip ?
+        https://github.com/Lmottet/ninie-io
         """.trimIndent()
 }
