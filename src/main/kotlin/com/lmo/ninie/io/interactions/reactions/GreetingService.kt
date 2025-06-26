@@ -14,7 +14,11 @@ import java.util.*
 class GreetingService : NinieRespondable {
     override fun respondTo(message: Message): Mono<MessageData> {
         val greeter = GREETER_REGEXES.firstNotNullOfOrNull { regex -> findGreeter(message.content, regex) }
-        return greeter.let { message.restChannel.createMessage(it) }
+
+        return if (greeter != null)
+            message.restChannel.createMessage(greeter)
+        else
+            Mono.empty()
     }
 
     private fun findGreeter(messageContent: String, regex: Regex): String? {
