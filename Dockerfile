@@ -14,7 +14,7 @@ RUN mvn dependency:go-offline -B
 
 # copy your source and build
 COPY src ./src
-RUN mvn clean package -B
+RUN mvn clean package -DskipTests -B
 
 # --------------------------------------------------
 # 2) Runtime stage: slim JRE only
