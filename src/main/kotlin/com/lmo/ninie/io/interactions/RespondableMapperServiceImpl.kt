@@ -1,7 +1,10 @@
 package com.lmo.ninie.io.interactions
 
+import com.lmo.ninie.io.constants.text.Emojis
 import com.lmo.ninie.io.interactions.reactions.*
 import discord4j.core.`object`.entity.Message
+import discord4j.core.`object`.reaction.ReactionEmoji
+import discord4j.discordjson.json.MessageData
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
@@ -9,21 +12,18 @@ import reactor.core.publisher.Mono
 class RespondableMapperServiceImpl(
     val greetingService: GreetingService,
     val repeaterService: RepeaterService,
-    val blankReactionService: BlankReactionService,
-    val stalkerService: StalkerService,
     val disagreementService: DisagreementService
 ) : RespondableMapperService {
 
-    override fun reactToCreation(message: Message): Mono<Unit> =
-        greetingService.respondTo(message)
-            .orElse(repeaterService.respondTo(message))
-            .orElse(disagreementService.respondTo(message))
-            .orElse(blankReactionService.respondTo(message))
-            .get()
-            .map {  }
+    override fun reactToCreation(message: Message): Mono<MessageData> {
+        var response = greetingService.respondTo(message)
+        response = response ?: repeaterService.respondTo(message)
+        response = response ?: disagreementService.respondTo(message)
+        response = response ?: Mono.empty()
 
-    override fun reactToUpdate(message: Message): Mono<Unit> =
-        stalkerService.respondTo(message)
-            .orElse(blankReactionService.respondTo(message))
-            .get()
+        return response
+    }
+
+    override fun reactToUpdate(message: Message): Mono<Unit> = message.addReaction(ReactionEmoji.unicode(Emojis.EYES)).map { }
+
 }
