@@ -32,14 +32,15 @@ class MessageCreateListener(
     private fun execute(message: Message): Mono<*> {
         return when {
             message.callsNinie(botConfigurationProperties.prefix) -> {
-                executeCommand(message) ?: Mono.empty<Unit>()
+                executeCommand(message)
             }
+
             !message.isBotAuthor() -> executeReaction(message)
             else -> Mono.empty<Unit>()
         }
     }
 
-    private fun executeCommand(message: Message): Mono<MessageData>? {
+    private fun executeCommand(message: Message): Mono<MessageData> {
         return aliasService.mapToCommand(findAlias(message))
             .respondTo(message)
     }
