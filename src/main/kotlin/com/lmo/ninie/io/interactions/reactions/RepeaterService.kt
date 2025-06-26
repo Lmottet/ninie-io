@@ -7,23 +7,24 @@ import com.lmo.ninie.io.interactions.NinieRespondable
 import discord4j.core.`object`.entity.Message
 import discord4j.discordjson.json.MessageData
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.*
 
 @Service
 class RepeaterService : NinieRespondable {
 
-    override fun respondTo(message: Message): Mono<MessageData>? = REPEATER_TRIGGERS.stream()
+    override fun respondTo(message: Message): Mono<MessageData> = Flux.fromIterable(REPEATER_TRIGGERS)
         .filter { message.content.lowercase(Locale.ROOT).contains(it) }
-        .findFirst()
+        .next()
         .map { nextWord(it, message.content.lowercase(Locale.ROOT)) }
-        .map { nextWord ->
-            if (nextWord.length <= 1) null else {
-                nextWord.uppercase(Locale.ROOT) + WHITESPACE + EXCLAMATION
+        .flatMap { nextWord ->
+            if (nextWord.length <= 1) Mono.empty()
+            else {
+                val response = (nextWord.uppercase(Locale.ROOT) + WHITESPACE + EXCLAMATION)
+                message.restChannel.createMessage(response)
             }
         }
-        .map { message.restChannel.createMessage(it) }
-        .orElse(null)
 
     private fun nextWord(beacon: String, content: String): String =
         content

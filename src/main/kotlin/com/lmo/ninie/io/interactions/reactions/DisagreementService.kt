@@ -9,7 +9,7 @@ import reactor.core.publisher.Mono
 @Service
 class DisagreementService : NinieRespondable {
 
-    override fun respondTo(message: Message): Mono<MessageData>? =
+    override fun respondTo(message: Message): Mono<MessageData> =
         if ((1..50).random() == 42)
             message.restChannel.createMessage("NON !")
         else Mono.empty()

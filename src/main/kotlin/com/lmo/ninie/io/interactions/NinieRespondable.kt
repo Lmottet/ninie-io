@@ -6,6 +6,6 @@ import reactor.core.publisher.Mono
 
 interface NinieRespondable {
 
-    fun respondTo(message: Message): Mono<MessageData>?
+    fun respondTo(message: Message): Mono<MessageData>
 
 }
