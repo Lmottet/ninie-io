@@ -16,12 +16,10 @@ class RespondableMapperServiceImpl(
 ) : RespondableMapperService {
 
     override fun reactToCreation(message: Message): Mono<MessageData> {
-        var response = greetingService.respondTo(message)
-        response = response ?: repeaterService.respondTo(message)
-        response = response ?: disagreementService.respondTo(message)
-        response = response ?: Mono.empty()
+        return greetingService.respondTo(message)
+            .switchIfEmpty(Mono.defer { repeaterService.respondTo(message) })
+            .switchIfEmpty(Mono.defer { disagreementService.respondTo(message) })
 
-        return response
     }
 
     override fun reactToUpdate(message: Message): Mono<Unit> = message.addReaction(ReactionEmoji.unicode(Emojis.EYES)).map { }
