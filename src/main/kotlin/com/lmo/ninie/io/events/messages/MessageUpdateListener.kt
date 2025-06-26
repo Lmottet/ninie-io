@@ -2,23 +2,23 @@ package com.lmo.ninie.io.events.messages
 
 import com.lmo.ninie.io.events.EventListener
 import com.lmo.ninie.io.interactions.RespondableMapperService
-import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageUpdateEvent
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
 @Service
 class MessageUpdateListener(
-    val respondableMapperService: RespondableMapperService
+    private val respondableMapperService: RespondableMapperService
 ) : EventListener<MessageUpdateEvent>() {
+
     override fun getEventType(): Class<MessageUpdateEvent> = MessageUpdateEvent::class.java
 
-    override fun execute(event: Mono<MessageUpdateEvent>): Mono<Unit>? = event.map { it.message.block() }
-        .map { execute(it) }
-        .block()
-        ?.map { }
-
-    private fun execute(message: Message?): Mono<Unit> {
-        return if (null == message) Mono.empty() else respondableMapperService.reactToUpdate(message)
+    override fun execute(event: Mono<MessageUpdateEvent>): Mono<Unit> {
+        return event
+            .flatMap { it.message }  // `message` is Mono<Message> in Discord4J v3+
+            .flatMap { message ->
+                respondableMapperService.reactToUpdate(message)
+            }
+            .switchIfEmpty(Mono.empty())  // in case message is null or absent
     }
 }

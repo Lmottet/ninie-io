@@ -10,7 +10,7 @@ abstract class EventListener<T : Event> {
 
     abstract fun getEventType(): Class<T>
 
-    abstract fun execute(event: Mono<T>): Mono<Unit>?
+    abstract fun execute(event: Mono<T>): Mono<*>?
 
     fun handleError(error: Throwable): Mono<Nothing> {
         logger.error("Event process failed", error)
