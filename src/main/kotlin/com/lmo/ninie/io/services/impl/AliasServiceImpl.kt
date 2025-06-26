@@ -4,7 +4,6 @@ import com.lmo.ninie.io.interactions.commands.Alias
 import com.lmo.ninie.io.interactions.commands.CommandBase
 import com.lmo.ninie.io.interactions.commands.impl.*
 import com.lmo.ninie.io.services.AliasService
-import discord4j.discordjson.json.MessageData
 import org.springframework.stereotype.Service
 
 @Service
@@ -19,12 +18,12 @@ class AliasServiceImpl(
     val unknown: Unknown
 ) : AliasService {
 
-    override fun all(): List<Alias> = Alias.values().toList()
+    override fun all(): List<Alias> = Alias.entries
 
     override fun find(alias: String?) = all()
         .find { alias == it.defaultAlias }
 
-    override fun mapToCommand(alias: Alias): CommandBase<MessageData> =
+    override fun mapToCommand(alias: Alias): CommandBase =
         when (alias) {
             Alias.About -> about
             Alias.Cry -> cry
