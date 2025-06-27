@@ -26,8 +26,7 @@ WORKDIR /app
 # copy the fat-jar from the build stage
 COPY --from=build /app/target/ninie.io-0.0.1-SNAPSHOT.jar app.jar
 
-# (Optional) If you ever add a health‐check endpoint:
-# EXPOSE 8080
+EXPOSE 10000
 
 # Allow overriding JVM flags at deploy time
 ENV JAVA_OPTS=""
