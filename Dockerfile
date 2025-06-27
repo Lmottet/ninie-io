@@ -26,11 +26,9 @@ WORKDIR /app
 # copy the fat-jar from the build stage
 COPY --from=build /app/target/ninie.io-0.0.1-SNAPSHOT.jar app.jar
 
-EXPOSE 10000
+EXPOSE $PORT
 
 # Allow overriding JVM flags at deploy time
-ENV JAVA_OPTS=""
+ENV JAVA_OPTS="-Dserver.port=$PORT -Dserver.address=0.0.0.0"
 
-# Discord bots don’t serve HTTP—Render will keep the container running as a
-# “Background Worker” service. Entry point runs your jar.
 ENTRYPOINT ["sh","-c","java $JAVA_OPTS -jar app.jar"]
