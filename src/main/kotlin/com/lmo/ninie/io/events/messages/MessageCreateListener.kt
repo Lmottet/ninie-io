@@ -22,8 +22,6 @@ class MessageCreateListener(
     private val botConfigurationProperties: BotConfigurationProperties
 ) : EventListener<MessageCreateEvent>() {
 
-    private val logger by LoggerDelegate()
-
     override fun getEventType(): Class<MessageCreateEvent> = MessageCreateEvent::class.java
 
     override fun execute(event: Mono<MessageCreateEvent>): Mono<*> {
@@ -33,7 +31,6 @@ class MessageCreateListener(
     }
 
     private fun execute(message: Message): Mono<*> {
-        logger.info(botConfigurationProperties.prefix)
         return when {
             message.callsNinie(botConfigurationProperties.prefix) -> {
                 executeCommand(message)
