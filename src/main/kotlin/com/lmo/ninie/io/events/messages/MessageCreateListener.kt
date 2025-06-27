@@ -32,22 +32,10 @@ class MessageCreateListener(
 
     private fun execute(message: Message): Mono<*> {
         return when {
-            message.callsNinie(botConfigurationProperties.prefix) -> {
-                executeCommand(message)
-            }
-
-            !message.isBotAuthor() -> executeReaction(message)
+            message.callsNinie(botConfigurationProperties.prefix) -> aliasService.mapToCommand(findAlias(message)).respondTo(message)
+            !message.isBotAuthor() -> respondableMapperService.reactToCreation(message)
             else -> Mono.empty<Unit>()
         }
-    }
-
-    private fun executeCommand(message: Message): Mono<MessageData> {
-        return aliasService.mapToCommand(findAlias(message))
-            .respondTo(message)
-    }
-
-    private fun executeReaction(message: Message): Mono<MessageData> {
-        return respondableMapperService.reactToCreation(message)
     }
 
     private fun findAlias(message: Message): Alias {

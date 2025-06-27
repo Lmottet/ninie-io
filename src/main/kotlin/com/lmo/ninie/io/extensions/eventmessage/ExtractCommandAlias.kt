@@ -3,7 +3,7 @@ package com.lmo.ninie.io.extensions.eventmessage
 import com.lmo.ninie.io.constants.text.MagicStrings
 import discord4j.core.`object`.entity.Message
 
-fun Message.extractCommandAlias(): String? {
-    val terms = this.content.split(MagicStrings.EXCLAMATION)
-    return if (terms.size > 1) terms[1] else null
+fun Message.extractCommandAlias(): String {
+    val terms = this.content.replace(MagicStrings.EXCLAMATION, "").split(MagicStrings.WHITESPACE)
+    return terms[0]
 }
