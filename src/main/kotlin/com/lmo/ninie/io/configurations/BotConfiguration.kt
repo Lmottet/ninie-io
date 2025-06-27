@@ -35,9 +35,10 @@ class BotConfiguration(
                 .subscribe()
         }
 
-        // This will block the Spring Boot application startup thread and keep JVM alive until disconnect
-        // Alternatively, run this in a separate thread if you want Spring to continue starting
-        client.onDisconnect().block()
+        client.onDisconnect()
+            .subscribe {
+                println("🔌 Discord client disconnected")
+            }
 
         return client
     }
