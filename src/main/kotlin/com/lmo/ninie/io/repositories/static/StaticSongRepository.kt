@@ -14,7 +14,8 @@ class StaticSongRepository : SongRepository {
         Tragedy(),
         BimBamBoum(),
         LittleBird(),
-        Fatal()
+        Fatal(),
+        Dudule()
     )
 
     override fun find(name: String): Song? = all.find { name.equals(it.name, ignoreCase = true) }
