@@ -19,11 +19,6 @@ class RandomSingingJob(private val scheduler: TaskScheduler, private val client:
     private val channelId = Snowflake.of("826184542393204828")
 
     override fun run(args: ApplicationArguments?) {
-        client.getChannelById(channelId)
-            .ofType(TextChannel::class.java)
-            .flatMap { channel -> channel.createMessage("Ninie woke up !") }
-            .subscribe()
-
         scheduleNext()
     }
 
