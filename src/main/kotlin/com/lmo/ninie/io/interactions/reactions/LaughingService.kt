@@ -1,0 +1,21 @@
+﻿package com.lmo.ninie.io.interactions.reactions
+
+import com.lmo.ninie.io.interactions.NinieRespondable
+import discord4j.core.`object`.entity.Message
+import discord4j.discordjson.json.MessageData
+import org.springframework.stereotype.Service
+import reactor.core.publisher.Mono
+import java.util.*
+
+@Service
+class LaughingService : NinieRespondable {
+    override fun respondTo(message: Message): Mono<MessageData> {
+        val content = message.content.lowercase(Locale.ROOT);
+        return if (content.contains("bite"))
+            message.restChannel.createMessage("Hehe bite")
+        else if (content.contains("penis"))
+            message.restChannel.createMessage("Hehe penis")
+        else
+            Mono.empty()
+    }
+}
