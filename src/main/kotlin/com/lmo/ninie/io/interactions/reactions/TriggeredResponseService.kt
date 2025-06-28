@@ -19,7 +19,8 @@ class TriggeredResponseService : NinieRespondable {
             message.restChannel.createMessage("Que se paso ? Old el paso ? No no jose ! No no jose ! No se bueno.")
         else if (content.contains("porto"))
             message.restChannel.createMessage("Un grand pour moi !")
-
+        else if (content.contains("clef"))
+            message.restChannel.createMessage("Je heal !")
         else
             Mono.empty()
     }
