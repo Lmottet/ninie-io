@@ -8,13 +8,15 @@ import reactor.core.publisher.Mono
 import java.util.*
 
 @Service
-class LaughingService : NinieRespondable {
+class TriggeredResponseService : NinieRespondable {
     override fun respondTo(message: Message): Mono<MessageData> {
         val content = message.content.lowercase(Locale.ROOT);
         return if (content.contains("bite"))
             message.restChannel.createMessage("Hehe bite")
         else if (content.contains("penis"))
             message.restChannel.createMessage("Hehe penis")
+        else if (content.contains("mojtio"))
+            message.restChannel.createMessage("Que se paso ? Old el paso ? No no jose ! No no jose ! No se bueno.")
         else
             Mono.empty()
     }
