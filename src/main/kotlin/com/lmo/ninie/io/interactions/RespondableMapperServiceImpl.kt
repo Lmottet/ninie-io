@@ -21,7 +21,6 @@ class RespondableMapperServiceImpl(
             .switchIfEmpty(Mono.defer { laughingService.respondTo(message) })
             .switchIfEmpty(Mono.defer { repeaterService.respondTo(message) })
             .switchIfEmpty(Mono.defer { randomResponseService.respondTo(message) })
-
     }
 
     override fun reactToUpdate(message: Message): Mono<Unit> = message.addReaction(ReactionEmoji.unicode(Emojis.EYES)).map { }
