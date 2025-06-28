@@ -16,7 +16,7 @@ class Unknown : EmbedCommandBase {
             .builder()
             .image(
                 EmbedImageData.builder()
-                    .url("https://tenor.com/view/huh-question-question-mark-idk-i-dont-know-gif-9645463476839628303")
+                    .url("https://media2.giphy.com/media/v1.Y2lkPTZjMDliOTUyZDRwN2V5aTgxYTB1bnNtMXAycXM1MjI2MDRreW8zeGNlZGZiOWwwbCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xT0xeuOy2Fcl9vDGiA/giphy.gif")
                     .build()
             )
             .build()
