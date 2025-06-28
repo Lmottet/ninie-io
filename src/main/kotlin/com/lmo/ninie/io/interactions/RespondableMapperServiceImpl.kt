@@ -14,12 +14,12 @@ class RespondableMapperServiceImpl(
     val greetingService: GreetingService,
     val repeaterService: RepeaterService,
     val randomResponseService: RandomResponseService,
-    val laughingService: LaughingService
+    val triggeredResponseService: TriggeredResponseService
 ) : RespondableMapperService {
 
     override fun reactToCreation(message: Message): Mono<MessageData> {
         return greetingService.respondTo(message)
-            .switchIfEmpty(Mono.defer { laughingService.respondTo(message) })
+            .switchIfEmpty(Mono.defer { triggeredResponseService.respondTo(message) })
             .switchIfEmpty(Mono.defer { repeaterService.respondTo(message) })
             .switchIfEmpty(Mono.defer { randomResponseService.respondTo(message) })
     }
