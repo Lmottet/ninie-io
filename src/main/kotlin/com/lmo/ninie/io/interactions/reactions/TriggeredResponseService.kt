@@ -17,6 +17,9 @@ class TriggeredResponseService : NinieRespondable {
             message.restChannel.createMessage("Hehe penis")
         else if (content.contains("mojtio"))
             message.restChannel.createMessage("Que se paso ? Old el paso ? No no jose ! No no jose ! No se bueno.")
+        else if (content.contains("porto"))
+            message.restChannel.createMessage("Un grand pour moi !")
+
         else
             Mono.empty()
     }
