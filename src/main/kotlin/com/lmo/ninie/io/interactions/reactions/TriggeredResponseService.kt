@@ -1,5 +1,6 @@
 ﻿package com.lmo.ninie.io.interactions.reactions
 
+import com.lmo.ninie.io.constants.text.Emojis
 import com.lmo.ninie.io.interactions.NinieRespondable
 import discord4j.core.`object`.entity.Message
 import discord4j.discordjson.json.MessageData
@@ -20,7 +21,9 @@ class TriggeredResponseService : NinieRespondable {
         else if (content.contains("porto"))
             message.restChannel.createMessage("Un grand pour moi !")
         else if (content.contains("clef"))
-            message.restChannel.createMessage("Je heal !")
+            message.restChannel.createMessage("Une clef ? Je heal !")
+        else if (content.contains("nessa"))
+            message.restChannel.createMessage("Ma nessouille ${Emojis.HEART}")
         else
             Mono.empty()
     }

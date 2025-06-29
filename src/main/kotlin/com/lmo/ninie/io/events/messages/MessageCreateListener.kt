@@ -1,6 +1,5 @@
 package com.lmo.ninie.io.events.messages
 
-import com.lmo.ninie.io.LoggerDelegate
 import com.lmo.ninie.io.configurations.BotConfigurationProperties
 import com.lmo.ninie.io.interactions.commands.Alias
 import com.lmo.ninie.io.events.EventListener
@@ -11,7 +10,6 @@ import com.lmo.ninie.io.services.AliasService
 import com.lmo.ninie.io.interactions.RespondableMapperService
 import discord4j.core.`object`.entity.Message
 import discord4j.core.event.domain.message.MessageCreateEvent
-import discord4j.discordjson.json.MessageData
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 

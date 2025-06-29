@@ -30,6 +30,4 @@ class RepeaterService : NinieRespondable {
         val endIndex = remainder.indexOfFirst { it.isWhitespace() }
         return if (endIndex == -1) remainder else remainder.substring(0, endIndex)
     }
-
-
 }

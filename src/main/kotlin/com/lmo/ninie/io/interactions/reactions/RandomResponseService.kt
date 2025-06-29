@@ -14,6 +14,7 @@ class RandomResponseService : NinieRespondable {
     override fun respondTo(message: Message): Mono<MessageData> {
         val random =(1..50).random()
         return when (random) {
+            41 -> message.restChannel.createMessage("Peut-être, mais toujours pas de dracthyr chaman !")
             42 -> message.restChannel.createMessage("NON !")
             43 -> message.restChannel.createMessage( ImmutableEmbedData
                 .builder()
