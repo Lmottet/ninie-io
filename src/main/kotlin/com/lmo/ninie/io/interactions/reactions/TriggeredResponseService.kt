@@ -10,7 +10,7 @@ import java.util.*
 @Service
 class TriggeredResponseService : NinieRespondable {
     override fun respondTo(message: Message): Mono<MessageData> {
-        val content = message.content.lowercase(Locale.ROOT);
+        val content = message.content.lowercase(Locale.ROOT)
         return if (content.contains("bite"))
             message.restChannel.createMessage("Hehe bite")
         else if (content.contains("penis"))
