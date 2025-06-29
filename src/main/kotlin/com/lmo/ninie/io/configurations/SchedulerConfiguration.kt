@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler
 
 @Configuration
-class SchedulerConfig {
+class SchedulerConfiguration {
     @Bean
     fun taskScheduler(): ThreadPoolTaskScheduler = ThreadPoolTaskScheduler().apply {
         poolSize = 1
