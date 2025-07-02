@@ -24,6 +24,8 @@ class TriggeredResponseService : NinieRespondable {
             message.restChannel.createMessage("Une clef ? Je heal !")
         else if (content.contains("la ness") || content.contains("nessa"))
             message.restChannel.createMessage("Ma nessouille ${Emojis.HEART}")
+        else if (content.contains("je rigole"))
+            message.restChannel.createMessage("T'as pas vu le panneau blague là ?")
         else
             Mono.empty()
     }
