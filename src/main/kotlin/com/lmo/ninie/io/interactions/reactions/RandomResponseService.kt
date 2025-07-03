@@ -20,7 +20,7 @@ class RandomResponseService : NinieRespondable {
                 .builder()
                 .image(
                     EmbedImageData.builder()
-                        .url("https://giphy.com/gifs/claynosaurz-3d-dinosaur-clayno-XwiCpwGgyolOIeA4Iw")
+                        .url("https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyZnRidnVkaDR2NTZicXFmcjFqOHB3ZzV3bHk4dXZ3cmU5aTBuMnFkMiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XwiCpwGgyolOIeA4Iw/giphy.gif")
                         .build()
                 )
                 .build())
