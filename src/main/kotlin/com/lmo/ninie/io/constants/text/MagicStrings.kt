@@ -22,6 +22,7 @@ object MagicStrings {
         Regex(repeatAllLetters("bonsoir")),
         Regex(repeatAllLetters("bonswar")),
         Regex(repeatAllLetters("bonsoer")),
+        Regex(repeatAllLetters("hey")),
         Regex("yo$oneToTenRange"),
         Regex(repeatAllLetters("plop"))
     )
