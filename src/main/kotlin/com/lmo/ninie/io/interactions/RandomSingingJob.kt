@@ -23,7 +23,7 @@ class RandomSingingJob(private val scheduler: TaskScheduler, private val client:
     }
 
     private fun scheduleNext() {
-        val minMillis = Duration.ofHours(24).toMillis()
+        val minMillis = Duration.ofHours(48).toMillis()
         val delay = minMillis + random.nextLong(Duration.ofHours(72).toMillis() - minMillis)
 
         val nextInstant = Instant.now().plusMillis(delay)
