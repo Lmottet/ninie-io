@@ -1,6 +1,6 @@
 package com.lmo.ninie.io.configurations
 
-import com.lmo.ninie.io.events.EventListener
+import com.lmo.ninie.io.discord.events.EventListener
 import discord4j.common.ReactorResources
 import discord4j.core.DiscordClientBuilder
 import discord4j.core.GatewayDiscordClient
