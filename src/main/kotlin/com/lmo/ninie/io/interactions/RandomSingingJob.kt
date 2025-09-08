@@ -1,5 +1,6 @@
 ﻿package com.lmo.ninie.io.interactions
 
+import com.lmo.ninie.io.constants.text.Channels
 import com.lmo.ninie.io.dao.SongDao
 import discord4j.common.util.Snowflake
 import discord4j.core.GatewayDiscordClient
@@ -16,14 +17,13 @@ import java.util.concurrent.ThreadLocalRandom
 class RandomSingingJob(private val scheduler: TaskScheduler, private val client: GatewayDiscordClient, private val songDao: SongDao) : ApplicationRunner {
 
     private val random = ThreadLocalRandom.current()
-    private val channelId = Snowflake.of("826184542393204828")
 
     override fun run(args: ApplicationArguments?) {
         scheduleNext()
     }
 
     private fun scheduleNext() {
-        val minMillis = Duration.ofHours(48).toMillis()
+        val minMillis = Duration.ofHours(96).toMillis()
         val delay = minMillis + random.nextLong(Duration.ofHours(72).toMillis() - minMillis)
 
         val nextInstant = Instant.now().plusMillis(delay)
@@ -31,7 +31,7 @@ class RandomSingingJob(private val scheduler: TaskScheduler, private val client:
     }
 
     private fun executeTask() {
-        client.getChannelById(channelId)
+        client.getChannelById(Channels.TeuteuGeneral)
             .ofType(TextChannel::class.java)
             .flatMap { channel -> channel.createMessage(songDao.any().content) }
             .subscribe()
