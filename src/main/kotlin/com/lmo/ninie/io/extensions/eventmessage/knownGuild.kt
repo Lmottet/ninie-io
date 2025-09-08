@@ -4,6 +4,6 @@
 import com.lmo.ninie.io.models.KnownGuild
 import discord4j.core.`object`.entity.Message
 
-fun Message.knownGuild(): KnownGuild {
-    return KnownGuild.from(this.guildId.get())
+fun Message.knownGuild(): KnownGuild? {
+    return KnownGuild.fromValue(this.guildId.get())
 }

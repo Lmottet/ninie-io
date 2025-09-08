@@ -12,21 +12,25 @@ import org.springframework.stereotype.Component
 import java.time.Duration
 import java.time.Instant
 import java.util.concurrent.ThreadLocalRandom
+import kotlin.random.Random
 
 @Component
 class RandomSingingJob(private val scheduler: TaskScheduler, private val client: GatewayDiscordClient, private val songDao: SongDao) : ApplicationRunner {
-
-    private val random = ThreadLocalRandom.current()
 
     override fun run(args: ApplicationArguments?) {
         scheduleNext()
     }
 
     private fun scheduleNext() {
-        val minMillis = Duration.ofHours(96).toMillis()
-        val delay = minMillis + random.nextLong(Duration.ofHours(72).toMillis() - minMillis)
 
-        val nextInstant = Instant.now().plusMillis(delay)
+        val delay = Random.nextLong(
+            Duration.ofHours(0).toMillis(),
+            Duration.ofHours(96).toMillis()
+        )
+        val nextInstant = Instant.now()
+            .plusMillis(Duration.ofHours(72).toMillis())
+            .plusMillis(delay)
+
         scheduler.schedule({ executeTask() }, nextInstant)
     }
 
