@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController
 class PingController {
 
     @GetMapping("/")
-    fun home(): ResponseEntity<Nothing> = ResponseEntity.ok().build()
+    fun home(): ResponseEntity<Nothing> = ResponseEntity.noContent().build()
 
     @GetMapping("/ping")
-    fun ping(): ResponseEntity<Nothing> = ResponseEntity.ok().build()
+    fun ping(): ResponseEntity<Nothing> = ResponseEntity.noContent().build()
 }
