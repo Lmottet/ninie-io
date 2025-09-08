@@ -1,7 +1,7 @@
 ﻿# --------------------------------------------------
-# 1) Build stage: compile & package with Maven + JDK-17
+# 1) Build stage: compile & package with Maven + JDK-21
 # --------------------------------------------------
-FROM maven:3.9.0-eclipse-temurin-17-alpine AS build
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS build
 
 WORKDIR /app
 
@@ -17,9 +17,9 @@ COPY src ./src
 RUN mvn clean package -DskipTests -B
 
 # --------------------------------------------------
-# 2) Runtime stage: slim JRE only
+# 2) Runtime stage: slim JRE only (Java 21)
 # --------------------------------------------------
-FROM eclipse-temurin:17-jre-alpine
+FROM eclipse-temurin:21-jre-alpine
 
 WORKDIR /app
 
