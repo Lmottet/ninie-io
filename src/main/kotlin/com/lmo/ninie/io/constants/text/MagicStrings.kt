@@ -2,13 +2,9 @@ package com.lmo.ninie.io.constants.text
 
 object MagicStrings {
 
-    const val WHITESPACE = " "
+    const val WHITESPACE = ' '
     const val LINE_BREAKER = "\n"
     const val EXCLAMATION = "!"
-
-    // ordering is important here otherwise it would not be a list
-    // the repeater service will repeat a word based on the first match, the shorter options should appear later in
-    val REPEATER_TRIGGERS = listOf("dites", "dire", " di", "dis", "dit", "die")
 
     private const val oneToFiveRange = "{1,5}"
     private const val oneToTenRange = "{1,10}"
