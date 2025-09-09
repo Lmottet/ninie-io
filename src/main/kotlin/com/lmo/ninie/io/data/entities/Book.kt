@@ -7,9 +7,9 @@ data class Book(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val name: String,
+    val title: String,
+    val tome: Int,
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "author_id")
-    val author: Author
+    @OneToMany(mappedBy = "book")
+    val authorBooks: MutableSet<AuthorBook> = mutableSetOf()
 )

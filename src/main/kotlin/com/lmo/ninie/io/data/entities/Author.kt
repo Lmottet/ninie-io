@@ -1,7 +1,7 @@
 ﻿package com.lmo.ninie.io.data.entities
 
-import jakarta.persistence.CascadeType
 import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
@@ -12,8 +12,13 @@ data class Author(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
-    val name: String,
+    val firstName: String,
+    val lastName: String,
 
-    @OneToMany(mappedBy = "author", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val books: MutableList<Book> = mutableListOf()
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    val authorBooks: MutableList<AuthorBook> = mutableListOf(),
+
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    val authorSeries: MutableList<AuthorSeries> = mutableListOf()
+
 )
