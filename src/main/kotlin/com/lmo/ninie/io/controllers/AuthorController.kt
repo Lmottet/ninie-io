@@ -8,17 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-@RestController("/authors")
+@RestController
+@RequestMapping("/authors")
 class AuthorController(val authorService: AuthorService) {
 
-    @GetMapping("/")
+    @GetMapping
     fun fetch(): Set<AuthorResponse> = authorService.list().map { it.toResponse() }.toSet()
 
     @GetMapping("/{id}")
     fun getAuthor(@PathVariable id: Long): AuthorResponse = authorService.get(id).toResponse()
 
-    @PostMapping("/")
+    @PostMapping
     fun create(@RequestBody request: CreateAuthorRequest): AuthorResponse = authorService.create(request).toResponse()
 }
