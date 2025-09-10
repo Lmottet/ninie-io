@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service
 class SeriesService(private val seriesRepository: SeriesRepository) {
 
     fun list(): List<Series> = seriesRepository.findAll()
+    fun get(id: Long): Series = seriesRepository.findById(id).orElseThrow()
 
     fun create(request: CreateSeriesRequest): Series = seriesRepository.save(Series(title = request.title, isFinished = request.isFinished))
 }
