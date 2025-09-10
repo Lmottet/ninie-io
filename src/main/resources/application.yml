@@ -1,4 +1,8 @@
-﻿bot:
+﻿app:
+  cors:
+    front-admin: "http://localhost:3000"
+
+bot:
   prefix: "!"
 
 spring:
