@@ -7,7 +7,7 @@ import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 
 @Entity
-data class AuthorSeries(
+class AuthorSeries(
     @Id @GeneratedValue
     val id: Long = 0,
 

@@ -3,7 +3,7 @@
 import jakarta.persistence.*
 
 @Entity
-data class Review(
+class Review(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 

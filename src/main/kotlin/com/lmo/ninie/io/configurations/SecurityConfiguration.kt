@@ -15,12 +15,14 @@ class SecurityConfiguration(@Value("\${app.cors.front-admin}") private val allow
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .csrf { it.disable() }
             .cors { it.configurationSource(corsConfigurationSource()) }
+            .csrf { it.disable()}
+            .headers { headers -> headers.frameOptions { it.sameOrigin() } }
             .authorizeHttpRequests { auth -> auth.anyRequest().permitAll() }
 
         return http.build()
     }
+
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
@@ -36,3 +38,14 @@ class SecurityConfiguration(@Value("\${app.cors.front-admin}") private val allow
         return source
     }
 }
+
+
+/*
+
+          .authorizeHttpRequests { auth ->
+
+              auth.requestMatchers("/h2-console/**").permitAll()
+              auth.anyRequest().authenticated()
+          }
+
+          */

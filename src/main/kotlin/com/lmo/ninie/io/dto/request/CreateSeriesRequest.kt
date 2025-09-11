@@ -2,5 +2,6 @@
 
 data class CreateSeriesRequest(
     val title: String,
+    val authorId: Long,
     val isFinished: Boolean
 )
