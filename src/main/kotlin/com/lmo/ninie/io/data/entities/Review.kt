@@ -1,11 +1,12 @@
 ﻿package com.lmo.ninie.io.data.entities
 
-import jakarta.persistence.*
+import jakarta.persistence.Entity
+import jakarta.persistence.FetchType
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
 
 @Entity
 class Review(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
 
     val content: String,
     val rating: Int,
@@ -21,4 +22,4 @@ class Review(
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "series_id")
     val series: Series? = null
-)
+) : BaseEntity()

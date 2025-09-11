@@ -1,6 +1,6 @@
 package com.lmo.ninie.io.discord.events.messages
 
-import com.lmo.ninie.io.configurations.BotConfigurationProperties
+import com.lmo.ninie.io.configurations.properties.BotConfigurationProperties
 import com.lmo.ninie.io.discord.eventmessage.callsNinie
 import com.lmo.ninie.io.discord.eventmessage.extractCommandAlias
 import com.lmo.ninie.io.discord.eventmessage.isBotAuthor

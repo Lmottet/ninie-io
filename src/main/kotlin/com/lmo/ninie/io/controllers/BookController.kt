@@ -19,7 +19,7 @@ class BookController(val bookService: BookService) {
     fun fetch(): Set<BookResponse> = bookService.list().map { it.toResponse() }.toSet()
 
     @GetMapping("/{id}")
-    fun getAuthor(@PathVariable id: Long): BookResponse = bookService.get(id).toResponse()
+    fun getBook(@PathVariable id: Long): BookResponse = bookService.get(id).toResponse()
 
     @PostMapping
     fun create(@RequestBody request: CreateBookRequest): BookResponse = bookService.create(request).toResponse()

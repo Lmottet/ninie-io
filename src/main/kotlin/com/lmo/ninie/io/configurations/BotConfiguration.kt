@@ -1,5 +1,6 @@
 package com.lmo.ninie.io.configurations
 
+import com.lmo.ninie.io.configurations.properties.BotConfigurationProperties
 import com.lmo.ninie.io.discord.events.EventListener
 import discord4j.common.ReactorResources
 import discord4j.core.DiscordClientBuilder
@@ -10,7 +11,6 @@ import org.springframework.context.annotation.Configuration
 import reactor.core.publisher.Mono
 import reactor.netty.resources.ConnectionProvider
 import java.time.Duration
-
 
 @Configuration
 class BotConfiguration(

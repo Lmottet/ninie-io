@@ -4,9 +4,6 @@ import jakarta.persistence.*
 
 @Entity
 class Book(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
-
     val title: String,
     val tome: Int,
 
@@ -15,7 +12,7 @@ class Book(
 
     @OneToMany(mappedBy = "book", cascade = [CascadeType.PERSIST], orphanRemoval = true)
     val seriesBook: MutableSet<SeriesBook> = mutableSetOf()
-) {
+): BaseEntity() {
     fun addAuthor(author: Author) {
         val link = AuthorBook(author = author, book = this)
         authorBooks.add(link)
