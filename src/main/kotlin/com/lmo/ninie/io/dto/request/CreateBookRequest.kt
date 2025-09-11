@@ -2,5 +2,7 @@
 
 data class CreateBookRequest(
     val title: String,
-    val tome: Int
+    val tome: Int,
+    val authorId: Long,
+    val seriesId: Long?,
 )
