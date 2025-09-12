@@ -1,33 +1,64 @@
 ﻿package com.lmo.ninie.io.configurations
 
-import org.springframework.beans.factory.annotation.Value
+import com.lmo.ninie.io.configurations.properties.SecurityConfigurationProperties
+import com.lmo.ninie.io.interfaces.IJwtTokenProvider
+import com.lmo.ninie.io.security.ApiKeyFilter
+import com.lmo.ninie.io.security.JwtAuthenticationFilter
+import com.lmo.ninie.io.security.JwtTokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.web.SecurityFilterChain
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.cors.CorsConfiguration
 import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
-class SecurityConfiguration(@Value("\${app.cors.front-admin}") private val allowedOrigin: String) {
+@EnableMethodSecurity(prePostEnabled = true)
+class SecurityConfiguration(val securityConfigurationProperties: SecurityConfigurationProperties) {
 
     @Bean
-    fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
+    fun jwtTokenProvider(): IJwtTokenProvider {
+        return JwtTokenProvider(securityConfigurationProperties.jwtSecret)
+    }
+
+    @Bean
+    fun apiKeySet(): Set<String> = "apiKeysRaw"
+        .split(",")
+        .mapNotNull { it.trim().takeIf { s -> s.isNotBlank() } }
+        .toSet()
+
+    @Bean
+    fun authenticationManager(authConfig: AuthenticationConfiguration): AuthenticationManager =
+        authConfig.authenticationManager
+
+    @Bean
+    fun securityFilterChain(http: HttpSecurity, apiKeySet: Set<String>, jwtTokenProvider: IJwtTokenProvider): SecurityFilterChain {
+        val apiKeyFilter = ApiKeyFilter(apiKeySet)
+        val jwtFilter = JwtAuthenticationFilter(jwtTokenProvider)
+
         http
             .cors { it.configurationSource(corsConfigurationSource()) }
-            .csrf { it.disable()}
-            .headers { headers -> headers.frameOptions { it.sameOrigin() } }
-            .authorizeHttpRequests { auth -> auth.anyRequest().permitAll() }
+            .csrf { it.disable() }
+            .headers { it.frameOptions { it.sameOrigin() } }
+            .addFilterBefore(apiKeyFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .authorizeHttpRequests { auth ->
+                auth.requestMatchers("/", "/h2-console/**", "/ping/**", "/auth/**", "/public/**").permitAll()
+                auth.anyRequest().authenticated()
+            }
 
         return http.build()
     }
 
-
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
         val config = CorsConfiguration()
-        config.allowedOrigins = listOf(allowedOrigin)
+        config.allowedOrigins = listOf(securityConfigurationProperties.allowedOrigin)
         config.allowedMethods = listOf("GET", "POST", "PUT", "DELETE", "OPTIONS")
         config.allowedHeaders = listOf("*")
         config.allowCredentials = true
@@ -38,14 +69,3 @@ class SecurityConfiguration(@Value("\${app.cors.front-admin}") private val allow
         return source
     }
 }
-
-
-/*
-
-          .authorizeHttpRequests { auth ->
-
-              auth.requestMatchers("/h2-console/**").permitAll()
-              auth.anyRequest().authenticated()
-          }
-
-          */
