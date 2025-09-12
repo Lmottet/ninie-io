@@ -19,7 +19,6 @@
             <groupId>com.lmo</groupId>
             <artifactId>business</artifactId>
             <version>${project.version}</version>
-            <scope>runtime</scope>
         </dependency>
 
         <!-- Spring Boot starters -->
