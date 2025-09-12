@@ -1,4 +1,4 @@
-﻿package com.lmo.ninie.io.controllers
+﻿package com.lmo.ninie.io.controllers.anonymous
 
 import com.lmo.ninie.io.dto.request.LoginRequest
 import com.lmo.ninie.io.dto.response.LoginResponse

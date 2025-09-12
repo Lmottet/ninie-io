@@ -1,3 +1,3 @@
 ﻿package com.lmo.ninie.io.dto.response
 
-data class LoginResponse()
+data class LoginResponse(val jwt: String)

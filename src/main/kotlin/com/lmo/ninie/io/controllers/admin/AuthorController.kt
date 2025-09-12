@@ -1,4 +1,4 @@
-﻿package com.lmo.ninie.io.controllers
+﻿package com.lmo.ninie.io.controllers.admin
 
 import com.lmo.ninie.io.dto.request.CreateAuthorRequest
 import com.lmo.ninie.io.dto.response.AuthorResponse

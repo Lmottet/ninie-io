@@ -14,6 +14,7 @@
     <groupId>com.lmo</groupId>
     <artifactId>ninie.io</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
     <name>ninie.io</name>
     <description>Ninie-bot</description>
 
