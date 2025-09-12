@@ -17,7 +17,6 @@ class AuthController(
     private val authenticationManager: AuthenticationManager,
     private val jwtTokenProvider: IJwtTokenProvider
 ) {
-
     @PostMapping("/login")
     fun login(@RequestBody req: LoginRequest): ResponseEntity<LoginResponse> {
         val authToken = UsernamePasswordAuthenticationToken(req.email, req.password)

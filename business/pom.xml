@@ -14,14 +14,13 @@
     <name>business</name>
 
     <dependencies>
-        <!-- Depend on your data module (compile by default) -->
         <dependency>
             <groupId>com.lmo</groupId>
             <artifactId>data</artifactId>
             <version>${project.version}</version>
+            <scope>runtime</scope>
         </dependency>
 
-        <!-- Kotlin basics -->
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
             <artifactId>kotlin-stdlib</artifactId>

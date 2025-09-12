@@ -20,7 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
-open class SecurityConfiguration(val securityConfigurationProperties: SecurityConfigurationProperties) {
+class SecurityConfiguration(val securityConfigurationProperties: SecurityConfigurationProperties) {
 
     @Bean
     fun jwtTokenProvider(): IJwtTokenProvider {

@@ -12,7 +12,7 @@ import reactor.netty.resources.ConnectionProvider
 import java.time.Duration
 
 @Configuration
-open class BotConfiguration(val botConfigurationProperties: BotConfigurationProperties) {
+class BotConfiguration(val botConfigurationProperties: BotConfigurationProperties) {
 
     @Bean
     fun <T : Event> startDiscordClient(eventListeners: List<EventListener<T>>): GatewayDiscordClient {
