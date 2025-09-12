@@ -1,6 +1,7 @@
 ﻿package com.lmo.ninie.io.controllers.admin
 
 import com.lmo.ninie.io.dto.request.CreateBookRequest
+import com.lmo.ninie.io.dto.request.toModel
 import com.lmo.ninie.io.dto.response.BookResponse
 import com.lmo.ninie.io.dto.response.toResponse
 import com.lmo.ninie.io.models.CreateBookModel
@@ -23,11 +24,5 @@ class BookController(val bookService: BookService) {
     fun getBook(@PathVariable id: Long): BookResponse = bookService.get(id).toResponse()
 
     @PostMapping
-    fun create(@RequestBody request: CreateBookRequest): BookResponse = bookService.create(
-        CreateBookModel(
-            request.title,
-            request.tome,
-            listOf(request.authorId),
-            listOfNotNull(request.seriesId)
-        )).toResponse()
+    fun create(@RequestBody request: CreateBookRequest): BookResponse = bookService.create(request.toModel()).toResponse()
 }

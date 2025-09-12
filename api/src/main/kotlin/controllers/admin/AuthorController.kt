@@ -1,6 +1,7 @@
 ﻿package com.lmo.ninie.io.controllers.admin
 
 import com.lmo.ninie.io.dto.request.CreateAuthorRequest
+import com.lmo.ninie.io.dto.request.toModel
 import com.lmo.ninie.io.dto.response.AuthorResponse
 import com.lmo.ninie.io.dto.response.toResponse
 import com.lmo.ninie.io.models.CreateAuthorModel
@@ -23,5 +24,5 @@ class AuthorController(val authorService: AuthorService) {
     fun getAuthor(@PathVariable id: Long): AuthorResponse = authorService.get(id).toResponse()
 
     @PostMapping
-    fun create(@RequestBody request: CreateAuthorRequest): AuthorResponse = authorService.create(CreateAuthorModel(request.firstName, request.lastName)).toResponse()
+    fun create(@RequestBody request: CreateAuthorRequest): AuthorResponse = authorService.create(request.toModel()).toResponse()
 }

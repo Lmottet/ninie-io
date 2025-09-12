@@ -1,6 +1,7 @@
 ﻿package com.lmo.ninie.io.controllers.admin
 
 import com.lmo.ninie.io.dto.request.CreateSeriesRequest
+import com.lmo.ninie.io.dto.request.toModel
 import com.lmo.ninie.io.dto.response.SeriesResponse
 import com.lmo.ninie.io.dto.response.toResponse
 import com.lmo.ninie.io.models.CreateSeriesModel
@@ -23,6 +24,5 @@ class SeriesController(val seriesService: SeriesService) {
     fun getAuthor(@PathVariable id: Long): SeriesResponse = seriesService.get(id).toResponse()
 
     @PostMapping
-    fun create(@RequestBody request: CreateSeriesRequest): SeriesResponse =
-        seriesService.create(CreateSeriesModel(request.title, request.isFinished, listOf(request.authorId))).toResponse()
+    fun create(@RequestBody request: CreateSeriesRequest): SeriesResponse = seriesService.create(request.toModel()).toResponse()
 }
