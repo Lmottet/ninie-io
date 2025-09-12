@@ -4,7 +4,6 @@ import com.lmo.ninie.io.interfaces.IJwtTokenProvider
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.authority.SimpleGrantedAuthority
 import java.util.*
 import javax.crypto.SecretKey
@@ -15,13 +14,13 @@ class JwtTokenProvider(secretBase64: String) : IJwtTokenProvider {
     private val key: SecretKey = Keys.hmacShaKeyFor(decodedKey)
     private val validityInMs: Long = 15 * 60 * 1000 // 15 minutes
 
-    override fun generateToken(username: String, authorities: Collection<GrantedAuthority>): String {
+    override fun generateToken(email: String): String {
         val now = Date()
         val expiry = Date(now.time + validityInMs)
-        val roles = authorities.map { it.authority }
+        val roles = listOf(SimpleGrantedAuthority("USER"))
 
         return Jwts.builder()
-            .subject(username)
+            .subject(email)
             .claim("roles", roles)
             .issuedAt(now)
             .expiration(expiry)
