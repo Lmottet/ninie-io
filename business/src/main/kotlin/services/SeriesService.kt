@@ -3,9 +3,9 @@
 import com.lmo.ninie.io.data.entities.Series
 import com.lmo.ninie.io.data.repositories.AuthorRepository
 import com.lmo.ninie.io.data.repositories.SeriesRepository
-import com.lmo.ninie.io.mappers.toModel
 import com.lmo.ninie.io.models.CreateSeriesModel
 import com.lmo.ninie.io.models.SeriesModel
+import com.lmo.ninie.io.models.toModel
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 

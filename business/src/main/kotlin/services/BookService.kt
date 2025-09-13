@@ -4,9 +4,9 @@ import com.lmo.ninie.io.data.entities.Book
 import com.lmo.ninie.io.data.repositories.AuthorRepository
 import com.lmo.ninie.io.data.repositories.BookRepository
 import com.lmo.ninie.io.data.repositories.SeriesRepository
-import com.lmo.ninie.io.mappers.toModel
 import com.lmo.ninie.io.models.BookModel
 import com.lmo.ninie.io.models.CreateBookModel
+import com.lmo.ninie.io.models.toModel
 import jakarta.transaction.Transactional
 import org.springframework.stereotype.Service
 

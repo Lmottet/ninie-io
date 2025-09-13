@@ -2,9 +2,9 @@
 
 import com.lmo.ninie.io.data.entities.Author
 import com.lmo.ninie.io.data.repositories.AuthorRepository
-import com.lmo.ninie.io.mappers.toModel
 import com.lmo.ninie.io.models.AuthorModel
 import com.lmo.ninie.io.models.CreateAuthorModel
+import com.lmo.ninie.io.models.toModel
 import org.springframework.stereotype.Service
 
 @Service
