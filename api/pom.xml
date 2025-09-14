@@ -67,7 +67,6 @@
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
         <plugins>
-            <!-- Spring Boot repackage only here -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
