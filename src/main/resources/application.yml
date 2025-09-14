@@ -1,6 +1,0 @@
-﻿bot:
-  prefix: "!"
-
-server:
-  ssl:
-    enabled: false
