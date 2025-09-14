@@ -20,10 +20,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.lmo</groupId>
+            <groupId>io.lmo.ninie</groupId>
             <artifactId>data</artifactId>
             <version>${project.version}</version>
-            <optional>true</optional>
         </dependency>
 
         <dependency>
