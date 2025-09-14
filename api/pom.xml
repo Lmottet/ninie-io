@@ -4,19 +4,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>com.lmo</groupId>
-        <artifactId>ninie.io</artifactId>
+        <groupId>io.lmo</groupId>
+        <artifactId>ninie</artifactId>
         <version>0.0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <groupId>io.lmo.ninie</groupId>
     <artifactId>api</artifactId>
     <name>api</name>
 
     <dependencies>
         <dependency>
-            <groupId>com.lmo</groupId>
+            <groupId>io.lmo.ninie</groupId>
             <artifactId>business</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.lmo.ninie</groupId>
+            <artifactId>discord</artifactId>
             <version>${project.version}</version>
         </dependency>
 
@@ -60,5 +66,12 @@
 
     <build>
         <sourceDirectory>src/main/kotlin</sourceDirectory>
+        <plugins>
+            <!-- Spring Boot repackage only here -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
     </build>
 </project>

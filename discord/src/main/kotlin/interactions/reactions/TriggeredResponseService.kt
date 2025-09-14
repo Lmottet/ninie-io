@@ -1,9 +1,9 @@
 ﻿package com.lmo.ninie.io.discord.interactions.reactions
 
-import com.lmo.ninie.io.constants.text.Emojis
 import com.lmo.ninie.io.discord.eventmessage.knownGuild
 import com.lmo.ninie.io.discord.interactions.NinieRespondable
 import KnownGuild
+import com.lmo.ninie.io.data.constants.text.Emojis
 import discord4j.core.`object`.entity.Message
 import discord4j.discordjson.json.MessageData
 import org.springframework.stereotype.Service
@@ -19,6 +19,10 @@ class TriggeredResponseService : NinieRespondable {
             message.restChannel.createMessage("Hehe bite")
         else if (content.contains("penis"))
             message.restChannel.createMessage("Hehe penis")
+        else if (content.contains("fesses"))
+            message.restChannel.createMessage("Hehe fesses")
+        else if (content.contains("dans ton cul"))
+            message.restChannel.createMessage("TOUS DANS SON CUL")
         else if (content.contains("mojito"))
             message.restChannel.createMessage("Que se paso ? Old el paso ? No no jose ! No no jose ! No se bueno.")
         else if (content.contains("porto"))
@@ -26,7 +30,7 @@ class TriggeredResponseService : NinieRespondable {
         else if (guild == KnownGuild.Teuteu) {
             if (content.contains("clef"))
                 message.restChannel.createMessage("Une clef ? Je heal !")
-            else if (content.contains("la ness") || content.contains("nessa"))
+            else if (content.contains(" ness ") || content.contains("nessa"))
                 message.restChannel.createMessage("Ma nessouille ${Emojis.HEART}")
             else if (content.contains("je rigole"))
                 message.restChannel.createMessage("T'as pas vu le panneau blague là ?")
@@ -34,7 +38,7 @@ class TriggeredResponseService : NinieRespondable {
                 Mono.empty()
         } else if (guild == KnownGuild.Nani) {
             if (content.contains("burger"))
-                message.restChannel.createMessage("Thomas !!! N'oublies pas celui de JP :D")
+                message.restChannel.createMessage("Thomas !!! N'oublies pas le burger de JP :D")
             else Mono.empty()
         } else
             Mono.empty()

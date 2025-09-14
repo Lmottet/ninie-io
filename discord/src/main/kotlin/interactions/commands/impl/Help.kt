@@ -1,7 +1,7 @@
 package com.lmo.ninie.io.discord.interactions.commands.impl
 
-import com.lmo.ninie.io.constants.text.Emojis.HEART
-import com.lmo.ninie.io.constants.text.MagicStrings.LINE_BREAKER
+import com.lmo.ninie.io.data.constants.text.Emojis.HEART
+import com.lmo.ninie.io.data.constants.text.MagicStrings.LINE_BREAKER
 import com.lmo.ninie.io.discord.eventmessage.extractArg
 import com.lmo.ninie.io.discord.interactions.commands.Alias
 import com.lmo.ninie.io.discord.interactions.commands.MessageCommandBase

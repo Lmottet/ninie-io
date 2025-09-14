@@ -1,6 +1,6 @@
 package com.lmo.ninie.io.discord.interactions
 
-import com.lmo.ninie.io.constants.text.Emojis
+import com.lmo.ninie.io.data.constants.text.Emojis
 import com.lmo.ninie.io.discord.eventmessage.isBotAuthor
 import com.lmo.ninie.io.discord.interactions.reactions.GreetingService
 import com.lmo.ninie.io.discord.interactions.reactions.RandomResponseService

@@ -1,8 +1,8 @@
 package com.lmo.ninie.io.discord.interactions.commands
 
-import com.lmo.ninie.io.constants.commands.CommandDescriptions
-import com.lmo.ninie.io.constants.commands.CommandManuals
-import com.lmo.ninie.io.constants.commands.CommandNames
+import com.lmo.ninie.io.data.constants.commands.CommandDescriptions
+import com.lmo.ninie.io.data.constants.commands.CommandManuals
+import com.lmo.ninie.io.data.constants.commands.CommandNames
 
 enum class Alias(
     val defaultAlias: String,

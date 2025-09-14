@@ -1,7 +1,7 @@
 package com.lmo.ninie.io.discord.interactions.reactions
 
-import com.lmo.ninie.io.constants.text.MagicStrings.EXCLAMATION
-import com.lmo.ninie.io.constants.text.MagicStrings.WHITESPACE
+import com.lmo.ninie.io.data.constants.text.MagicStrings.EXCLAMATION
+import com.lmo.ninie.io.data.constants.text.MagicStrings.WHITESPACE
 import com.lmo.ninie.io.discord.interactions.NinieRespondable
 import discord4j.core.`object`.entity.Message
 import discord4j.discordjson.json.MessageData

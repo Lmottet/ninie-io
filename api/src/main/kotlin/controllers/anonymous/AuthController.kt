@@ -3,6 +3,7 @@
 import com.lmo.ninie.io.dto.request.LoginRequest
 import com.lmo.ninie.io.dto.response.LoginResponse
 import com.lmo.ninie.io.interfaces.IJwtTokenProvider
+import org.springframework.http.HttpStatusCode
 import org.springframework.http.ResponseEntity
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
@@ -19,10 +20,13 @@ class AuthController(
 ) {
     @PostMapping("/login")
     fun login(@RequestBody req: LoginRequest): ResponseEntity<LoginResponse> {
-        val authToken = UsernamePasswordAuthenticationToken(req.email, req.password)
-        val auth = authenticationManager.authenticate(authToken)
+        val authRequest = UsernamePasswordAuthenticationToken(req.email, req.password)
+        try {
+            val auth = authenticationManager.authenticate(authRequest)
+            if (auth.isAuthenticated) return ResponseEntity.ok(LoginResponse(jwtTokenProvider.generateToken(req.email)))
+        } catch (e: Exception) {
 
-        val jwt = jwtTokenProvider.generateToken(req.email)
-        return ResponseEntity.ok(LoginResponse(jwt))
+        }
+        return ResponseEntity.status(HttpStatusCode.valueOf(403)).build()
     }
 }
