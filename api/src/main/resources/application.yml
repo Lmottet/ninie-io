@@ -1,4 +1,7 @@
-﻿bot:
+﻿app-security:
+  allowedOrigin: "https://ninie-io.onrender.com/"
+
+bot:
   prefix: "!"
 
 spring:
