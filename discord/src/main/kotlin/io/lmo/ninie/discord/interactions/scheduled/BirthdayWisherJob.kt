@@ -1,4 +1,5 @@
-﻿package io.lmo.ninie.discord.interactions.scheduled
+﻿
+/*package io.lmo.ninie.discord.interactions.scheduled
 
 import io.lmo.ninie.discord.ScheduledMessage
 import discord4j.core.GatewayDiscordClient
@@ -21,3 +22,4 @@ class BirthdayWisherJob(scheduler: TaskScheduler, client: GatewayDiscordClient) 
     private fun scheduledMessages(): List<ScheduledMessage> = listOf()
 
 }
+*/
