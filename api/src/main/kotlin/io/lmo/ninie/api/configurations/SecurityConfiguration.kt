@@ -27,7 +27,7 @@ class SecurityConfiguration(val securityConfigurationProperties: SecurityConfigu
         return JwtTokenProvider(securityConfigurationProperties.jwtSecret)
     }
 
-    fun apiKeySet(): Set<String> = "apiKeysRaw"
+    fun apiKeySet() = "apiKeysRaw"
         .split(",")
         .mapNotNull { it.trim().takeIf { s -> s.isNotBlank() } }
         .toSet()

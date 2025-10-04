@@ -1,5 +1,4 @@
-﻿/*
-package io.lmo.ninie.discord.interactions.scheduled
+﻿package io.lmo.ninie.discord.interactions.scheduled
 
 
 import io.lmo.ninie.discord.ScheduledMessage
@@ -26,4 +25,4 @@ class RandomSingingJob(scheduler: TaskScheduler, client: GatewayDiscordClient, p
         return ScheduledMessage(Channels.TeuteuGeneral, instant, songDao.any().content)
     }
 
-}*/
+}
