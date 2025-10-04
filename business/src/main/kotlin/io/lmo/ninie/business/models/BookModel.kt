@@ -2,7 +2,6 @@
 
 import io.lmo.ninie.data.entities.Book
 
-
 data class BookModel(
     val id: Long,
     val title: String,

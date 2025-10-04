@@ -40,7 +40,6 @@
             <artifactId>kotlin-reflect</artifactId>
         </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>
@@ -65,13 +64,23 @@
                     <jvmTarget>${java.version}</jvmTarget>
                     <compilerPlugins>
                         <plugin>spring</plugin>
+                        <plugin>no-arg</plugin>
                     </compilerPlugins>
+                    <pluginOptions>
+                        <option>no-arg:annotation=jakarta.persistence.Entity</option>
+                        <option>no-arg:annotation=jakarta.persistence.Embeddable</option>
+                        <option>no-arg:annotation=jakarta.persistence.MappedSuperclass</option>
+                    </pluginOptions>
                 </configuration>
                 <dependencies>
-                    <!-- Needed for 'spring' compiler plugin -->
                     <dependency>
                         <groupId>org.jetbrains.kotlin</groupId>
                         <artifactId>kotlin-maven-allopen</artifactId>
+                        <version>${kotlin.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.jetbrains.kotlin</groupId>
+                        <artifactId>kotlin-maven-noarg</artifactId>
                         <version>${kotlin.version}</version>
                     </dependency>
                 </dependencies>
@@ -87,4 +96,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
