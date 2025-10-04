@@ -15,10 +15,10 @@ import kotlin.collections.minByOrNull
 @Component
 class BirthdayWisherJob(scheduler: TaskScheduler, client: GatewayDiscordClient) : BaseCreateMessageJob(scheduler, client) {
     private val birthdays: List<BirthdayInfo> = listOf(
-        BirthdayInfo(9, 15, Channels.NinieFlood, "15 septembre ... 15 septembre ... ça me parle pas ..."),
-        BirthdayInfo(10, 6, Channels.NinieFlood, "AUJOURD'HUI C'EST MWAAAAA ! JOYEUX MWANNIVERSAIRE"),
-        BirthdayInfo(10, 13, Channels.NinieFlood, "Une année survécue de plus pour la nazi du blé !"),
-        BirthdayInfo(6, 28, Channels.NinieFlood, "HA ! On est le 28. Le vieux con. Hehe"),
+        BirthdayInfo(9, 15, Channels.TeuteuGeneral, "15 septembre ... 15 septembre ... ça me parle pas ..."),
+        BirthdayInfo(10, 6, Channels.TeuteuGeneral, "AUJOURD'HUI C'EST MWAAAAA ! JOYEUX MWANNIVERSAIRE"),
+        BirthdayInfo(10, 13, Channels.TeuteuGeneral, "Une année survécue de plus pour la nazi du blé !"),
+        BirthdayInfo(6, 28, Channels.TeuteuGeneral, "HA ! On est le 28. Le vieux con. Hehe"),
     )
 
     override fun buildNextMessage(): ScheduledMessage {
