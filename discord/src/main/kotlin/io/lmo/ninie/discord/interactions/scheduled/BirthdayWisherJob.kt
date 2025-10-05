@@ -28,7 +28,7 @@ class BirthdayWisherJob(scheduler: TaskScheduler, client: GatewayDiscordClient) 
         val instant = LocalDateTime.of(
             nextBirthday.first.year,
             nextBirthday.first.month,
-            nextBirthday.first.dayOfYear,
+            nextBirthday.first.dayOfMonth,
             8,
             0
         ).atZone(zone).toInstant()
