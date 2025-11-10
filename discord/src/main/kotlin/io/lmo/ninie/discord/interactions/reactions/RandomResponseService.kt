@@ -18,7 +18,10 @@ class RandomResponseService : NinieRespondable {
         val random = (1..50).random()
         return when (random) {
             41 -> {
-                return if (KnownGuild.Teuteu == message.knownGuild()) message.restChannel.createMessage("Peut-être, mais toujours pas de dracthyr chaman !")
+                return if (
+                    KnownGuild.Teuteu == message.knownGuild()
+                    || KnownGuild.Doom == message.knownGuild()
+                    ) message.restChannel.createMessage("Peut-être, mais toujours pas de dracthyr chaman !")
                 else Mono.empty()
             }
 

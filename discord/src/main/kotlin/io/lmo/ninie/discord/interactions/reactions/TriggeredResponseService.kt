@@ -27,7 +27,7 @@ class TriggeredResponseService : NinieRespondable {
             message.restChannel.createMessage("Que se paso ? Old el paso ? No no jose ! No no jose ! No se bueno.")
         else if (content.contains("porto"))
             message.restChannel.createMessage("Un grand pour moi !")
-        else if (guild == KnownGuild.Teuteu) {
+        else if (guild == KnownGuild.Teuteu || guild == KnownGuild.Doom) {
             if (content.contains("clef"))
                 message.restChannel.createMessage("Une clef ? Je heal !")
             else if (content.contains(" ness ") || content.contains("nessa"))

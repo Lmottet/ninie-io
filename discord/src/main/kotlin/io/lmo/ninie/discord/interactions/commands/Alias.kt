@@ -29,10 +29,14 @@ enum class Alias(
         CommandDescriptions.HELP,
         CommandManuals.HELP
     ),
-
     Meow(
         CommandNames.MEOW,
         CommandDescriptions.MEOW,
+        CommandManuals.MANUAL_NONE
+    ),
+    Shh(
+        CommandNames.SHH,
+        CommandDescriptions.SHH,
         CommandManuals.MANUAL_NONE
     ),
     Sing(
