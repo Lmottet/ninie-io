@@ -8,6 +8,7 @@ import io.lmo.ninie.discord.interactions.commands.impl.Cry
 import io.lmo.ninie.discord.interactions.commands.impl.Fart
 import io.lmo.ninie.discord.interactions.commands.impl.Help
 import io.lmo.ninie.discord.interactions.commands.impl.Meow
+import io.lmo.ninie.discord.interactions.commands.impl.Shh
 import io.lmo.ninie.discord.interactions.commands.impl.Sing
 import io.lmo.ninie.discord.interactions.commands.impl.Songs
 import io.lmo.ninie.discord.interactions.commands.impl.Unknown
@@ -20,6 +21,7 @@ class AliasServiceImpl(
     val fart: Fart,
     val help: Help,
     val meow: Meow,
+    val shh: Shh,
     val sing: Sing,
     val songs: Songs,
     val unknown: Unknown
@@ -37,6 +39,7 @@ class AliasServiceImpl(
             Alias.Fart -> fart
             Alias.Help -> help
             Alias.Meow -> meow
+            Alias.Shh -> shh
             Alias.Sing -> sing
             Alias.Songs -> songs
             Alias.Unknown -> unknown
