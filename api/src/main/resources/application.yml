@@ -1,6 +1,6 @@
-﻿app-security:
+﻿appsecurity:
   allowedOrigin: "https://ninie-io.onrender.com/"
-  jwtSecret: ${APP_SECURITY_JWTSECRET}
+
 bot:
   prefix: "!"
 
