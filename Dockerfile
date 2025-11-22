@@ -1,4 +1,4 @@
-﻿FROM maven:3.9.9-eclipse-temurin-21-alpine AS build
+﻿FROM maven:3.9.9-eclipse-temurin-24 AS build
 WORKDIR /app
 
 COPY pom.xml .
@@ -10,7 +10,8 @@ COPY api/pom.xml api/
 COPY . .
 
 RUN mvn clean package -pl api -am -DskipTests -B
-FROM eclipse-temurin:21-jre-alpine
+
+FROM eclipse-temurin:24-jre
 WORKDIR /app
 
 COPY --from=build /app/api/target/api-0.0.1-SNAPSHOT.jar app.jar
