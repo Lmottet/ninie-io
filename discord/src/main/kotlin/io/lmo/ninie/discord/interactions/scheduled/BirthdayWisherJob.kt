@@ -10,7 +10,6 @@ import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.Year
 import java.time.ZoneId
-import kotlin.collections.minByOrNull
 
 @Component
 class BirthdayWisherJob(scheduler: TaskScheduler, client: GatewayDiscordClient) : BaseCreateMessageJob(scheduler, client) {

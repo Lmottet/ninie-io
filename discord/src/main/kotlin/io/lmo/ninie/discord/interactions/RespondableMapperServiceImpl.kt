@@ -1,14 +1,13 @@
 package io.lmo.ninie.discord.interactions
 
+import discord4j.core.`object`.emoji.UnicodeEmoji
 import io.lmo.ninie.discord.eventmessage.isBotAuthor
 import io.lmo.ninie.discord.interactions.reactions.GreetingService
 import io.lmo.ninie.discord.interactions.reactions.RandomResponseService
 import io.lmo.ninie.discord.interactions.reactions.RepeaterService
 import io.lmo.ninie.discord.interactions.reactions.TriggeredResponseService
 import discord4j.core.`object`.entity.Message
-import discord4j.core.`object`.reaction.ReactionEmoji
 import discord4j.discordjson.json.MessageData
-import io.lmo.ninie.data.constants.text.Emojis
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
@@ -31,7 +30,7 @@ class RespondableMapperServiceImpl(
         if (message.isBotAuthor())
             return Mono.empty()
 
-        val map = message.addReaction(ReactionEmoji.unicode(Emojis.EYES)).map { }
+        val map = message.addReaction(UnicodeEmoji.of("\uD83D\uDC40") ).map { }
         return map
     }
 

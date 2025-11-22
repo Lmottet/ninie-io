@@ -9,7 +9,7 @@ import org.springframework.scheduling.TaskScheduler
 
 abstract class BaseCreateMessageJob(private val scheduler: TaskScheduler, private val client: GatewayDiscordClient) : ApplicationRunner {
 
-    override fun run(args: ApplicationArguments?) = scheduleNext()
+    override fun run(args: ApplicationArguments) = scheduleNext()
 
     private fun scheduleNext() {
         val scheduledMessage = buildNextMessage()

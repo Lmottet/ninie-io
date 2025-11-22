@@ -15,7 +15,7 @@
     <name>discord integration layer</name>
 
     <properties>
-        <discord4J-core.version>3.2.6</discord4J-core.version>
+        <discord4J-core.version>3.3.0</discord4J-core.version>
     </properties>
 
     <dependencies>
