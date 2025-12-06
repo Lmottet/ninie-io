@@ -6,8 +6,6 @@ import io.lmo.ninie.api.security.JwtAuthenticationFilter
 import io.lmo.ninie.api.security.JwtTokenProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.core.env.Environment
-import org.springframework.core.env.Profiles
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
@@ -22,15 +20,10 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
 @EnableMethodSecurity(prePostEnabled = true)
-class SecurityConfiguration(
-    val securityConfigurationProperties: SecurityConfigurationProperties,
-    val env: Environment,
-) {
+class SecurityConfiguration(val securityConfigurationProperties: SecurityConfigurationProperties) {
 
     @Bean
-    fun jwtTokenProvider(): IJwtTokenProvider {
-        return JwtTokenProvider(securityConfigurationProperties.jwtSecret)
-    }
+    fun jwtTokenProvider(): IJwtTokenProvider = JwtTokenProvider(securityConfigurationProperties.jwtSecret)
 
     fun apiKeySet() = "apiKeysRaw"
         .split(",")
@@ -44,16 +37,15 @@ class SecurityConfiguration(
     @Bean
     fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 
-
     @Bean
-    fun appChain(http: HttpSecurity, jwt: IJwtTokenProvider): SecurityFilterChain {
+    fun securityFilterChain(httpSecurity: HttpSecurity, jwtTokenProvider: IJwtTokenProvider): SecurityFilterChain {
         val apiKey = ApiKeyFilter(apiKeySet())
-        val jwtFilter = JwtAuthenticationFilter(jwt)
+        val jwtFilter = JwtAuthenticationFilter(jwtTokenProvider)
 
-        http
-            .securityMatcher("/**")
+        httpSecurity
             .cors { it.configurationSource(corsConfigurationSource()) }
             .csrf { it.disable() }
+            .headers { h -> h.frameOptions { it.sameOrigin() } }
             .addFilterBefore(apiKey, UsernamePasswordAuthenticationFilter::class.java)
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
             .authorizeHttpRequests { auth ->
@@ -61,14 +53,8 @@ class SecurityConfiguration(
                 auth.anyRequest().authenticated()
             }
 
-        // Ensure H2 console frames can be rendered when running locally
-        if (env.acceptsProfiles(Profiles.of("local"))) {
-            http.headers { headers -> headers.frameOptions { it.sameOrigin() } }
-        }
-
-        return http.build()
+        return httpSecurity.build()
     }
-
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {
