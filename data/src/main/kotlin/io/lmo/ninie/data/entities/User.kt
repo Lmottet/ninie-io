@@ -5,15 +5,11 @@ import jakarta.persistence.*
 @Entity
 @Table(name = "ninie_user") // avoid h2 clash because user is a reserved keyword. review when implementing supabase for actual db
 class User(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long = 0,
-
     @Column(unique = true, nullable = false)
     val email: String,
-
     @Column(nullable = false)
     val password: String,
 
     val lastName: String,
     val firstName: String,
-)
+)  : BaseEntity()
