@@ -7,3 +7,10 @@ bot:
 server:
   ssl:
     enabled: false
+
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create

@@ -2,13 +2,16 @@
 
 import io.lmo.ninie.data.entities.BaseEntity
 import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.FetchType
 import jakarta.persistence.OneToMany
 
 @Entity
 class Author(
+    @Column(nullable = false, length = 60)
     val firstName: String,
+    @Column(nullable = false, length = 60)
     val lastName: String,
 
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade = [CascadeType.PERSIST], orphanRemoval = true)

@@ -2,6 +2,7 @@
 
 import io.lmo.ninie.data.entities.BaseEntity
 import jakarta.persistence.CascadeType
+import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.JoinTable
@@ -10,6 +11,7 @@ import jakarta.persistence.OneToMany
 
 @Entity
 class Series(
+    @Column(nullable = false, length = 60)
     val title: String,
     val isFinished: Boolean,
 

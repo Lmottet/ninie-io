@@ -5,7 +5,9 @@ import jakarta.persistence.*
 
 @Entity
 class Book(
+    @Column(nullable = false, length = 60)
     val title: String,
+    @Column(nullable = false)
     val tome: Int,
 
     @OneToMany(mappedBy = "book", cascade = [CascadeType.PERSIST], orphanRemoval = true)

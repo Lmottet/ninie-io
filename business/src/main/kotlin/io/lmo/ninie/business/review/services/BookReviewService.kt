@@ -1,11 +1,9 @@
 package io.lmo.ninie.business.review.services
 
-import io.lmo.ninie.business.library.models.read.toModel
 import io.lmo.ninie.business.review.models.create.CreateBookReviewModel
 import io.lmo.ninie.business.review.models.read.BookReviewModel
 import io.lmo.ninie.business.review.models.read.toModel
 import io.lmo.ninie.data.entities.review.BookReview
-import io.lmo.ninie.data.entities.review.SeriesReview
 import io.lmo.ninie.data.repositories.library.BookRepository
 import io.lmo.ninie.data.repositories.review.BookReviewRepository
 import org.springframework.stereotype.Service

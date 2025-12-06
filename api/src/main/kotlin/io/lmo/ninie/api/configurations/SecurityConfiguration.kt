@@ -35,7 +35,7 @@ class SecurityConfiguration(val securityConfigurationProperties: SecurityConfigu
         authConfig.authenticationManager
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder(12)
 
     @Bean
     fun securityFilterChain(httpSecurity: HttpSecurity, jwtTokenProvider: IJwtTokenProvider): SecurityFilterChain {
