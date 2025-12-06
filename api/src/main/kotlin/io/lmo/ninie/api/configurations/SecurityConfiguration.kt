@@ -23,9 +23,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 class SecurityConfiguration(val securityConfigurationProperties: SecurityConfigurationProperties) {
 
     @Bean
-    fun jwtTokenProvider(): IJwtTokenProvider {
-        return JwtTokenProvider(securityConfigurationProperties.jwtSecret)
-    }
+    fun jwtTokenProvider(): IJwtTokenProvider = JwtTokenProvider(securityConfigurationProperties.jwtSecret)
 
     fun apiKeySet() = "apiKeysRaw"
         .split(",")
@@ -37,25 +35,25 @@ class SecurityConfiguration(val securityConfigurationProperties: SecurityConfigu
         authConfig.authenticationManager
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder(12)
 
     @Bean
-    fun securityFilterChain(http: HttpSecurity, jwtTokenProvider: IJwtTokenProvider): SecurityFilterChain {
-        val apiKeyFilter = ApiKeyFilter(apiKeySet())
+    fun securityFilterChain(httpSecurity: HttpSecurity, jwtTokenProvider: IJwtTokenProvider): SecurityFilterChain {
+        val apiKey = ApiKeyFilter(apiKeySet())
         val jwtFilter = JwtAuthenticationFilter(jwtTokenProvider)
 
-        http
+        httpSecurity
             .cors { it.configurationSource(corsConfigurationSource()) }
             .csrf { it.disable() }
-            .headers { it.frameOptions { it.sameOrigin() } }
-            .addFilterBefore(apiKeyFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .headers { h -> h.frameOptions { it.sameOrigin() } }
+            .addFilterBefore(apiKey, UsernamePasswordAuthenticationFilter::class.java)
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
             .authorizeHttpRequests { auth ->
-                auth.requestMatchers("/", "/h2-console/**", "/ping/**", "/auth/**", "/public/**").permitAll()
+                auth.requestMatchers("/h2-console", "/h2-console/**").permitAll()
                 auth.anyRequest().authenticated()
             }
 
-        return http.build()
+        return httpSecurity.build()
     }
 
     @Bean
