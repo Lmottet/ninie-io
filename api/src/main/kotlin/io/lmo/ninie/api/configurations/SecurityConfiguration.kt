@@ -1,15 +1,18 @@
 ﻿package io.lmo.ninie.api.configurations
 
 import io.lmo.ninie.api.interfaces.IJwtTokenProvider
-import io.lmo.ninie.api.security.ApiKeyFilter
 import io.lmo.ninie.api.security.JwtAuthenticationFilter
 import io.lmo.ninie.api.security.JwtTokenProvider
+import jakarta.servlet.http.HttpServletResponse
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.http.HttpMethod
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
@@ -19,42 +22,40 @@ import org.springframework.web.cors.CorsConfigurationSource
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 
 @Configuration
-@EnableMethodSecurity(prePostEnabled = true)
+@EnableWebSecurity
 class SecurityConfiguration(val securityConfigurationProperties: SecurityConfigurationProperties) {
 
     @Bean
     fun jwtTokenProvider(): IJwtTokenProvider = JwtTokenProvider(securityConfigurationProperties.jwtSecret)
-
-    fun apiKeySet() = "apiKeysRaw"
-        .split(",")
-        .mapNotNull { it.trim().takeIf { s -> s.isNotBlank() } }
-        .toSet()
 
     @Bean
     fun authenticationManager(authConfig: AuthenticationConfiguration): AuthenticationManager =
         authConfig.authenticationManager
 
     @Bean
-    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder(12)
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
 
     @Bean
-    fun securityFilterChain(httpSecurity: HttpSecurity, jwtTokenProvider: IJwtTokenProvider): SecurityFilterChain {
-        val apiKey = ApiKeyFilter(apiKeySet())
-        val jwtFilter = JwtAuthenticationFilter(jwtTokenProvider)
-
-        httpSecurity
-            .cors { it.configurationSource(corsConfigurationSource()) }
+    fun securityFilterChain(
+        httpSecurity: HttpSecurity,
+        jwtAuthenticationFilter: JwtAuthenticationFilter
+    ): SecurityFilterChain {
+        return httpSecurity
             .csrf { it.disable() }
-            .headers { h -> h.frameOptions { it.sameOrigin() } }
-            .addFilterBefore(apiKey, UsernamePasswordAuthenticationFilter::class.java)
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter::class.java)
-            .authorizeHttpRequests { auth ->
-                auth.requestMatchers("/h2-console", "/h2-console/**").permitAll()
-                auth.anyRequest().authenticated()
+            .cors { corsConfigurationSource()}
+            .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
+            .authorizeHttpRequests {
+                it
+                    .requestMatchers("/", "/ping", "/auth/login").permitAll()
+                    .anyRequest().authenticated()
             }
-
-        return httpSecurity.build()
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)
+            .build()
     }
+
+    @Bean
+    fun jwtAuthenticationFilter(jwtTokenProvider: IJwtTokenProvider): JwtAuthenticationFilter =
+        JwtAuthenticationFilter(jwtTokenProvider)
 
     @Bean
     fun corsConfigurationSource(): CorsConfigurationSource {

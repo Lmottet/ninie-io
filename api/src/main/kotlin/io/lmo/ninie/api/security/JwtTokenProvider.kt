@@ -17,11 +17,9 @@ class JwtTokenProvider(secretBase64: String) : IJwtTokenProvider {
     override fun generateToken(email: String): String {
         val now = Date()
         val expiry = Date(now.time + validityInMs)
-        val roles = listOf(SimpleGrantedAuthority("USER"))
 
         return Jwts.builder()
             .subject(email)
-            .claim("roles", roles)
             .issuedAt(now)
             .expiration(expiry)
             .signWith(key)

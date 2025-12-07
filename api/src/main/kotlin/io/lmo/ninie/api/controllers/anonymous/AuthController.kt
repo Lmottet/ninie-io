@@ -23,10 +23,12 @@ class AuthController(
         val authRequest = UsernamePasswordAuthenticationToken(req.email, req.password)
         try {
             val auth = authenticationManager.authenticate(authRequest)
-            if (auth.isAuthenticated) return ResponseEntity.ok(LoginResponse(jwtTokenProvider.generateToken(req.email)))
+            if (auth.isAuthenticated) {
+                return ResponseEntity.ok(LoginResponse(jwtTokenProvider.generateToken(req.email)))
+            }
         } catch (e: Exception) {
-
+            return ResponseEntity.status(HttpStatusCode.valueOf(401)).build()
         }
-        return ResponseEntity.status(HttpStatusCode.valueOf(403)).build()
+        return ResponseEntity.status(HttpStatusCode.valueOf(401)).build()
     }
 }
