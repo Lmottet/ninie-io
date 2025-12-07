@@ -3,14 +3,14 @@ package io.lmo.ninie.discord.interactions.commands.impl
 import io.lmo.ninie.discord.eventmessage.extractArg
 import io.lmo.ninie.discord.interactions.commands.MessageCommandBase
 import discord4j.core.`object`.entity.Message
-import io.lmo.ninie.data.dao.SongDao
+import io.lmo.ninie.data.repositories.static.StaticSongRepository
 import org.springframework.stereotype.Component
 
 @Component
-class Sing(val songDao: SongDao) : MessageCommandBase {
+class Sing(val songRepository: StaticSongRepository) : MessageCommandBase {
 
     override fun response(message: Message): String {
-        val song = songDao.find((message.extractArg(1) ?: ""))
-        return (song ?: songDao.any()).content
+        val song = songRepository.find((message.extractArg(1) ?: ""))
+        return (song ?: songRepository.any()).content
     }
 }

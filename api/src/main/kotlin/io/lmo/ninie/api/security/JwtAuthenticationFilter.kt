@@ -6,24 +6,28 @@ import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
-import org.springframework.security.core.userdetails.User
 import org.springframework.web.filter.OncePerRequestFilter
 
-class JwtAuthenticationFilter(private val jwtTokenProvider: IJwtTokenProvider) : OncePerRequestFilter() {
+class JwtAuthenticationFilter(
+    private val jwtTokenProvider: IJwtTokenProvider
+) : OncePerRequestFilter() {
 
     override fun doFilterInternal(
         request: HttpServletRequest,
         response: HttpServletResponse,
-        filterChain: FilterChain
+        chain: FilterChain
     ) {
         val header = request.getHeader("Authorization")
-        if (header != null && header.startsWith("Bearer ")) {
-            val token = header.removePrefix("Bearer ").trim()
+
+        if (header?.startsWith("Bearer ") == true) {
+            val token = header.substring(7)
+
             if (jwtTokenProvider.validateToken(token)) {
                 val username = jwtTokenProvider.getUsername(token)
                 val roles = jwtTokenProvider.getRoles(token)
+
                 val auth = UsernamePasswordAuthenticationToken(
-                    User(username, "", roles),
+                    username,
                     null,
                     roles
                 )
@@ -31,6 +35,6 @@ class JwtAuthenticationFilter(private val jwtTokenProvider: IJwtTokenProvider) :
             }
         }
 
-        filterChain.doFilter(request, response)
+        chain.doFilter(request, response)
     }
 }
