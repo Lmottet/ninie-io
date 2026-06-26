@@ -18,8 +18,8 @@ class BirthdayWisherJob(scheduler: TaskScheduler, client: GatewayDiscordClient) 
         BirthdayInfo(10, 6, Channels.TeuteuGeneral, "AUJOURD'HUI C'EST MWAAAAA ! JOYEUX MWANNIVERSAIRE"),
         BirthdayInfo(10, 13, Channels.TeuteuGeneral, "Il reste 364 jours avant tes 30 ans. HA HA !"),
         BirthdayInfo(10, 16, Channels.TeuteuGeneral, "Hé, val, un boulet lapin pour fêter ça ?"),
-        BirthdayInfo(6, 26, Channels.TeuteuGeneral, "HA ! On est le 28. Le vieux con. Hehe"),
-        BirthdayInfo(6, 28, Channels.DoomyGeneral, "DOOOOM DOOOOOOOOM AUJOURDHUIIII C'EST TOIIIIIIIIII"),
+        BirthdayInfo(6, 28, Channels.TeuteuGeneral, "HA ! On est le 28. Le vieux con. Hehe"),
+        BirthdayInfo(6, 26, Channels.DoomyGeneral, "DOOOOM DOOOOOOOOM AUJOURDHUIIII C'EST TOIIIIIIIIII"),
     )
 
     override fun buildNextMessage(): ScheduledMessage {
