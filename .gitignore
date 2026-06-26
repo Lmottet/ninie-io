@@ -35,3 +35,9 @@ build/
 ### Local ###
 **/src/main/resources/application-local.properties
 **/src/main/resources/application-local.yml
+
+### Frontend ###
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local

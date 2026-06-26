@@ -3,6 +3,4 @@
 import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties(prefix = "appsecurity")
-data class SecurityConfigurationProperties(val jwtSecret: String, val allowedOrigin: String)
-
-//openssl rand -base64 64
+data class SecurityConfigurationProperties(val allowedOrigin: String)

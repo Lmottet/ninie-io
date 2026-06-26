@@ -1,58 +1,13 @@
 package io.lmo.ninie.discord.interactions.commands
 
-import io.lmo.ninie.data.constants.commands.CommandDescriptions
-import io.lmo.ninie.data.constants.commands.CommandManuals
-import io.lmo.ninie.data.constants.commands.CommandNames
-
-enum class Alias(
-    val defaultAlias: String,
-    val description: String,
-    val manual: String
-) {
-    About(
-        CommandNames.ABOUT,
-        CommandDescriptions.ABOUT,
-        CommandManuals.MANUAL_NONE
-    ),
-    Cry(
-        CommandNames.CRY,
-        CommandDescriptions.CRY,
-        CommandManuals.MANUAL_NONE
-    ),
-    Fart(
-        CommandNames.FART,
-        CommandDescriptions.FART,
-        CommandManuals.MANUAL_NONE
-    ),
-    Help(
-        CommandNames.HELP,
-        CommandDescriptions.HELP,
-        CommandManuals.HELP
-    ),
-    Meow(
-        CommandNames.MEOW,
-        CommandDescriptions.MEOW,
-        CommandManuals.MANUAL_NONE
-    ),
-    Shh(
-        CommandNames.SHH,
-        CommandDescriptions.SHH,
-        CommandManuals.MANUAL_NONE
-    ),
-    Sing(
-        CommandNames.SING,
-        CommandDescriptions.SING,
-        CommandManuals.SING
-    ),
-    Songs(
-        CommandNames.SONGS,
-        CommandDescriptions.SONGS,
-        CommandManuals.MANUAL_NONE
-    ),
-    Unknown(
-        CommandNames.UNKNOWN,
-        CommandDescriptions.UNKNOWN,
-        CommandManuals.UNKNOWN
-    )
-
+enum class Alias(val defaultAlias: String, val description: String, val manual: String) {
+    About("about", "Learn more about ninie.io", "Just type it !"),
+    Cry("cry", "Get some compassion", "Just type it !"),
+    Fart("fart", "Eeeeeeew !", "Just type it !"),
+    Help("help", "This command, for n00bs. Try 'help help' fore more", "optional : [command name]\nPick a command you wish to learn more about"),
+    Meow("meow", "Say hi !", "Just type it !"),
+    Shh("shh", "Get some tea", "Just type it !"),
+    Sing("sing", "Sing a song of your choice (or random)", "optional : [song name]\nPick a song of your choice"),
+    Songs("songs", "All the songs Ninie knows !", "Just type it !"),
+    Unknown("unknown", "Better admit you don't know than panic", "Why would you do this to me")
 }

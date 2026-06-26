@@ -1,4 +1,4 @@
-﻿package io.lmo.ninie.data.entities
+package io.lmo.ninie.data.entities
 
 import jakarta.persistence.*
 import org.springframework.data.annotation.CreatedDate
@@ -15,9 +15,9 @@ abstract class BaseEntity(
 
     @CreatedDate
     @Column(nullable = false, updatable = false)
-    var createdOn: Instant? = null,
+    var createdOn: Instant = Instant.EPOCH,
 
     @LastModifiedDate
     @Column(nullable = false)
-    var lastModifiedOn: Instant? = null
+    var lastModifiedOn: Instant = Instant.EPOCH
 )

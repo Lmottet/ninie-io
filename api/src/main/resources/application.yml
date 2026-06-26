@@ -1,5 +1,5 @@
 ﻿appsecurity:
-  allowedOrigin: "https://ninie-io.onrender.com/"
+  allowedOrigin: "https://ninie-web.netlify.app"
 
 bot:
   prefix: "!"
@@ -7,6 +7,12 @@ bot:
 server:
   ssl:
     enabled: false
+  servlet:
+    session:
+      cookie:
+        http-only: true
+        same-site: none
+        secure: true
 
 spring:
   datasource:

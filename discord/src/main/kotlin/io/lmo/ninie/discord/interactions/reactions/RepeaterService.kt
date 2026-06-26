@@ -8,41 +8,40 @@ import io.lmo.ninie.discord.interactions.NinieRespondable
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.util.*
+import java.util.Locale
 
 @Service
 class RepeaterService : NinieRespondable {
-    val REPEATER_TRIGGERS = listOf("dites", "dire", "dis", "dit")
+
+    companion object {
+        private val REPEATER_TRIGGERS = listOf("dites", "dire", "dis", "dit")
+    }
 
     override fun respondTo(message: Message): Mono<MessageData> {
         val content = message.content.lowercase(Locale.ROOT)
+
         val shortRepeat = content.split("di")
-        if (shortRepeat.isNotEmpty() && shortRepeat[1][0] != WHITESPACE && shortRepeat[1][1] != WHITESPACE) {
-            val response = shortRepeat[1].split(WHITESPACE);
-            if (response[0].isNotEmpty())
-                return message.restChannel.createMessage(response(response[0]))
+        if (shortRepeat.size > 1 && shortRepeat[1].length > 1
+            && shortRepeat[1][0] != WHITESPACE && shortRepeat[1][1] != WHITESPACE
+        ) {
+            val word = shortRepeat[1].split(WHITESPACE)[0]
+            if (word.isNotEmpty()) return message.restChannel.createMessage("${word.uppercase(Locale.ROOT)} $EXCLAMATION")
         }
 
         return Flux.fromIterable(REPEATER_TRIGGERS)
-            .filter { message.content.lowercase(Locale.ROOT).contains(it) }
-            .map { nextWords(message.content.lowercase(Locale.ROOT), it) }
-            .filter { nextWord -> nextWord.length > 1 }
+            .filter { content.contains(it) }
+            .map { nextWords(content, it) }
+            .filter { it.length > 1 }
             .next()
-            .map { nextWord -> "${nextWord.uppercase(Locale.ROOT)} $EXCLAMATION" }
-            .flatMap { response -> message.restChannel.createMessage(response) }
-
+            .map { "${it.uppercase(Locale.ROOT)} $EXCLAMATION" }
+            .flatMap { message.restChannel.createMessage(it) }
     }
 
-    fun nextWords(input: String, target: String): String {
+    private fun nextWords(input: String, target: String): String {
         val index = input.indexOf(target)
         if (index == -1) return ""
-
-        val start = index + target.length
-        val remainder = input.substring(start).trimStart()
-
-        val endIndex = remainder.indexOfFirst { it == '.' }
+        val remainder = input.substring(index + target.length).trimStart()
+        val endIndex = remainder.indexOf('.')
         return if (endIndex == -1) remainder else remainder.substring(0, endIndex)
     }
-
-    fun response(repeat: String) = "${repeat.uppercase(Locale.ROOT)}$WHITESPACE$EXCLAMATION"
 }
