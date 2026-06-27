@@ -18,9 +18,6 @@ const router = createRouter({
     </Stack>
   ),
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
-  context: {
-    auth: undefined!,
-  },
   defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
   scrollRestoration: true,
@@ -32,8 +29,8 @@ declare module '@tanstack/react-router' {
   }
 }
 
-const rootElement = document.getElementById('app')!;
-if (!rootElement.innerHTML) {
+const rootElement = document.querySelector<HTMLElement>('#app');
+if (rootElement && !rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>

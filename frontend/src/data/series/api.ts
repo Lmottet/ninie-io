@@ -1,5 +1,5 @@
 import { api } from '../../libs/ky';
-import type { CreateSeriesRequest } from '../../types/api/requests/CreateSeriesRequest';
+import type { CreateSeriesRequest } from '../../types/api/requests/create-series-request';
 import { SeriesSchema, type ISeries } from './series';
 
 export const seriesApi = {

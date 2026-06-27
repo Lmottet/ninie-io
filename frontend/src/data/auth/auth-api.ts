@@ -1,4 +1,4 @@
-import type { LoginRequest } from '../../types/api/requests/LoginRequest';
+import type { LoginRequest } from '../../types/api/requests/login-request';
 import { API_URL } from '../../utils/environment';
 import ky from 'ky';
 

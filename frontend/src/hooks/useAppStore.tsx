@@ -11,16 +11,20 @@ type AppConfigurationSliceCreator = (
 ) => AppConfigurationSlice;
 
 const createAppConfigurationSlice: AppConfigurationSliceCreator = (set, get) => ({
-  isDarkMode: window.matchMedia?.('(prefers-color-scheme: dark)').matches ?? false,
+  isDarkMode: globalThis.matchMedia('(prefers-color-scheme: dark)').matches,
 
-  toggleTheme: () => set({ isDarkMode: !get().isDarkMode }),
+  toggleTheme: () => {
+    set({ isDarkMode: !get().isDarkMode });
+  },
 });
 
 type StoreState = AppConfigurationSlice;
 
 export const useAppStore = create<StoreState>()((set, get) => ({
   ...createAppConfigurationSlice(
-    (partial) => set(partial),
+    (partial) => {
+      set(partial);
+    },
     () => get(),
   ),
 }));

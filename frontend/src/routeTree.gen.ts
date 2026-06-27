@@ -57,11 +57,11 @@ const AuthenticatedBooksBookIdRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/login': typeof LoginIndexRoute
+  '/login/': typeof LoginIndexRoute
   '/books/$bookId': typeof AuthenticatedBooksBookIdRoute
-  '/authors': typeof AuthenticatedAuthorsIndexRoute
-  '/books': typeof AuthenticatedBooksIndexRoute
-  '/series': typeof AuthenticatedSeriesIndexRoute
+  '/authors/': typeof AuthenticatedAuthorsIndexRoute
+  '/books/': typeof AuthenticatedBooksIndexRoute
+  '/series/': typeof AuthenticatedSeriesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -85,11 +85,11 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/login'
+    | '/login/'
     | '/books/$bookId'
-    | '/authors'
-    | '/books'
-    | '/series'
+    | '/authors/'
+    | '/books/'
+    | '/series/'
   fileRoutesByTo: FileRoutesByTo
   to: '/' | '/login' | '/books/$bookId' | '/authors' | '/books' | '/series'
   id:
@@ -114,7 +114,7 @@ declare module '@tanstack/react-router' {
     '/_authenticated': {
       id: '/_authenticated'
       path: ''
-      fullPath: ''
+      fullPath: '/'
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
@@ -128,28 +128,28 @@ declare module '@tanstack/react-router' {
     '/login/': {
       id: '/login/'
       path: '/login'
-      fullPath: '/login'
+      fullPath: '/login/'
       preLoaderRoute: typeof LoginIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated/series/': {
       id: '/_authenticated/series/'
       path: '/series'
-      fullPath: '/series'
+      fullPath: '/series/'
       preLoaderRoute: typeof AuthenticatedSeriesIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/books/': {
       id: '/_authenticated/books/'
       path: '/books'
-      fullPath: '/books'
+      fullPath: '/books/'
       preLoaderRoute: typeof AuthenticatedBooksIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/authors/': {
       id: '/_authenticated/authors/'
       path: '/authors'
-      fullPath: '/authors'
+      fullPath: '/authors/'
       preLoaderRoute: typeof AuthenticatedAuthorsIndexRouteImport
       parentRoute: typeof AuthenticatedRoute
     }

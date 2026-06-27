@@ -1,5 +1,5 @@
 import { api } from '../../libs/ky';
-import type { CreateBookRequest } from '../../types/api/requests/CreateBookRequest';
+import type { CreateBookRequest } from '../../types/api/requests/create-book-request';
 import { BookSchema, type IBook } from './book';
 
 export const bookApi = {

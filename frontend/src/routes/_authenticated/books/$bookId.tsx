@@ -10,7 +10,7 @@ import { queryClient } from '@/libs/query-client';
 
 export const Route = createFileRoute('/_authenticated/books/$bookId')({
   params: {
-    parse: (params) => ({ bookId: parseInt(params.bookId) }),
+    parse: (params) => ({ bookId: Number.parseInt(params.bookId) }),
     stringify: ({ bookId }) => ({ bookId: `${bookId}` }),
   },
   loader: ({ params }) => queryClient.ensureQueryData(bookQueryOptions(params.bookId)),

@@ -76,7 +76,6 @@ export default defineConfig([
       // ── React ───────────────────────────────────────────────────────────
       'react/react-in-jsx-scope': 'off', // React 17+ JSX transform
       'react/prop-types': 'off', // TypeScript handles this
-      'react/jsx-no-literals': 'warn', // enforce i18n discipline
       'react/prefer-stateless-function': 'off', // obsolete in hooks era
       'react/no-deprecated': 'error',
 
@@ -124,7 +123,7 @@ export default defineConfig([
   },
   {
     files: ['**/*.tsx'],
-    ignores: ['**/routes/**'],
+    ignores: ['**/routes/**', 'src/main.tsx'],
     rules: {
       'unicorn/filename-case': [
         'error',

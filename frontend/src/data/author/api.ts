@@ -1,5 +1,5 @@
 import { api } from '../../libs/ky';
-import type { CreateAuthorRequest } from '../../types/api/requests/CreateAuthorRequest';
+import type { CreateAuthorRequest } from '../../types/api/requests/create-author-request';
 import { AuthorSchema, type IAuthor } from './author';
 
 export const authorApi = {

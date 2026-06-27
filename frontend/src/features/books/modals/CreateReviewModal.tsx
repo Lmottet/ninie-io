@@ -12,7 +12,11 @@ const CreateReviewModal = ({ context, id }: ContextModalProps<CreateReviewModalP
   const form = useForm<CreateReviewForm>();
   return (
     <Fieldset legend='new review'>
-      <form onSubmit={form.onSubmit(() => context.closeModal(id))}>
+      <form
+        onSubmit={form.onSubmit(() => {
+          context.closeModal(id);
+        })}
+      >
         <Stack>
           <Textarea label='Review' {...form.getInputProps('content')} />
           <Button type='submit' color='brandYellow' ml='auto'>

@@ -1,5 +1,5 @@
 import { useCreateSeries } from '../../../data/queries/series/useCreateSeries';
-import type { CreateSeriesRequest } from '../../../types/api/requests/CreateSeriesRequest';
+import type { CreateSeriesRequest } from '../../../types/api/requests/create-series-request';
 import { AuthorSelector } from '../../authors/AuthorSelector';
 import { Button, Checkbox, Fieldset, Stack, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
@@ -11,10 +11,16 @@ type CreateSeriesForm = Omit<CreateSeriesRequest, 'authorId'> & { authorId: stri
 
 const CreateSeriesModal = ({ context, id }: ContextModalProps<CreateSeriesModalProps>) => {
   const createSeriesForm = useForm<CreateSeriesForm>();
-  const { mutate: createSeries } = useCreateSeries(() => context.closeModal(id));
+  const { mutate: createSeries } = useCreateSeries(() => {
+    context.closeModal(id);
+  });
   return (
     <Fieldset legend='new series'>
-      <form onSubmit={createSeriesForm.onSubmit((formData) => createSeries({ ...formData, authorId: parseInt(formData.authorId) }))}>
+      <form
+        onSubmit={createSeriesForm.onSubmit((formData) => {
+          createSeries({ ...formData, authorId: Number.parseInt(formData.authorId) });
+        })}
+      >
         <Stack>
           <TextInput label='title' {...createSeriesForm.getInputProps('title')} />
           <AuthorSelector props={createSeriesForm.getInputProps('authorId')} />

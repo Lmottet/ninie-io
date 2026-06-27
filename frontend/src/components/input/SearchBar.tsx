@@ -7,5 +7,11 @@ interface Props {
 }
 
 export const SearchBar = ({ label, setSearch }: Props) => (
-  <TextInput label={label} leftSection={<Search size={16} />} onChange={(e) => setSearch(e.currentTarget.value || null)} />
+  <TextInput
+    label={label}
+    leftSection={<Search size={16} />}
+    onChange={(e) => {
+      setSearch(e.currentTarget.value || null);
+    }}
+  />
 );

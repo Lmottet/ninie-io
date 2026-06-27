@@ -11,9 +11,9 @@ export const auth: Auth = {
   },
 };
 
-export type Auth = {
+export interface Auth {
   login: (username: string) => void;
   logout: () => void;
   status: 'loggedOut' | 'loggedIn';
   username?: string;
-};
+}
