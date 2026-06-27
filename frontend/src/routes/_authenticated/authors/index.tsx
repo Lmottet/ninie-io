@@ -4,7 +4,7 @@ import { createFileRoute } from '@tanstack/react-router';
 import { SearchBar } from '../../../components/input/SearchBar';
 import type { IAuthor } from '../../../data/author/author';
 import { authorsQueryOptions } from '../../../data/queries/authors/useAuthors';
-import { Button, Group, Stack, Table, type TableData } from '@mantine/core';
+import { Button, Group, Stack, Table, Text, Title, type TableData } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { useModals } from '@mantine/modals';
 import { Plus } from 'lucide-react';
@@ -19,14 +19,18 @@ export const Route = createFileRoute('/_authenticated/authors/')({
 function AuthorPage() {
   const { data: authors } = useSuspenseQuery(authorsQueryOptions);
   const [search, setSearch] = useDebouncedState<string | null>(null, 200);
+  const filtered = authors.filter((a) => search === null || (a.firstName + a.lastName).includes(search));
 
   return (
     <Stack>
+      <Title order={2} mb='sm'>
+        Authors
+      </Title>
       <Group align='flex-end'>
         <SearchBar label='Search authors' setSearch={setSearch} />
         <CreateAuthorButton />
       </Group>
-      <AuthorTable authors={authors.filter((a) => search === null || (a.firstName + a.lastName).includes(search))} />
+      {filtered.length === 0 ? <Text c='dimmed'>No authors match your search.</Text> : <AuthorTable authors={filtered} />}
     </Stack>
   );
 }
@@ -47,8 +51,8 @@ const CreateAuthorButton = () => {
 const AuthorTable = ({ authors }: { authors: IAuthor[] }) => {
   const data: TableData = {
     caption: 'All authors',
-    head: ['ID', 'First name', 'Last name'],
-    body: authors.map((a) => [a.id, a.firstName, a.lastName]),
+    head: ['First name', 'Last name'],
+    body: authors.map((a) => [a.firstName, a.lastName]),
   };
   return <Table data={data} striped stickyHeader />;
 };

@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component
 @Component
 class Help(@param:Lazy private val aliasService: AliasService) : MessageCommandBase {
     override val alias = Alias.Help
+    override val description = "This command, for n00bs. Try 'help help' for more"
+    override val manual = "optional : [command name]\nPick a command you wish to learn more about"
 
     override fun response(message: Message): String {
         val aliasToAssist = message.extractArg(1)
@@ -27,6 +29,6 @@ class Help(@param:Lazy private val aliasService: AliasService) : MessageCommandB
 
     private fun describeAllCommands(): String =
         aliasService.all()
-            .filter { it != Alias.Unknown }
-            .joinToString(LINE_BREAKER) { "${it.defaultAlias} - ${it.description}" }
+            .filter { it.alias != Alias.Unknown }
+            .joinToString(LINE_BREAKER) { "${it.alias.defaultAlias} - ${it.description}" }
 }

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component
 @Component
 class Songs(private val songRepository: StaticSongRepository) : MessageCommandBase {
     override val alias = Alias.Songs
+    override val description = "All the songs Ninie knows !"
+    override val manual = "Just type it !"
 
     override fun response(message: Message) = songRepository.all()
         .joinToString(", ") { it.name }

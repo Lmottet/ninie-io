@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component
 @Component
 class Unknown : EmbedCommandBase {
     override val alias = Alias.Unknown
+    override val description = "Better admit you don't know than panic"
+    override val manual = "Why would you do this to me"
 
     override fun response(message: Message): EmbedData =
         ImmutableEmbedData.builder()

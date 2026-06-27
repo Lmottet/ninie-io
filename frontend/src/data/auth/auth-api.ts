@@ -6,4 +6,8 @@ export const authApi = {
   login: async (request: LoginRequest): Promise<void> => {
     await ky.post(`${API_URL}/auth/login`, { json: request, credentials: 'include' });
   },
+
+  logout: async (): Promise<void> => {
+    await ky.post(`${API_URL}/auth/logout`, { credentials: 'include' });
+  },
 };

@@ -1,4 +1,4 @@
-﻿package io.lmo.ninie.discord.eventmessage
+package io.lmo.ninie.discord.eventmessage
 
 import io.lmo.ninie.discord.KnownGuild
 import discord4j.core.`object`.entity.Message

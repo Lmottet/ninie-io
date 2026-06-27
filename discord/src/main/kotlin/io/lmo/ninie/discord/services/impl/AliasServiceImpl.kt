@@ -10,9 +10,10 @@ class AliasServiceImpl(commands: List<CommandBase>) : AliasService {
 
     private val commandMap = commands.associateBy { it.alias }
 
-    override fun all(): List<Alias> = Alias.entries.toList()
+    override fun all(): List<CommandBase> = Alias.entries.mapNotNull { commandMap[it] }
 
-    override fun find(alias: String?): Alias? = Alias.entries.find { alias == it.defaultAlias }
+    override fun find(alias: String?): CommandBase? =
+        Alias.entries.find { it.defaultAlias == alias }?.let { commandMap[it] }
 
     override fun mapToCommand(alias: Alias): CommandBase =
         commandMap[alias] ?: commandMap[Alias.Unknown]!!

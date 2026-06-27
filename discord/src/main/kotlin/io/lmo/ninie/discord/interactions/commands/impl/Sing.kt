@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component
 @Component
 class Sing(private val songRepository: StaticSongRepository) : MessageCommandBase {
     override val alias = Alias.Sing
+    override val description = "Sing a song of your choice (or random)"
+    override val manual = "optional : [song name]\nPick a song of your choice"
 
     override fun response(message: Message): String {
         val song = songRepository.find(message.extractArg(1) ?: "")

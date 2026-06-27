@@ -4,10 +4,10 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { SearchBar } from '../../../components/input/SearchBar';
 import type { IBook } from '../../../data/book/book';
 import { booksQueryOptions } from '../../../data/queries/books/useBooks';
-import { ActionIcon, Button, Group, Stack, Table, type TableData } from '@mantine/core';
+import { Button, Group, Stack, Table, Text, Title, type TableData } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { useModals } from '@mantine/modals';
-import { Plus, Search } from 'lucide-react';
+import { Plus } from 'lucide-react';
 
 import { queryClient } from '@/libs/query-client';
 
@@ -19,14 +19,18 @@ export const Route = createFileRoute('/_authenticated/books/')({
 function BooksPage() {
   const { data: books } = useSuspenseQuery(booksQueryOptions);
   const [search, setSearch] = useDebouncedState<string | null>(null, 200);
+  const filtered = books.filter((b) => search === null || b.title.includes(search));
 
   return (
     <Stack>
+      <Title order={2} mb='sm'>
+        Books
+      </Title>
       <Group align='flex-end'>
         <SearchBar label='Search books' setSearch={setSearch} />
         <CreateBookButton />
       </Group>
-      <BookTable books={books.filter((b) => search === null || b.title.includes(search))} />
+      {filtered.length === 0 ? <Text c='dimmed'>No books match your search.</Text> : <BookTable books={filtered} />}
     </Stack>
   );
 }
@@ -47,14 +51,19 @@ const CreateBookButton = () => {
 const BookTable = ({ books }: { books: IBook[] }) => {
   const data: TableData = {
     caption: 'All books',
-    head: ['ID', 'Title', 'Tome'],
-    body: books.map((b) => [<DetailIcon to={`/books/${b.id}`} key={b.id} />, b.title, b.tome]),
+    head: ['Title', 'Tome'],
+    body: books.map((b) => [
+      <Link
+        key={b.id}
+        to='/books/$bookId'
+        params={{ bookId: Number.parseInt(b.id) }}
+        preload='intent'
+        style={{ textDecoration: 'none', color: 'inherit' }}
+      >
+        {b.title}
+      </Link>,
+      b.tome,
+    ]),
   };
   return <Table data={data} striped stickyHeader />;
 };
-
-const DetailIcon = ({ to }: { to: string }) => (
-  <ActionIcon component={Link} to={to} preload='intent' variant='transparent'>
-    <Search size={16} />
-  </ActionIcon>
-);

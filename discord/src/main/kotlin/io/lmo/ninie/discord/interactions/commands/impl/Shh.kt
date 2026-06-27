@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component
 @Component
 class Shh(private val silenceService: SilenceService) : MessageCommandBase {
     override val alias = Alias.Shh
+    override val description = "Get some tea"
+    override val manual = "Just type it !"
 
     override fun response(message: Message): String {
         val guild = message.knownGuild() ?: return "Je peux pas faire ça en DM !"

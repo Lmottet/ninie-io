@@ -9,5 +9,7 @@ import org.springframework.stereotype.Component
 @Component
 class Meow : MessageCommandBase {
     override val alias = Alias.Meow
+    override val description = "Say hi !"
+    override val manual = "Just type it !"
     override fun response(message: Message) = "MEEEEOOOOOOW $HEART"
 }

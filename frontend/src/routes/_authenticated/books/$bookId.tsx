@@ -1,8 +1,8 @@
 import { useSuspenseQuery } from '@tanstack/react-query';
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, Link } from '@tanstack/react-router';
 
 import { bookQueryOptions } from '../../../data/queries/books/useBook';
-import { Button, Stack, Title } from '@mantine/core';
+import { Anchor, Button, Paper, Stack, Text, Title } from '@mantine/core';
 import { useModals } from '@mantine/modals';
 import { Plus } from 'lucide-react';
 
@@ -23,8 +23,16 @@ function BookPage() {
 
   return (
     <Stack>
-      <Title>{book.title}</Title>
-      <CreateReviewButton />
+      <Anchor component={Link} to='/books' c='dimmed' size='sm'>
+        ← Back to Books
+      </Anchor>
+      <Paper>
+        <Stack>
+          <Title>{book.title}</Title>
+          <Text c='dimmed'>Volume {book.tome}</Text>
+          <CreateReviewButton />
+        </Stack>
+      </Paper>
     </Stack>
   );
 }

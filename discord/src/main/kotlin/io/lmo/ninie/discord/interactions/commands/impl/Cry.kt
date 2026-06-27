@@ -8,5 +8,7 @@ import org.springframework.stereotype.Component
 @Component
 class Cry : MessageCommandBase {
     override val alias = Alias.Cry
+    override val description = "Get some compassion"
+    override val manual = "Just type it !"
     override fun response(message: Message) = "There there ! *pat* *pat*"
 }
