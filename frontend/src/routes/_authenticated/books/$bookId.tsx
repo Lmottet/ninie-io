@@ -1,20 +1,20 @@
-import { bookQueryOptions } from '../../../data/queries/books/useBook';
-import { queryClient } from '../../../main';
-import { Button, Stack, Title } from '@mantine/core';
-import { modals } from '@mantine/modals';
-import { IconPlus } from '@tabler/icons-react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
+import { bookQueryOptions } from '../../../data/queries/books/useBook';
+import { Button, Stack, Title } from '@mantine/core';
+import { useModals } from '@mantine/modals';
+import { Plus } from 'lucide-react';
+
+import { queryClient } from '@/libs/query-client';
+
 export const Route = createFileRoute('/_authenticated/books/$bookId')({
   params: {
-    parse: (params) => ({
-      bookId: parseInt(params.bookId)
-    }),
-    stringify: ({ bookId }) => ({ bookId: `${bookId}` })
+    parse: (params) => ({ bookId: parseInt(params.bookId) }),
+    stringify: ({ bookId }) => ({ bookId: `${bookId}` }),
   },
   loader: ({ params }) => queryClient.ensureQueryData(bookQueryOptions(params.bookId)),
-  component: BookPage
+  component: BookPage,
 });
 
 function BookPage() {
@@ -30,12 +30,13 @@ function BookPage() {
 }
 
 const CreateReviewButton = () => {
+  const modals = useModals();
   return (
     <Button
-      leftSection={<IconPlus />}
+      leftSection={<Plus size={16} />}
       rightSection='Review'
       mr='auto'
-      onClick={() => modals.openContextModal({ title: 'Create review', modal: 'createReviewModal', innerProps: {} })}
+      onClick={() => modals.openContextModal('createReviewModal', { title: 'Create review', innerProps: {} })}
     />
   );
 };

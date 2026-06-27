@@ -1,19 +1,20 @@
-import { AuthenticatedLayout } from '../components/layouts/AuthenticatedLayout';
-import { Outlet, createFileRoute, redirect } from '@tanstack/react-router';
-import { useAppStore } from '../hooks/useAppStore';
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router';
+
+import { AuthenticatedLayout } from '../components/layout/AuthenticatedLayout';
+import { userApi } from '../data/user/user-api';
 
 export const Route = createFileRoute('/_authenticated')({
-  beforeLoad: ({ location }) => {
-    if (! useAppStore.getState().isAuthenticated) {
+  beforeLoad: async ({ location }) => {
+    try {
+      await userApi.tryGet();
+    } catch {
       throw redirect({
         to: '/login',
-        search: {
-          redirect: location.href
-        }
+        search: { redirect: location.href },
       });
     }
   },
-  component: AuthLayout
+  component: AuthLayout,
 });
 
 function AuthLayout() {

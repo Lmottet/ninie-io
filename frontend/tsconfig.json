@@ -1,18 +1,32 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "esModuleInterop": true,
-    "jsx": "react-jsx",
-    "target": "ESNext",
-    "moduleResolution": "Bundler",
+    "target": "ES2023",
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "lib": ["DOM", "DOM.Iterable", "ES2022"],
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "types": ["vite/client"],
+
+    "jsx": "react-jsx",
+    "allowJs": false,
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "verbatimModuleSyntax": true
-  }, 
-  "exclude": ["node_modules", "postcss.config.cjs", "build/**"],
-  "extends": "@total-typescript/tsconfig/bundler/dom/app",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.d.ts", "**/*.tsx", ".next/types/**/*.ts", "**/eslint.config.mjs"]
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true,
+
+    "strict": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitOverride": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedSideEffectImports": true,
+
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "include": ["src", "vite.config.ts"]
 }

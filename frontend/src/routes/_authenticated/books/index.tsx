@@ -1,17 +1,19 @@
-import { SearchBar } from '../../../components/SearchBar';
+import { useSuspenseQuery } from '@tanstack/react-query';
+import { createFileRoute, Link } from '@tanstack/react-router';
+
+import { SearchBar } from '../../../components/input/SearchBar';
+import type { IBook } from '../../../data/book/book';
 import { booksQueryOptions } from '../../../data/queries/books/useBooks';
-import { queryClient } from '../../../main';
-import type { IBook } from '../../../types/api/responses/IBook';
 import { ActionIcon, Button, Group, Stack, Table, type TableData } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
-import { modals } from '@mantine/modals';
-import { IconPlus, IconZoom } from '@tabler/icons-react';
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { Link, createFileRoute } from '@tanstack/react-router';
+import { useModals } from '@mantine/modals';
+import { Plus, Search } from 'lucide-react';
+
+import { queryClient } from '@/libs/query-client';
 
 export const Route = createFileRoute('/_authenticated/books/')({
   component: BooksPage,
-  loader: () => queryClient.ensureQueryData(booksQueryOptions)
+  loader: () => queryClient.ensureQueryData(booksQueryOptions),
 });
 
 function BooksPage() {
@@ -30,19 +32,13 @@ function BooksPage() {
 }
 
 const CreateBookButton = () => {
+  const modals = useModals();
   return (
     <Button
       color='brandYellow'
       ml='auto'
-      onClick={() =>
-        modals.openContextModal({
-          modal: 'createBookModal',
-          title: 'Create book',
-          size: 'lg',
-          innerProps: {}
-        })
-      }
-      leftSection={<IconPlus />}
+      onClick={() => modals.openContextModal('createBookModal', { title: 'Create book', size: 'lg', innerProps: {} })}
+      leftSection={<Plus size={16} />}
       rightSection='Create'
     />
   );
@@ -52,15 +48,13 @@ const BookTable = ({ books }: { books: IBook[] }) => {
   const data: TableData = {
     caption: 'All books',
     head: ['ID', 'Title', 'Tome'],
-    body: books.map((a) => [<DetailIcon to={`/books/${a.id}`} key={a.id} />, a.title, a.tome])
+    body: books.map((b) => [<DetailIcon to={`/books/${b.id}`} key={b.id} />, b.title, b.tome]),
   };
   return <Table data={data} striped stickyHeader />;
 };
 
-const DetailIcon = ({ to }: { to: string }) => {
-  return (
-    <ActionIcon component={Link} to={to} preload='intent' variant='transparent'>
-      <IconZoom />
-    </ActionIcon>
-  );
-};
+const DetailIcon = ({ to }: { to: string }) => (
+  <ActionIcon component={Link} to={to} preload='intent' variant='transparent'>
+    <Search size={16} />
+  </ActionIcon>
+);

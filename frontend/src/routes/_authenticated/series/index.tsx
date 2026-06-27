@@ -1,17 +1,19 @@
-import { SearchBar } from '../../../components/SearchBar';
-import { seriesQueryOptions } from '../../../data/queries/series/useSeries';
-import { queryClient } from '../../../main';
-import type { ISeries } from '../../../types/api/responses/ISeries';
-import { Button, Group, Stack, Table, type TableData } from '@mantine/core';
-import { useDebouncedState } from '@mantine/hooks';
-import { modals } from '@mantine/modals';
-import { IconPlus } from '@tabler/icons-react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { createFileRoute } from '@tanstack/react-router';
 
+import { SearchBar } from '../../../components/input/SearchBar';
+import { seriesQueryOptions } from '../../../data/queries/series/useSeries';
+import type { ISeries } from '../../../data/series/series';
+import { Button, Group, Stack, Table, type TableData } from '@mantine/core';
+import { useDebouncedState } from '@mantine/hooks';
+import { useModals } from '@mantine/modals';
+import { Plus } from 'lucide-react';
+
+import { queryClient } from '@/libs/query-client';
+
 export const Route = createFileRoute('/_authenticated/series/')({
   component: SeriesPage,
-  loader: () => queryClient.ensureQueryData(seriesQueryOptions)
+  loader: () => queryClient.ensureQueryData(seriesQueryOptions),
 });
 
 function SeriesPage() {
@@ -30,19 +32,13 @@ function SeriesPage() {
 }
 
 const CreateSeriesButton = () => {
+  const modals = useModals();
   return (
     <Button
       color='brandYellow'
       ml='auto'
-      onClick={() =>
-        modals.openContextModal({
-          modal: 'createSeriesModal',
-          title: 'Create series',
-          size: 'lg',
-          innerProps: {}
-        })
-      }
-      leftSection={<IconPlus />}
+      onClick={() => modals.openContextModal('createSeriesModal', { title: 'Create series', size: 'lg', innerProps: {} })}
+      leftSection={<Plus size={16} />}
       rightSection='Create'
     />
   );
@@ -52,7 +48,7 @@ const SeriesTable = ({ series }: { series: ISeries[] }) => {
   const data: TableData = {
     caption: 'All series',
     head: ['ID', 'Title', 'IsFinished'],
-    body: series.map((a) => [a.id, a.title, a.isFinished])
+    body: series.map((s) => [s.id, s.title, s.isFinished]),
   };
   return <Table data={data} />;
 };

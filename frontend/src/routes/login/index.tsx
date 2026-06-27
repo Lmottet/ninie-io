@@ -1,22 +1,24 @@
-import { PublicLayout } from '../../components/layouts/PublicLayout';
+import { createFileRoute, useNavigate } from '@tanstack/react-router';
+
+import { PublicLayout } from '../../components/layout/PublicLayout';
 import { useLogin } from '../../data/queries/login/useLogin';
 import type { LoginRequest } from '../../types/api/requests/LoginRequest';
 import { Button, Center, Group, Paper, Stack, TextInput } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { IconAt, IconLock, IconLogin } from '@tabler/icons-react';
-import { createFileRoute } from '@tanstack/react-router';
+import { AtSign, Lock, LogIn } from 'lucide-react';
 
 export const Route = createFileRoute('/login/')({
-  component: LoginPage
+  component: LoginPage,
 });
 
 function LoginPage() {
-  const { mutate: login } = useLogin();
+  const navigate = useNavigate();
+  const { mutate: login } = useLogin({ onSuccess: () => navigate({ to: '/' }) });
   const loginForm = useForm<LoginRequest>({
     initialValues: {
       email: '',
-      password: ''
-    }
+      password: '',
+    },
   });
   return (
     <PublicLayout>
@@ -27,12 +29,17 @@ function LoginPage() {
               <Center>
                 <img src='../../../assets/logo.svg' alt='Ninie logo' width='300' height='300' />
               </Center>
-
-              <TextInput type='email' label='Email' placeholder='Email' leftSection={<IconAt />} {...loginForm.getInputProps('email')} />
-              <TextInput type='password' label='Password' placeholder='Password' leftSection={<IconLock />} {...loginForm.getInputProps('password')} />
+              <TextInput type='email' label='Email' placeholder='Email' leftSection={<AtSign size={16} />} {...loginForm.getInputProps('email')} />
+              <TextInput
+                type='password'
+                label='Password'
+                placeholder='Password'
+                leftSection={<Lock size={16} />}
+                {...loginForm.getInputProps('password')}
+              />
               <Group justify='space-between'>
                 <Button variant='transparent'>Forgot password</Button>
-                <Button leftSection={<IconLogin />} rightSection='Login' type='submit' />
+                <Button leftSection={<LogIn size={16} />} rightSection='Login' type='submit' />
               </Group>
             </Stack>
           </form>

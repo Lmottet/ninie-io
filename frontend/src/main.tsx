@@ -1,19 +1,12 @@
-import ModalsConfiguration from './components/modals/modals';
-import { routeTree } from './routeTree.gen';
-import { theme } from './theme';
-import { auth } from './utils/auth';
-import { Loader, MantineProvider, Stack, Text, Title } from '@mantine/core';
-import { ModalsProvider } from '@mantine/modals';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ErrorComponent, RouterProvider, createRouter } from '@tanstack/react-router';
 import * as React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import '@mantine/carousel/styles.css';
-import '@mantine/core/styles.css';
-import '@mantine/dates/styles.css';
+import { createRouter, ErrorComponent, RouterProvider } from '@tanstack/react-router';
+import { TanStackRouterDevtools } from '@tanstack/react-router-devtools';
 
-export const queryClient = new QueryClient();
+import { Providers } from './Providers';
+import { routeTree } from './routeTree.gen';
+import { Loader, Stack, Text, Title } from '@mantine/core';
 
 const router = createRouter({
   routeTree,
@@ -26,11 +19,11 @@ const router = createRouter({
   ),
   defaultErrorComponent: ({ error }) => <ErrorComponent error={error} />,
   context: {
-    auth: undefined!
+    auth: undefined!,
   },
   defaultPreload: 'intent',
   defaultPreloadStaleTime: 0,
-  scrollRestoration: true
+  scrollRestoration: true,
 });
 
 declare module '@tanstack/react-router' {
@@ -39,30 +32,15 @@ declare module '@tanstack/react-router' {
   }
 }
 
-function App() {
-  return (
-    <RouterProvider
-      router={router}
-      defaultPreload='intent'
-      context={{
-        auth
-      }}
-    />
-  );
-}
-
 const rootElement = document.getElementById('app')!;
 if (!rootElement.innerHTML) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <QueryClientProvider client={queryClient}>
-        <MantineProvider theme={theme} defaultColorScheme='light'>
-          <ModalsProvider modals={ModalsConfiguration}>
-            <App />
-          </ModalsProvider>
-        </MantineProvider>
-      </QueryClientProvider>
-    </React.StrictMode>
+      <Providers>
+        <RouterProvider router={router} />
+        <TanStackRouterDevtools router={router} />
+      </Providers>
+    </React.StrictMode>,
   );
 }
