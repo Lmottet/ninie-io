@@ -8,18 +8,19 @@ import org.springframework.scheduling.TaskScheduler
 import org.springframework.stereotype.Component
 import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.Month
 import java.time.Year
 import java.time.ZoneId
 
 @Component
 class BirthdayWisherJob(scheduler: TaskScheduler, client: GatewayDiscordClient) : BaseCreateMessageJob(scheduler, client) {
     private val birthdays: List<BirthdayInfo> = listOf(
-        BirthdayInfo(9, 15, Channels.TeuteuGeneral, "15 septembre ... 15 septembre ... ça me parle pas ..."),
-        BirthdayInfo(10, 6, Channels.TeuteuGeneral, "AUJOURD'HUI C'EST MWAAAAA ! JOYEUX MWANNIVERSAIRE"),
-        BirthdayInfo(10, 13, Channels.TeuteuGeneral, "Il reste 364 jours avant tes 30 ans. HA HA !"),
-        BirthdayInfo(10, 16, Channels.TeuteuGeneral, "Hé, val, un boulet lapin pour fêter ça ?"),
-        BirthdayInfo(6, 28, Channels.TeuteuGeneral, "HA ! On est le 28. Le vieux con. Hehe."),
-        BirthdayInfo(6, 26, Channels.DoomyGeneral, "DOOOOM DOOOOOOOOM AUJOURDHUIIII C'EST TOIIIIIIIIII"),
+        BirthdayInfo(Month.SEPTEMBER, 15, Channels.TeuteuGeneral, "15 septembre ... 15 septembre ... ça me parle pas ..."),
+        BirthdayInfo(Month.OCTOBER, 6, Channels.TeuteuGeneral, "AUJOURD'HUI C'EST MWAAAAA ! JOYEUX MWANNIVERSAIRE"),
+        BirthdayInfo(Month.OCTOBER, 13, Channels.TeuteuGeneral, "Il reste 364 jours avant tes 30 ans. HA HA !"),
+        BirthdayInfo(Month.OCTOBER, 16, Channels.TeuteuGeneral, "Hé, val, un boulet lapin pour fêter ça ?"),
+        BirthdayInfo(Month.JUNE, 28, Channels.TeuteuGeneral, "HA ! On est le 28. Le vieux con. Hehe"),
+        BirthdayInfo(Month.JUNE, 26, Channels.DoomyGeneral, "DOOOOM DOOOOOOOOM AUJOURDHUIIII C'EST TOIIIIIIIIII"),
     )
 
     override fun buildNextMessage(): ScheduledMessage {
@@ -47,7 +48,7 @@ class BirthdayWisherJob(scheduler: TaskScheduler, client: GatewayDiscordClient) 
     }
 
     private data class BirthdayInfo(
-        val month: Int,
+        val month: Month,
         val day: Int,
         val channel: Snowflake,
         val message: String

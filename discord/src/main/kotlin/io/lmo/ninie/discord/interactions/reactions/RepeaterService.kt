@@ -3,46 +3,40 @@ package io.lmo.ninie.discord.interactions.reactions
 import discord4j.core.`object`.entity.Message
 import discord4j.discordjson.json.MessageData
 import io.lmo.ninie.data.constants.text.MagicStrings.EXCLAMATION
-import io.lmo.ninie.data.constants.text.MagicStrings.WHITESPACE
-import io.lmo.ninie.discord.interactions.NinieRespondable
+import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Service
-import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
-import java.util.*
+import java.util.Locale
 
 @Service
-class RepeaterService : NinieRespondable {
-    val REPEATER_TRIGGERS = listOf("dites", "dire", "dis", "dit")
+@Order(3)
+class RepeaterService : CreationReactionService {
+
+    companion object {
+        private val CONJUGATED_FORMS = setOf("dis", "dit", "dites", "dire")
+    }
 
     override fun respondTo(message: Message): Mono<MessageData> {
-        val content = message.content.lowercase(Locale.ROOT)
-        val shortRepeat = content.split("di")
-        if (shortRepeat.isNotEmpty() && shortRepeat[1][0] != WHITESPACE && shortRepeat[1][1] != WHITESPACE) {
-            val response = shortRepeat[1].split(WHITESPACE);
-            if (response[0].isNotEmpty())
-                return message.restChannel.createMessage(response(response[0]))
+        val words = message.content.lowercase(Locale.ROOT)
+            .split(' ')
+            .filter { it.isNotEmpty() }
+
+        // "dis bonjour" / "dites qu'il fait beau" → repeat next word(s)
+        val conjugatedIndex = words.indexOfFirst { it in CONJUGATED_FORMS }
+        if (conjugatedIndex != -1 && conjugatedIndex < words.lastIndex) {
+            val toRepeat = words.subList(conjugatedIndex + 1, words.size)
+                .joinToString(" ")
+                .substringBefore('.')
+                .trim()
+            if (toRepeat.length > 1)
+                return message.restChannel.createMessage("${toRepeat.uppercase(Locale.ROOT)} $EXCLAMATION")
         }
 
-        return Flux.fromIterable(REPEATER_TRIGGERS)
-            .filter { message.content.lowercase(Locale.ROOT).contains(it) }
-            .map { nextWords(message.content.lowercase(Locale.ROOT), it) }
-            .filter { nextWord -> nextWord.length > 1 }
-            .next()
-            .map { nextWord -> "${nextWord.uppercase(Locale.ROOT)} $EXCLAMATION" }
-            .flatMap { response -> message.restChannel.createMessage(response) }
+        // "dinosaure" → "di" sounds like the imperative → repeat the suffix: "NOSAURE !"
+        val diWord = words.firstOrNull { it.startsWith("di") && it !in CONJUGATED_FORMS && it.length > 2 }
+        if (diWord != null)
+            return message.restChannel.createMessage("${diWord.removePrefix("di").uppercase(Locale.ROOT)} $EXCLAMATION")
 
+        return Mono.empty()
     }
-
-    fun nextWords(input: String, target: String): String {
-        val index = input.indexOf(target)
-        if (index == -1) return ""
-
-        val start = index + target.length
-        val remainder = input.substring(start).trimStart()
-
-        val endIndex = remainder.indexOfFirst { it == '.' }
-        return if (endIndex == -1) remainder else remainder.substring(0, endIndex)
-    }
-
-    fun response(repeat: String) = "${repeat.uppercase(Locale.ROOT)}$WHITESPACE$EXCLAMATION"
 }

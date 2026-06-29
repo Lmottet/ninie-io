@@ -11,7 +11,10 @@ import org.springframework.context.annotation.Lazy
 import org.springframework.stereotype.Component
 
 @Component
-class Help(@param:Lazy val aliasService: AliasService) : MessageCommandBase {
+class Help(@param:Lazy private val aliasService: AliasService) : MessageCommandBase {
+    override val alias = Alias.Help
+    override val description = "This command, for n00bs. Try 'help help' for more"
+    override val manual = "optional : [command name]\nPick a command you wish to learn more about"
 
     override fun response(message: Message): String {
         val aliasToAssist = message.extractArg(1)
@@ -19,14 +22,13 @@ class Help(@param:Lazy val aliasService: AliasService) : MessageCommandBase {
     }
 
     private fun listCommands(): String =
-        "Ninie.IO is Helping ! $HEART$LINE_BREAKER$LINE_BREAKER${describeAllCommands()}"// todo use multiline string instead
+        "Ninie.IO is Helping ! $HEART$LINE_BREAKER$LINE_BREAKER${describeAllCommands()}"
 
     private fun explainCommand(commandName: String): String =
         aliasService.find(commandName)?.manual ?: listCommands()
 
     private fun describeAllCommands(): String =
         aliasService.all()
-            .filter { it != Alias.Unknown }
-            .joinToString(LINE_BREAKER) { it.defaultAlias + " - " + it.description }
-
+            .filter { it.alias != Alias.Unknown }
+            .joinToString(LINE_BREAKER) { "${it.alias.defaultAlias} - ${it.description}" }
 }

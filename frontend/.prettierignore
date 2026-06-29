@@ -1,0 +1,12 @@
+package-lock.json
+*.module.css.d.ts
+routeTree.gen.ts
+dist
+out
+bin
+obj
+.storybook
+storybook-static
+.tanstack
+.vscode
+.idea

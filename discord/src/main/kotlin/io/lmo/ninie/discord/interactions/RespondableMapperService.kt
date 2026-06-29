@@ -6,5 +6,4 @@ import reactor.core.publisher.Mono
 
 interface RespondableMapperService {
     fun reactToCreation(message: Message): Mono<MessageData>
-    fun reactToUpdate(message: Message): Mono<Unit>
 }

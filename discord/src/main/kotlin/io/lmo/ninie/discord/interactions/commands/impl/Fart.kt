@@ -1,23 +1,20 @@
 package io.lmo.ninie.discord.interactions.commands.impl
 
-import io.lmo.ninie.discord.interactions.commands.EmbedCommandBase
 import discord4j.core.`object`.entity.Message
 import discord4j.discordjson.json.EmbedData
 import discord4j.discordjson.json.EmbedImageData
 import discord4j.discordjson.json.ImmutableEmbedData
+import io.lmo.ninie.discord.interactions.commands.Alias
+import io.lmo.ninie.discord.interactions.commands.EmbedCommandBase
 import org.springframework.stereotype.Component
 
 @Component
 class Fart : EmbedCommandBase {
-
+    override val alias = Alias.Fart
+    override val description = "Eeeeeeew !"
+    override val manual = "Just type it !"
     override fun response(message: Message): EmbedData =
-        ImmutableEmbedData
-            .builder()
-            .image(
-                EmbedImageData.builder()
-                    .url("https://media.tenor.com/images/83fa8e76bf81f674a388d94ec51c0961/tenor.gif")
-                    .build()
-            )
+        ImmutableEmbedData.builder()
+            .image(EmbedImageData.builder().url("https://media.tenor.com/images/83fa8e76bf81f674a388d94ec51c0961/tenor.gif").build())
             .build()
-
 }

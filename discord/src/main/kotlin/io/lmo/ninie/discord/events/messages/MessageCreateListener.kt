@@ -1,11 +1,11 @@
 package io.lmo.ninie.discord.events.messages
 
+import discord4j.core.`object`.entity.Message
+import discord4j.core.event.domain.message.MessageCreateEvent
+import io.lmo.ninie.discord.configuration.BotConfigurationProperties
 import io.lmo.ninie.discord.eventmessage.callsNinie
 import io.lmo.ninie.discord.eventmessage.extractCommandAlias
 import io.lmo.ninie.discord.eventmessage.isBotAuthor
-import io.lmo.ninie.discord.configuration.BotConfigurationProperties
-import discord4j.core.`object`.entity.Message
-import discord4j.core.event.domain.message.MessageCreateEvent
 import io.lmo.ninie.discord.eventmessage.knownGuild
 import io.lmo.ninie.discord.events.EventListener
 import io.lmo.ninie.discord.interactions.RespondableMapperService
@@ -25,25 +25,23 @@ class MessageCreateListener(
 
     override fun getEventType(): Class<MessageCreateEvent> = MessageCreateEvent::class.java
 
-    override fun execute(event: Mono<MessageCreateEvent>): Mono<*> {
-        return event.flatMap { messageCreateEvent ->
-            execute(messageCreateEvent.message)
-        }
-    }
+    override fun execute(event: Mono<MessageCreateEvent>): Mono<*> =
+        event.flatMap { execute(it.message) }
 
     private fun execute(message: Message): Mono<*> {
         val guild = message.knownGuild()
         if (guild != null && silenceService.shouldKeepQuiet(guild))
-            return Mono.empty<Unit>();
+            return Mono.empty<Unit>()
 
         return when {
-            message.callsNinie(botConfigurationProperties.prefix) -> aliasService.mapToCommand(findAlias(message)).respondTo(message)
+            message.callsNinie(botConfigurationProperties.prefix) ->
+                findCommand(message).respondTo(message)
             !message.isBotAuthor() -> respondableMapperService.reactToCreation(message)
             else -> Mono.empty<Unit>()
         }
     }
 
-    private fun findAlias(message: Message): Alias {
-        return aliasService.find(message.extractCommandAlias()) ?: Alias.Unknown
-    }
+    private fun findCommand(message: Message) =
+        aliasService.find(message.extractCommandAlias(botConfigurationProperties.prefix))
+            ?: aliasService.mapToCommand(Alias.Unknown)
 }
