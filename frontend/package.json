@@ -47,7 +47,7 @@
     "@storybook/addon-docs": "^10.4",
     "@storybook/addon-onboarding": "^10.4",
     "@storybook/addon-themes": "^10.4",
-    "@storybook/addon-vitest": "^10.4",
+    "@storybook/addon-vitest": "^10.6",
     "@storybook/react-vite": "^10.4",
     "@tanstack/devtools-vite": "^0.7",
     "@tanstack/eslint-plugin-query": "^5.101",
